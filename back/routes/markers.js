@@ -13,6 +13,9 @@ router.route('/').get(async (req, res)=>{
     if(req.query.status !== 'undefined'){
         let newMark = await marker.findById(mark._id)
         newMark.status = req.query.status;
+        if(newMark.status == "error"){
+            newMark.description = req.query.description;
+        }
         await newMark.save();
     }
     marker.findOne({status: "waiting"}).then(marker=>{

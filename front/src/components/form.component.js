@@ -19,11 +19,11 @@ export default function Form(){
             window.alert("insert a valid latitude")
             return;
         }
-        if(lng>180 || lng<180){
+        if(lng>180 || lng<-180){
             window.alert("insert a valid longitude")
             return;
         }
-        axios.post("http://localhost:5000/marker", {
+        axios.post(`${process.env.REACT_APP_BACKEND_URI}/marker`, {
             name: name,
             phone: phone,
             address: address,
@@ -42,12 +42,19 @@ export default function Form(){
     }
     return(
         <div>
+            <p>nom et prenom</p>
             <input placeholder="nom et prenom" onChange={e=> setName(e.target.value)} value={name} />
+            <p>numero de tel</p>
             <input placeholder="tel" onChange={e=> setPhone(e.target.value)} type="number" value={phone} />
+            <p>addresse</p>
             <input placeholder="addresse" onChange={e=> setAddress(e.target.value)} value={address} />
+            <p>latitude</p>
             <input placeholder="lat" onChange={e=> setlat(e.target.value)} type='number' value={lat} />
+            <p>longitude</p>
             <input placeholder="lng" onChange={e=> setlng(e.target.value)} type='number' value={lng} />
+            <br />
             <input type="button" value="submit" onClick={Submit} />
+            <br />
             <button onClick={()=> window.location.href = "/markers"}>{"Map-->"}</button>
 
         </div>

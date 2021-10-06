@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import axios from 'axios'
+import Dialog from './dialog.component'
 let marker = null;
 let Gdata = {};
 let map = null;
@@ -12,6 +13,7 @@ export default function Markers() {
       lat: data.lat,
       lng: data.lng,
     };
+    console.log(latlng)
     geocoder
       .geocode({ location: latlng })
       .then((response) => {
@@ -40,11 +42,15 @@ export default function Markers() {
       })
       .catch((e) => window.alert("Geocoder failed due to: " + e));
   }
-  const getMarker = (status) => {
+  const getMarker = (status, ...args) => {
     if(marker){
       marker.setMap(null)
     }
-    axios.get(`http://localhost:5000/marker?marker=${JSON.stringify(Gdata)}&status=${status}`).then(res=>{
+    let ss = ""
+    if(args.length>0){
+      ss = "&description="+args[0]
+    }
+    axios.get(`${process.env.REACT_APP_BACKEND_URI}/marker?marker=${JSON.stringify(Gdata)}&status=${status + ss}`).then(res=>{
           if(res.data.data !== null)
         geocodeLatLng(res.data.data);
         else window.alert("you have no more markers")
@@ -74,8 +80,8 @@ export default function Markers() {
       
       <button onClick={()=>{window.location.href = "/"}}>{"<--Form"}</button>
     <div id="map" style={{width: "100%", height: "400px"}}></div>
-    <input id="problem" type="button" value="probleme" onClick={()=>getMarker('error')} />
       <input id="submit" type="button" value="next" onClick={()=>getMarker('success')} />
+      <Dialog getMarker={getMarker} />
     </div>
   );
 }
