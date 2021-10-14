@@ -19,7 +19,9 @@ connection.once("open", () => {
 });
 
 const markersRouter = require('./routes/markers')
+const clientRouter = require('./routes/client')
 
+app.use("/user", clientRouter)
 app.use("/marker", markersRouter)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
