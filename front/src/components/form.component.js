@@ -56,6 +56,7 @@ export default function Form(){
             <input type="button" value="submit" onClick={Submit} />
             <br />
             <button onClick={()=> window.location.href = "/markers"}>{"Map-->"}</button>
+            <button onClick={()=> window.location.href = "/profile"}>{"profile-->"}</button>
 
         </div>
     )
