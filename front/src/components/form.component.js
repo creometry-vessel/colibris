@@ -166,6 +166,8 @@ export default function Form(){
             <button onClick={()=> window.location.href = "/markers"}>{"Map-->"}</button>
         
         */}
+            <button onClick={()=> window.location.href = "/profile"}>{"profile-->"}</button>
+
         </div>
     )
 }

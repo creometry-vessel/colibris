@@ -1,27 +1,12 @@
+const { ObjectId } = require("bson");
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const markerSchema = new Schema({
-    name: {
-        type: String, 
-        required: true, 
-    },
-    phone: {
-        type: String,
-        required: true,
-    },
-    address:{
-        type: String,
-        required: true,
-    },
-    lat: {
-        type: Number,
-        required: true,
-    },
-    lng: {
-        type: Number,
-        required: true,
+    clientID: {
+        type: ObjectId,
+        required: true
     },
     status: {
         type: Object,
