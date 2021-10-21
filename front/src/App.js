@@ -4,9 +4,14 @@ import Home from './components/Home';
 import Profile from "./components/Profile.component"
 
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 function App() {
   return (
-    <Router>
+    <div className="wrapper">
+      <Header />
+
+      <Router>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path ="/form" component={Form} />
@@ -14,6 +19,10 @@ function App() {
         <Route exact path="/profile" component={Profile} />
       </Switch>
     </Router>
+    
+    <Footer />
+    </div>
+    
   );
 }
 
