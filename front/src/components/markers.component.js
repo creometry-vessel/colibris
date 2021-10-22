@@ -85,7 +85,7 @@ export default function Markers() {
     <div>
       <button
         onClick={() => {
-          window.location.href = "/";
+          window.location.href = "/#form";
         }}
       >
         {"<--Form"}

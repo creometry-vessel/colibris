@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 class Home extends React.Component {
   render() {
@@ -31,12 +31,12 @@ class Home extends React.Component {
 
                         <div className="row">
                           <div className="col-lg-4">
-                            <a className="mb-4" href="/form">
+                            <a className="mb-4" href="/#form">
                               Fill the form
                             </a>
                           </div>
                           <div className="col">
-                            <a className="mb-4" href="/markers">
+                            <a className="mb-4" href="/#markers">
                               Pick a client
                             </a>
                           </div>

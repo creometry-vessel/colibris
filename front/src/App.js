@@ -3,7 +3,7 @@ import Form from "./components/form.component";
 import Home from './components/Home';
 import Profile from "./components/Profile.component"
 
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, HashRouter as Router, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <div className="wrapper">
       <Header />
 
-      <Router>
+      <Router hashType="noslash">
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path ="/form" component={Form} />

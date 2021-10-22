@@ -98,7 +98,6 @@ export default function Form() {
                       <input
                         className="form-control"
                         placeholder="Latitude"
-                        type="text"
                         onChange={(e) => setlat(e.target.value)}
                         type="number"
                         value={lat}
@@ -108,7 +107,6 @@ export default function Form() {
                       <input
                         className="form-control"
                         placeholder="Longitude"
-                        type="text"
                         onChange={(e) => setlng(e.target.value)}
                         type="number"
                         value={lng}
@@ -124,7 +122,7 @@ export default function Form() {
                     </div>
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                       <button
-                        onClick={() => (window.location.href = "/markers")}
+                        onClick={() => (window.location.href = "/#markers")}
                         className="btn-main"
                       >
                         {"Map-->"}
@@ -132,7 +130,7 @@ export default function Form() {
                     </div>
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                       <button
-                        onClick={() => (window.location.href = "/profile")}
+                        onClick={() => (window.location.href = "/#profile")}
                         className="btn-main"
                       >
                         {"profile-->"}
