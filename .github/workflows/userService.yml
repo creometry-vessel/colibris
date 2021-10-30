@@ -2,7 +2,7 @@ name: User Service CI
 
 on:
   push:
-    branches: [ Feature-user-service ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
