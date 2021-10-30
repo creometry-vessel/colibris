@@ -21,6 +21,6 @@ jobs:
       with:
         path: userService
     - run: npm install --production
-      working-directory: ./app
+      working-directory: ./userService
     - run: npm start
-      working-directory: ./app
+      working-directory: ./userService
