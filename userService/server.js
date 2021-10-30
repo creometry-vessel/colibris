@@ -17,7 +17,79 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("database connected !!!");
 });
+let Client = require("./models/client.model");
 
 app.listen(port, () => {
   console.log("server is running on port",port);
 });
+
+app.get('/', async (req, res) => {
+  try{
+    let clients = await Client.find();
+    res.json(clients)
+  }
+  catch (e){
+    res.json({
+      status: "error",
+      message: e.message
+    })
+  }
+})
+
+app.get('/:id', async (req, res) => {
+  try{
+    let client = await Client.findById(req.params.id);
+    res.json(client)
+  }
+  catch (e){
+    res.json({
+      status: "error",
+      message: e.message
+    })
+  }
+})
+
+app.post('/', async (req, res) => {
+  try{
+    let client = new Client(req.body)
+    await client.save()
+    res.json("client added successfully!!")
+  }
+  catch (e){
+    res.json({
+      status: "error",
+      message: e.message
+    })
+  }
+})
+
+app.put('/:id', async (req, res) => {
+  try{
+    let client = await Client.findByIdAndUpdate(req.params.id, req.body);
+
+    res.json("client updated successfully!!")
+  }
+  catch (e){
+    res.json({
+      status: "error",
+      message: e.message
+    })
+  }
+})
+
+app.post('/auth/facebook', async (req, res) => {
+  try{
+    let client = await Client.findOne({facebookID: req.body.facebookID});
+    if(!client){
+      client = new Client({facebookID: req.body.facebookID})
+      await client.save();
+    }
+      res.json(client)
+  }
+  catch (e){
+    res.json({
+      status: "error",
+      message: e.message
+    })
+  }
+})
