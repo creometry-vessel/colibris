@@ -20,5 +20,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         path: userService
-    - run: cd userService && npm install --production
-    - run: cd userService && npm start
+    - run: ls && npm install --production
+      working-directory: userService
+    - run: ls && npm start
+      working-directory: userService
