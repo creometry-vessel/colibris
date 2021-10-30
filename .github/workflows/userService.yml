@@ -20,5 +20,5 @@ jobs:
     - uses: actions/checkout@v2
       with:
         path: userService
-    - run: npm ci
+    - run: npm install --production
     - run: npm start
