@@ -22,7 +22,7 @@ let Client = require("./models/client.model");
 app.listen(port, () => {
   console.log("server is running on port",port);
 });
-
+//get All clients
 app.get('/', async (req, res) => {
   try{
     let clients = await Client.find();
@@ -35,6 +35,7 @@ app.get('/', async (req, res) => {
     })
   }
 })
+//get a client by id
 
 app.get('/:id', async (req, res) => {
   try{
@@ -49,20 +50,7 @@ app.get('/:id', async (req, res) => {
   }
 })
 
-app.post('/', async (req, res) => {
-  try{
-    let client = new Client(req.body)
-    await client.save()
-    res.json("client added successfully!!")
-  }
-  catch (e){
-    res.json({
-      status: "error",
-      message: e.message
-    })
-  }
-})
-
+//modify a client by id
 app.put('/:id', async (req, res) => {
   try{
     let client = await Client.findByIdAndUpdate(req.params.id, req.body);
@@ -77,6 +65,7 @@ app.put('/:id', async (req, res) => {
   }
 })
 
+//create a client if doesn't exist
 app.post('/auth/facebook', async (req, res) => {
   try{
     let client = await Client.findOne({facebookID: req.body.facebookID});

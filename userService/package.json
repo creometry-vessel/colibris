@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "timeout 10s nodemon server.js"
+    "test": "echo no tests for now"
   },
   "author": "",
   "license": "ISC",
