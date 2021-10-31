@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userService
+spec:
+  selector:
+    matchLabels:
+      run: userService
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: userService
+    spec:
+      containers:
+      - name: userService
+        image: azizbhy/colibris:userservice-v0.1.1
+        ports:
+        - containerPort: 5000
+        env:
+          - name: ATLAS_URI
+            valueFrom:
+              configMapKeyRef:
+                name: mongodb-configmap
+                key: database_url 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userService
+  labels:
+    run: userService
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+  selector:
+    run: userService
