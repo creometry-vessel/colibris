@@ -27,7 +27,6 @@ jobs:
       working-directory: userService
     - run: npm test
       working-directory: userService
-    - run: ls
     - uses: mr-smithers-excellent/docker-build-push@v5
       name: Build & push Docker image
       with:
