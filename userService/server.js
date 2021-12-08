@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
+var cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 
 
@@ -10,6 +11,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser())
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true,  useUnifiedTopology: true });
@@ -53,7 +55,7 @@ app.get('/:id', async (req, res) => {
 //modify a client by id
 app.put('/:id', async (req, res) => {
   try{
-    let client = await Client.findByIdAndUpdate(req.params.id, req.body);
+    await Client.findByIdAndUpdate(req.params.id, req.body);
 
     res.json("client updated successfully!!")
   }
@@ -68,9 +70,9 @@ app.put('/:id', async (req, res) => {
 //create a client if doesn't exist
 app.post('/auth/facebook', async (req, res) => {
   try{
-    let client = await Client.findOne({facebookID: req.body.facebookID});
+    let client = await Client.findOne({userID: req.body.userID});
     if(!client){
-      client = new Client({facebookID: req.body.facebookID})
+      client = new Client({userID: req.body.userID, email: req.body.email})
       await client.save();
     }
       res.json(client)
@@ -81,4 +83,11 @@ app.post('/auth/facebook', async (req, res) => {
       message: e.message
     })
   }
+})
+
+app.get("/api/hotel", (req, res)=>{
+  //access base
+  //a3tini hotel par region
+  let hotels = [{name: "carmen"}, {name: 'movenpick'}]
+  res.send(hotels)
 })

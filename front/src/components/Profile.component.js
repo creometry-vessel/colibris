@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useCookies } from 'react-cookie';
 
 let map = null;
 let marker = null;
@@ -10,6 +11,48 @@ export default function Profile() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [cookies, setCookie] = useCookies(['colibrisID']);
+
+  useEffect(()=>{
+    axios.get(`http://localhost:5000/${cookies.colibrisID}`).then(res=>{
+      console.log(res.data)
+      setName(res.data.Name);
+      setPhone(res.data.phone1);
+      setAddress(res.data.addresses[0]);
+      setLat(res.data.addresses[1]);
+      setLng(res.data.addresses[2])
+      setEmail(res.data.email)
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!window.google) {
+      const script = document.createElement("script");
+      script.src =
+        "https://maps.googleapis.com/maps/api/js?key=" +
+        process.env.REACT_APP_GOOGLE_API_KEY +
+        "&callback=initMap&v=weekly";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    setTimeout(() => {
+      try {
+        map = new window.google.maps.Map(document.getElementById("map"), {
+          zoom: 11,
+          center: { lat: 36.80278, lng: 10.17972 },
+        });
+        map.addListener("click", async (e) => {
+          setLat(e.latLng.lat());
+          setLng(e.latLng.lng());
+          getInfo(e.latLng.lat(), e.latLng.lng());
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }, 1000);
+  }, []);
+
+
   const getInfo = (Lat, Lng) => {
     if (marker) marker.setMap(null);
     const latlng = {
@@ -27,29 +70,7 @@ export default function Profile() {
       console.error(err);
     }
   };
-  const getUser = () => {
-    axios
-      .get(`${process.env.REACT_APP_BACKEND_URI}/user?id=someid`)
-      .then((res) => {
-        setName(res.data.name);
-        setEmail(res.data.email);
-        setPhone(res.data.phone);
-        setAddress(res.data.address);
-        setLat(res.data.lat);
-        setLng(res.data.lng);
-        if (res.data.lat !== 0 && res.data.lng !== 0) {
-          const latlng = {
-            lat: res.data.lat,
-            lng: res.data.lng,
-          };
-          marker = new window.google.maps.Marker({
-            position: latlng,
-            map: map,
-          });
-        }
-      })
-      .catch((err) => console.error(err));
-  };
+
   const updateUser = () => {
     axios
       .put(`${process.env.REACT_APP_BACKEND_URI}/user`, {
@@ -66,33 +87,38 @@ export default function Profile() {
       })
       .catch((err) => console.error(err));
   };
-  useEffect(() => {
-    if (!window.google) {
-      const script = document.createElement("script");
-      script.src =
-        "https://maps.googleapis.com/maps/api/js?key=" +
-        process.env.REACT_APP_GOOGLE_API_KEY +
-        "&callback=initMap&v=weekly";
-      script.async = true;
-      document.body.appendChild(script);
+  const Submit = () => {
+    if (!name || !phone || !address || !lat || !lng) {
+      window.alert("please fill all the form");
+      return;
     }
-    getUser();
-    setTimeout(() => {
-      try {
-        map = new window.google.maps.Map(document.getElementById("map"), {
-          zoom: 11,
-          center: { lat: 36.80278, lng: 10.17972 },
-        });
-        map.addListener("click", async (e) => {
-          setLat(e.latLng.lat());
-          setLng(e.latLng.lng());
-          getInfo(e.latLng.lat(), e.latLng.lng());
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }, 1000);
-  }, []);
+    if (phone.length !== 8) {
+      window.alert("phone number should be an 8 digit");
+      return;
+    }
+    if (lat > 90 || lat < -90) {
+      window.alert("insert a valid latitude");
+      return;
+    }
+    if (lng > 180 || lng < -180) {
+      window.alert("insert a valid longitude");
+      return;
+    }
+    axios
+      .put(`http://localhost:5000/${cookies.colibrisID}`, {
+        Name: name,
+        phone1: phone,
+        addresses: [address, lat, lng],
+        lat: lat,
+        lng: lng,
+      })
+      .then((res) => {
+        if (res.data.data) {
+          
+        }
+      })
+      .catch((err) => window.alert(err));
+  };
   return (
     <div id="content">
       <div id="contact" className="contact">
@@ -181,7 +207,7 @@ export default function Profile() {
                 </div>
                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                   <button
-                   onClick={updateUser}
+                   onClick={Submit}
                    className="btn-main"
                   >
                     Submit

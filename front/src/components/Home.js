@@ -1,6 +1,32 @@
 import React from "react";
+import FacebookLogin from 'react-facebook-login';
+import axios from "axios"
+import { withCookies, Cookies } from 'react-cookie';
 
 class Home extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+
+    }
+    this.Login = this.Login.bind(this);
+  }
+
+   async Login(userInfo){
+    const { cookies } = this.props;
+     if(userInfo.userID){
+      let response = await axios.post("http://localhost:5000/auth/facebook", userInfo)
+      if(response.data.userID){
+        cookies.set('colibrisID', response.data._id, { path: '/' });
+        window.location.href = "/#/form";
+      }
+      else{
+        console.log(response)
+        window.alert("couldn't connect to facebook")
+      }      
+     }
+    
+  }
   render() {
     return (
       <div>
@@ -40,6 +66,11 @@ class Home extends React.Component {
                               Pick a client
                             </a>
                           </div>
+                          <FacebookLogin
+                            appId="201651958770779"
+                            autoLoad={true}
+                            fields="name,email,picture"
+                            callback={this.Login} />
                         </div>
                       </div>
                     </div>
@@ -88,4 +119,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withCookies(Home);

@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useCookies } from 'react-cookie';
+
 export default function Form() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [lat, setlat] = useState(0);
   const [lng, setlng] = useState(0);
+  const [cookies, setCookie] = useCookies(['colibrisID']);
+
+  useEffect(()=>{
+    axios.get(`http://localhost:5000/${cookies.colibrisID}`).then(res=>{
+      console.log(res.data)
+      setName(res.data.Name);
+      setPhone(res.data.phone1);
+      setAddress(res.data.addresses[0]);
+      setlat(res.data.addresses[1]);
+      setlng(res.data.addresses[2])
+    })
+  }, [])
+
   const Submit = () => {
     if (!name || !phone || !address || !lat || !lng) {
       window.alert("please fill all the form");
@@ -24,10 +39,10 @@ export default function Form() {
       return;
     }
     axios
-      .post(`${process.env.REACT_APP_BACKEND_URI}/marker`, {
-        name: name,
-        phone: phone,
-        address: address,
+      .put(`http://localhost:5000/${cookies.colibrisID}`, {
+        Name: name,
+        phone1: phone,
+        addresses: [address, lat, lng],
         lat: lat,
         lng: lng,
       })
@@ -130,7 +145,7 @@ export default function Form() {
                     </div>
                     <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                       <button
-                        onClick={() => (window.location.href = "/#profile")}
+                        onClick={() => (window.location.href = "/#/profile")}
                         className="btn-main"
                       >
                         {"profile-->"}
