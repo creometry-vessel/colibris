@@ -6,8 +6,9 @@ import { withCookies, Cookies } from 'react-cookie';
 class Home extends React.Component {
   constructor(props){
     super(props);
+    const { cookies } = this.props;
     this.state = {
-
+      loggedIn: cookies.cookies.colibrisID? true: false
     }
     this.Login = this.Login.bind(this);
   }
@@ -18,7 +19,7 @@ class Home extends React.Component {
       let response = await axios.post("http://localhost:5000/auth/facebook", userInfo)
       if(response.data.userID){
         cookies.set('colibrisID', response.data._id, { path: '/' });
-        window.location.href = "/#/form";
+        window.location.reload()
       }
       else{
         console.log(response)
@@ -55,23 +56,29 @@ class Home extends React.Component {
                           </strong>
                         </h1>
 
-                        <div className="row">
-                          <div className="col-lg-4">
-                            <a className="mb-4" href="/#form">
-                              Fill the form
+                          {this.state.loggedIn? 
+                          <div className="row">
+                            <div className="col-lg-4">
+                            <a className="mb-4" href="/#/profile">
+                              Profile
                             </a>
                           </div>
                           <div className="col">
-                            <a className="mb-4" href="/#markers">
-                              Pick a client
+                            <a className="mb-4" href="/#/markers">
+                              Take an appointement
                             </a>
                           </div>
-                          <FacebookLogin
-                            appId="201651958770779"
-                            autoLoad={true}
-                            fields="name,email,picture"
-                            callback={this.Login} />
-                        </div>
+                          </div> : 
+                          <div className="row">
+                            <FacebookLogin
+                              appId="201651958770779"
+                              autoLoad={true}
+                              fields="name,email,picture"
+                              callback={this.Login} />
+                            </div>  
+                              }
+                          
+                          
                       </div>
                     </div>
                   </div>

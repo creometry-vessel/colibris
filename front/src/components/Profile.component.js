@@ -14,6 +14,7 @@ export default function Profile() {
   const [cookies, setCookie] = useCookies(['colibrisID']);
 
   useEffect(()=>{
+    if(!cookies.colibrisID) window.location.href = "/"
     axios.get(`http://localhost:5000/${cookies.colibrisID}`).then(res=>{
       console.log(res.data)
       setName(res.data.Name);
