@@ -91,3 +91,8 @@ app.get("/api/hotel", (req, res)=>{
   let hotels = [{name: "carmen"}, {name: 'movenpick'}]
   res.send(hotels)
 })
+
+
+app.get('/testing', async (req, res) => {
+  res.json("testing...")
+})
