@@ -3,14 +3,21 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const appointmentSchema = new Schema({
-    userIDs: {
-        type: Array, 
-        required: true, 
-    }, 
+    userID: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: Object,
+        required: true
+    },
+    description: {
+        type: String,
+        required: false
+    },
     Date: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     }
     });
 const app = mongoose.model('appointment', appointmentSchema);

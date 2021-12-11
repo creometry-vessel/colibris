@@ -45,18 +45,26 @@ export default function Markers() {
     if (marker) {
       marker.setMap(null);
     }
-    let ss = "";
-    if (args.length > 0) {
-      ss = "&description=" + args[0];
-    }
+      console.log({
+        today: "Dec 14 2021",
+        userID: Gdata.userID,
+        status: status,
+        message: args[0]?args[0]: ""
+      })
     axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URI}/marker?marker=${JSON.stringify(
-          Gdata
-        )}&status=${status + ss}`
+      .put(
+        `${process.env.REACT_APP_BACKEND_URI}/marker`,
+        {
+          today: "Dec 14 2021",
+          userID: Gdata.userID,
+          status: status,
+          message: args[0]?args[0]: ""
+        }
+       
       )
       .then((res) => {
-        if (res.data.data !== null) geocodeLatLng(res.data.data);
+        console.log(res.data)
+        if (res.data.data) geocodeLatLng(res.data.data);
         else window.alert("you have no more markers");
       });
   };

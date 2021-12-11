@@ -15,8 +15,7 @@ export default function Profile() {
 
   useEffect(()=>{
     if(!cookies.colibrisID) window.location.href = "/"
-    axios.get(`http://localhost:5000/${cookies.colibrisID}`).then(res=>{
-      console.log(res.data)
+    axios.get(`http://localhost:5001/${cookies.colibrisID}`).then(res=>{
       setName(res.data.Name);
       setPhone(res.data.phone1);
       setAddress(res.data.addresses[0]);
@@ -106,7 +105,7 @@ export default function Profile() {
       return;
     }
     axios
-      .put(`http://localhost:5000/${cookies.colibrisID}`, {
+      .put(`http://localhost:5001/${cookies.colibrisID}`, {
         Name: name,
         phone1: phone,
         addresses: [address, lat, lng],

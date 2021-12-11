@@ -16,7 +16,7 @@ class Home extends React.Component {
    async Login(userInfo){
     const { cookies } = this.props;
      if(userInfo.userID){
-      let response = await axios.post("http://localhost:5000/auth/facebook", userInfo)
+      let response = await axios.post("http://localhost:5001/auth/facebook", userInfo)
       if(response.data.userID){
         cookies.set('colibrisID', response.data._id, { path: '/' });
         window.location.reload()
@@ -64,7 +64,7 @@ class Home extends React.Component {
                             </a>
                           </div>
                           <div className="col">
-                            <a className="mb-4" href="/#/markers">
+                            <a className="mb-4" href="/#/appointment">
                               Take an appointement
                             </a>
                           </div>
