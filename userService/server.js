@@ -72,7 +72,7 @@ app.post('/auth/facebook', async (req, res) => {
   try{
     let client = await Client.findOne({userID: req.body.userID});
     if(!client){
-      client = new Client({userID: req.body.userID, email: req.body.email})
+      client = new Client({userID: req.body.userID, email: req.body.email, addresses: [{address: "", lat: 0, lng: 0}]})
       await client.save();
     }
       res.json(client)

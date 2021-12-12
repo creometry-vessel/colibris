@@ -29,7 +29,7 @@ export default function Markers() {
           //infowindow.setContent(`<p>${data.address}</p>`+response.results[0].formatted_address);
           infowindow.setContent(
             `<p>nom: ${data.name}</p>
-            <p>numero tel: ${data.phone}</p>
+            <p>numero tel: ${data.phone1} / ${data.phone2}</p>
             <p>addresse: ${data.address}</p>
             <p>formatted address: ${response.results[0].formatted_address}</p>
             `
@@ -45,12 +45,6 @@ export default function Markers() {
     if (marker) {
       marker.setMap(null);
     }
-      console.log({
-        today: "Dec 14 2021",
-        userID: Gdata.userID,
-        status: status,
-        message: args[0]?args[0]: ""
-      })
     axios
       .put(
         `${process.env.REACT_APP_BACKEND_URI}/marker`,
@@ -63,7 +57,6 @@ export default function Markers() {
        
       )
       .then((res) => {
-        console.log(res.data)
         if (res.data.data) geocodeLatLng(res.data.data);
         else window.alert("you have no more markers");
       });

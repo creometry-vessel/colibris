@@ -38,7 +38,7 @@ router.route('/').put(async (req, res)=>{
     if(nextApp){
         let user = (await axios.get("http://localhost:5001/"+nextApp.userID)).data
     
-        res.json({data: {userID: nextApp.userID, lat: user.addresses[1], lng: user.addresses[2], name: user.Name, phone: user.phone1 , address: user.addresses[0]}})
+        res.json({data: {userID: nextApp.userID, lat: user.addresses[0].lat, lng: user.addresses[0].lng, name: user.Name, phone1: user.phone1,phone2: user.phone2 , address: user.addresses[0].address}})
     }
    else res.json("finished!!")
     
