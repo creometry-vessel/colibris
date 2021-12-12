@@ -11,6 +11,7 @@ class Home extends React.Component {
       loggedIn: cookies.cookies.colibrisID? true: false
     }
     this.Login = this.Login.bind(this);
+    this.removeCookies = this.removeCookies.bind(this);
   }
 
    async Login(userInfo){
@@ -27,6 +28,10 @@ class Home extends React.Component {
       }      
      }
     
+  }
+  removeCookies(){
+    const { cookies } = this.props;
+    cookies.remove("colibrisID")
   }
   render() {
     return (
@@ -66,6 +71,11 @@ class Home extends React.Component {
                           <div className="col">
                             <a className="mb-4" href="/#/appointment">
                               Take an appointement
+                            </a>
+                          </div>
+                          <div className="col" onClick={this.removeCookies}>
+                            <a className="mb-4" href="/">
+                              disconnect
                             </a>
                           </div>
                           </div> : 
