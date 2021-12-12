@@ -78,6 +78,11 @@ class Home extends React.Component {
                               disconnect
                             </a>
                           </div>
+                          <div className="col">
+                            <a className="mb-4" href="/#/history">
+                              history
+                            </a>
+                          </div>
                           </div> : 
                           <div className="row">
                             <FacebookLogin

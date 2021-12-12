@@ -26,4 +26,19 @@ router.route('/').post(async (req, res)=>{
     res.json(await Appointment.find({Date: "Dec 14 2021"}))
  })
 
+ router.route("/:userID").get(async (req, res)=>{
+    let all = await Appointment.find({userID: req.params.userID});
+    let current = [];
+    let ancient = [];
+    for(let app of all){
+        if(app.status == "waiting") current.push(app);
+        else ancient.push(app)
+    }
+    res.json({ancient: ancient, current: current});
+ })
+
+ router.route("/").delete(async (req, res)=>{
+     await Appointment.findByIdAndDelete(req.body.id)
+     res.json("deleted")
+ })
 module.exports = router;
