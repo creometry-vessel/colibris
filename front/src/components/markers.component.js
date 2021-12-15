@@ -47,12 +47,12 @@ export default function Markers() {
     }
     axios
       .put(
-        `${process.env.REACT_APP_BACKEND_URI}/marker`,
+        `${process.env.REACT_APP_APPOINT_SERVICE_URI}`,
         {
-          today: "Dec 14 2021",
+          today: "Dec 16 2021",
           userID: Gdata.userID,
           status: status,
-          message: args[0]?args[0]: ""
+          description: args[0]?args[0]: ""
         }
        
       )
@@ -82,6 +82,7 @@ export default function Markers() {
       infowindow = new window.google.maps.InfoWindow();
     }, 1000);
   });
+  
   return (
     <div>
       <button

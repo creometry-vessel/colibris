@@ -8,7 +8,7 @@ export default function History(props){
     const [ancient, setAncient] = useState([])
 
     useEffect(()=>{
-        axios.get("http://localhost:5000/appointment/"+cookies.colibrisID).then(res=>{
+        axios.get(`${process.env.REACT_APP_APPOINT_SERVICE_URI}/`+cookies.colibrisID).then(res=>{
             console.log(res.data)
             setCurrent(res.data.current);
             setAncient(res.data.ancient);
@@ -16,7 +16,7 @@ export default function History(props){
     }, [])
 
     const deleteApp = (id)=>{
-        axios.delete("http://localhost:5000/appointment", {data: {id : id}})
+        axios.delete(`${process.env.REACT_APP_APPOINT_SERVICE_URI}`, {data: {id : id}})
     }
 
     return (

@@ -18,13 +18,9 @@ connection.once("open", () => {
   console.log("database connected !!!");
 });
 
-const markersRouter = require('./routes/markers')
-const clientRouter = require('./routes/client')
 const appointmentRouter = require('./routes/appointment')
 
-app.use("/user", clientRouter)
-app.use("/marker", markersRouter)
-app.use("/appointment", appointmentRouter)
+app.use("/", appointmentRouter)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

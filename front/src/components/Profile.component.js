@@ -15,12 +15,12 @@ export default function Profile() {
   const [phone2, setPhone2] = useState("");
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
-  const [cookies, setCookie] = useCookies(['colibrisID']);
+  const [cookies] = useCookies(['colibrisID']);
   const [enablePhone2, setEnablePhone] = useState(false)
   const [enableAddr2, setEnableAddr] = useState(false)
   useEffect(()=>{
     if(!cookies.colibrisID) window.location.href = "/"
-    axios.get(`http://localhost:5001/${cookies.colibrisID}`).then(res=>{
+    axios.get(`${process.env.REACT_APP_USER_SERVICE_URI}/${cookies.colibrisID}`).then(res=>{
       setName(res.data.Name);
       setPhone1(res.data.phone1);
       setAddress1(res.data.addresses[0].address);
@@ -31,13 +31,14 @@ export default function Profile() {
         setEnablePhone(true);
         setPhone2(res.data.phone2)
       }
-      if(res.data.addresses.length == 2){
+      if(res.data.addresses.length === 2){
         setEnableAddr(true);
         setAddress2(res.data.addresses[1].address);
         setLat2(res.data.addresses[1].lat);
         setLng2(res.data.addresses[1].lng)
       }
     })
+
   }, [])
 
   useEffect(() => {
@@ -104,18 +105,18 @@ export default function Profile() {
       return;
     }
     let addresses = [{address: address1,lat: lat1,lng: lng1}]
-    if(enableAddr2 && address2!="" && lat2 != 0 && lng2 != 0){
+    if(enableAddr2 && address2!=="" && lat2 !== 0 && lng2 !== 0){
       addresses.push({address: address2,lat: lat2,lng: lng2})
     }
     axios
-      .put(`http://localhost:5001/${cookies.colibrisID}`, {
+      .put(`${process.env.REACT_APP_USER_SERVICE_URI}/${cookies.colibrisID}`, {
         Name: name,
         phone1: phone1,
         phone2: phone2,
         addresses: addresses,
       })
       .then((res) => {
-        if (res.data == "client updated successfully!!") {
+        if (res.data === "client updated successfully!!") {
           window.location.href = '/' 
         }
       })
@@ -211,7 +212,7 @@ export default function Profile() {
                   />
                 </div>
                 {enableAddr2? (
-                  <div>
+                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                       <input
                         placeholder="addresse"

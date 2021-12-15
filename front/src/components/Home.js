@@ -1,7 +1,7 @@
 import React from "react";
 import FacebookLogin from 'react-facebook-login';
 import axios from "axios"
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies } from 'react-cookie';
 
 class Home extends React.Component {
   constructor(props){
@@ -17,7 +17,7 @@ class Home extends React.Component {
    async Login(userInfo){
     const { cookies } = this.props;
      if(userInfo.userID){
-      let response = await axios.post("http://localhost:5001/auth/facebook", userInfo)
+      let response = await axios.post(`${process.env.REACT_APP_USER_SERVICE_URI}/auth/facebook`, userInfo)
       if(response.data.userID){
         cookies.set('colibrisID', response.data._id, { path: '/' });
         window.location.reload()
