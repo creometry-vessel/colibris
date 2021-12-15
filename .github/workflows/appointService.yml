@@ -30,7 +30,7 @@ jobs:
     - uses: mr-smithers-excellent/docker-build-push@v5
       name: Build & push Docker image
       with:
-        image: colibristn/appointService
+        image: colibristn/appointservice
         tags: v0.1.1
         dockerfile: appointService/Dockerfile
         registry: docker.io
