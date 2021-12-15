@@ -30,7 +30,7 @@ export default function Markers() {
           infowindow.setContent(
             `<p>nom: ${data.name}</p>
             <p>numero tel: ${data.phone1} / ${data.phone2}</p>
-            <p>addresse: ${data.address}</p>
+            <p>addresse: ${data.street} , ${data.city} , ${data.governorate}</p>
             <p>formatted address: ${response.results[0].formatted_address}</p>
             `
           );
@@ -49,7 +49,7 @@ export default function Markers() {
       .put(
         `${process.env.REACT_APP_APPOINT_SERVICE_URI}`,
         {
-          today: "Dec 16 2021",
+          today: "Dec 23 2021",
           userID: Gdata.userID,
           status: status,
           description: args[0]?args[0]: ""

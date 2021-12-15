@@ -50,9 +50,20 @@ router.route('/').post(async (req, res)=>{
     }
     let nextApp = await Appointment.findOne({Date: req.body.today, status: "waiting"});
     if(nextApp){
-        let user = (await axios.get(env.process.USER_SERVICE_URL+'/'+nextApp.userID)).data
+        let user = (await axios.get(process.env.USER_SERVICE_URL+'/'+nextApp.userID)).data
     
-        res.json({data: {userID: nextApp.userID, lat: user.addresses[0].lat, lng: user.addresses[0].lng, name: user.Name, phone1: user.phone1,phone2: user.phone2 , address: user.addresses[0].address}})
+        res.json({data: 
+            {
+                userID: nextApp.userID,
+                lat: user.addresses[0].lat, 
+                lng: user.addresses[0].lng, 
+                name: user.Name, 
+                phone1: user.phone1,
+                phone2: user.phone2 , 
+                street: user.addresses[0].street, 
+                city:  user.addresses[0].city, 
+                governorate:  user.addresses[0].governorate
+            }})
     }
    else res.json("finished!!")
     

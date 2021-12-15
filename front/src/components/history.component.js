@@ -13,7 +13,7 @@ export default function History(props){
             setCurrent(res.data.current);
             setAncient(res.data.ancient);
         })
-    }, [])
+    }, [cookies.colibrisID])
 
     const deleteApp = (id)=>{
         axios.delete(`${process.env.REACT_APP_APPOINT_SERVICE_URI}`, {data: {id : id}})

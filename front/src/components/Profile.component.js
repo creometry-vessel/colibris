@@ -13,17 +13,22 @@ export default function Profile() {
   const [email, setEmail] = useState("");
   const [phone1, setPhone1] = useState("");
   const [phone2, setPhone2] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
+  const [street1 , setStreet1] = useState("");
+  const [street2 , setStreet2] = useState("");
+  const [city1 , setCity1] = useState("");
+  const [city2 , setCity2] = useState("");
+  const [gov1, setGov1] = useState("");
+  const [gov2, setGov2] = useState("");
   const [cookies] = useCookies(['colibrisID']);
   const [enablePhone2, setEnablePhone] = useState(false)
   const [enableAddr2, setEnableAddr] = useState(false)
   useEffect(()=>{
-    if(!cookies.colibrisID) window.location.href = "/"
     axios.get(`${process.env.REACT_APP_USER_SERVICE_URI}/${cookies.colibrisID}`).then(res=>{
       setName(res.data.Name);
       setPhone1(res.data.phone1);
-      setAddress1(res.data.addresses[0].address);
+      setStreet1(res.data.addresses[0].street);
+      setCity1(res.data.addresses[0].city);
+      setGov1(res.data.addresses[0].governorate)
       setLat1(res.data.addresses[0].lat);
       setLng1(res.data.addresses[0].lng)
       setEmail(res.data.email);
@@ -33,13 +38,15 @@ export default function Profile() {
       }
       if(res.data.addresses.length === 2){
         setEnableAddr(true);
-        setAddress2(res.data.addresses[1].address);
+        setStreet2(res.data.addresses[1].street);
+        setCity2(res.data.addresses[1].city);
+        setGov2(res.data.addresses[1].governorate)
         setLat2(res.data.addresses[1].lat);
         setLng2(res.data.addresses[1].lng)
       }
     })
 
-  }, [])
+  }, [cookies.colibrisID])
 
   useEffect(() => {
     if (!window.google) {
@@ -88,7 +95,7 @@ export default function Profile() {
   };
 
   const Submit = () => {
-    if (!name || !phone1 || !address1 || !lat1 || !lng1) {
+    /*if (!name || !phone1 || !address1 || !lat1 || !lng1) {
       window.alert("please fill all the form");
       return;
     }
@@ -103,10 +110,10 @@ export default function Profile() {
     if (lng1 > 180 || lng1 < -180) {
       window.alert("insert a valid longitude");
       return;
-    }
-    let addresses = [{address: address1,lat: lat1,lng: lng1}]
-    if(enableAddr2 && address2!=="" && lat2 !== 0 && lng2 !== 0){
-      addresses.push({address: address2,lat: lat2,lng: lng2})
+    }*/
+    let addresses = [{street: street1, city: city1, governorate: gov1 ,lat: lat1,lng: lng1}]
+    if(enableAddr2  && lat2 !== 0 && lng2 !== 0){
+      addresses.push({street: street2, city: city2, governorate: gov2 ,lat: lat2,lng: lng2})
     }
     axios
       .put(`${process.env.REACT_APP_USER_SERVICE_URI}/${cookies.colibrisID}`, {
@@ -183,10 +190,26 @@ export default function Profile() {
 
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                   <input
-                    placeholder="addresse"
+                    placeholder="rue"
                     className="form-control"
-                    value={address1}
-                    onChange={(e) => setAddress1(e.target.value)}
+                    value={street1}
+                    onChange={(e) => setStreet1(e.target.value)}
+                  />
+                </div>
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <input
+                    placeholder="ville"
+                    className="form-control"
+                    value={city1}
+                    onChange={(e) =>  setCity1(e.target.value)}
+                  />
+                </div>
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <input
+                    placeholder="governorat"
+                    className="form-control"
+                    value={gov1}
+                    onChange={(e) =>  setGov1(e.target.value)}
                   />
                 </div>
 
@@ -208,19 +231,35 @@ export default function Profile() {
                     id="lng"
                     type="number"
                     value={lng1}
-                    onChange={(e) => setLng1(parseFloat(e.target.value))}
+                    onChange={(e) => setLng1( parseFloat(e.target.value))}
                   />
                 </div>
                 {enableAddr2? (
                   <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                      <input
-                        placeholder="addresse"
-                        className="form-control"
-                        value={address2}
-                        onChange={(e) => setAddress2(e.target.value)}
-                      />
-                    </div>
+                    <input
+                      placeholder="rue"
+                      className="form-control"
+                      value={street2}
+                      onChange={(e) => setStreet2(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <input
+                      placeholder="ville"
+                      className="form-control"
+                      value={city2}
+                      onChange={(e) =>  setCity2(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <input
+                      placeholder="governorat"
+                      className="form-control"
+                      value={gov2}
+                      onChange={(e) =>  setGov2(e.target.value)}
+                    />
+                  </div>
 
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                       <input
@@ -245,7 +284,9 @@ export default function Profile() {
                     </div>
                     <button onClick={()=>{
                       setEnableAddr(false);
-                      setAddress2("");
+                      setGov2("");
+                      setCity2("");
+                      setStreet2("")
                       setLat2(0);
                       setLng2("");
                     }}>disable address</button>

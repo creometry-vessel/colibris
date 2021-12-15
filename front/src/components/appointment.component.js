@@ -68,7 +68,7 @@ export default function Form() {
             <select >
                   <option>--choose an address--</option>
                   {addresses.map((add)=>(
-                    <option>{add.address}</option>
+                    <option>{add.street}, {add.city}, {add.governorate}  </option>
                   ))}
               </select>
               <select onChange={(e)=>{setChosen(e.target.value)}}>
