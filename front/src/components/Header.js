@@ -10,7 +10,7 @@ class Header extends React.Component {
                 <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                   <div className="email">
                     <a href="">
-                      <img src="images/mail_icon.png" /> Email :
+                      <img alt="" src="images/mail_icon.png" /> Email :
                       colibris@gmail.com
                     </a>
                   </div>
@@ -18,15 +18,14 @@ class Header extends React.Component {
                 <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                   <div className="logo">
                     <a href="/">
-                      <img src="images/colibris.png" />
+                      <img alt='' src="images/colibris.png" />
                     </a>
                   </div>
                 </div>
                 <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                   <div className="contact_nu">
                     <a href="#">
-                      {" "}
-                      <img src="images/phone_icon.png" /> Contact : +216 50 500
+                      <img alt='' src="images/phone_icon.png" /> Contact : +216 50 500
                       500
                     </a>
                   </div>

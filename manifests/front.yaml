@@ -1,38 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: userservice
+  name: front
 spec:
   selector:
     matchLabels:
-      run: userservice
+      run: front
   replicas: 1
   template:
     metadata:
       labels:
-        run: userservice
+        run: front
     spec:
       containers:
-      - name: userservice
-        image: colibristn/userservice:v0.1.1
+      - name: front
+        image: colibristn/front:v0.1.1
         ports:
-        - containerPort: 5001
+        - containerPort: 3000
         env:
-          - name: ATLAS_URI
+          - name: REACT_APP_GOOGLE_API_KEY
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
-                key: database_url 
+                key: google_key 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: userservice
+  name: front
   labels:
-    run: userservice
+    run: front
 spec:
   ports:
-  - port: 5001
+  - port: 3000
     protocol: TCP
   selector:
-    run: userservice
+    run: front

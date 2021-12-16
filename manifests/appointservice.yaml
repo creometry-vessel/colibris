@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: userservice
+  name: appointservice
 spec:
   selector:
     matchLabels:
-      run: userservice
+      run: appointservice
   replicas: 1
   template:
     metadata:
       labels:
-        run: userservice
+        run: appointservice
     spec:
       containers:
-      - name: userservice
-        image: colibristn/userservice:v0.1.1
+      - name: appointservice
+        image: colibristn/appointservice:v0.1.1
         ports:
-        - containerPort: 5001
+        - containerPort: 5000
         env:
           - name: ATLAS_URI
             valueFrom:
@@ -27,12 +27,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: userservice
+  name: appointservice
   labels:
-    run: userservice
+    run: appointservice
 spec:
   ports:
-  - port: 5001
+  - port: 5000
     protocol: TCP
   selector:
-    run: userservice
+    run: appointservice

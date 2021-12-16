@@ -1,18 +1,32 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: test-ingress
+  name: ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: hello-world.info
+  - host: creometry.colibris.dev
     http:
       paths:
-      - path: /back
+      - path: /users
         pathType: Prefix
         backend:
           service:
             name: userservice
             port:
+              number: 5001
+      - path: /appointment
+        pathType: Prefix
+        backend:
+          service:
+            name: appointservice
+            port:
               number: 5000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: front
+            port:
+              number: 3000
