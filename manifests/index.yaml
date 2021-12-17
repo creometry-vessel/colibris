@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  app: colibris
   namespace: colibris
   name: index
 spec:
