@@ -2,31 +2,33 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
+  namespace: colibris
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: creometry.colibris.dev
+  - host: colibris.creometry.dev
     http:
       paths:
       - path: /users
         pathType: Prefix
         backend:
           service:
-            name: userservice
+            name: user
             port:
               number: 5001
-      - path: /appointment
+      - path: /appointments
         pathType: Prefix
         backend:
           service:
-            name: appointservice
+            name: appointment
             port:
               number: 5000
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: front
+            name: index
             port:
-              number: 3000
+              number: 80

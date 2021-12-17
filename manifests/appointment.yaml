@@ -1,16 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: appointservice
+  name: appointment
+  app: colibris
+  namespace: colibris
 spec:
   selector:
     matchLabels:
-      run: appointservice
+      app: colibris
   replicas: 1
   template:
     metadata:
       labels:
-        run: appointservice
+        app: colibris
     spec:
       containers:
       - name: appointservice
@@ -27,12 +29,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: appointservice
+  app: colibris
   labels:
-    run: appointservice
+    app: colibris
+  namespace: colibris
 spec:
   ports:
   - port: 5000
     protocol: TCP
   selector:
-    run: appointservice
+    app: colibris
