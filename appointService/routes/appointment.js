@@ -3,9 +3,9 @@ let Appointment = require("../models/appointment.models");
 const axios = require("axios");
 router.route('/').post(async (req, res)=>{
     try{
-        let appointment = await Appointment.findOne({Date: req.body.date, userID: req.body.userID});
+        let appointment = await Appointment.findOne({Date: req.body.date, userID: req.body.userID, address: req.body.address});
         if(!appointment){
-            appointment = new Appointment({userID: req.body.userID, status: "waiting", description: "", Date: req.body.date});
+            appointment = new Appointment({userID: req.body.userID, status: "waiting", description: "", Date: req.body.date, address: req.body.address});
             await appointment.save();
             res.json("booked successfully !!!")
         }
@@ -45,7 +45,7 @@ router.route('/').post(async (req, res)=>{
     let newAppointment = await Appointment.findOne({Date: req.body.today, userID: req.body.userID});
     if(newAppointment){
         newAppointment.status = req.body.status;
-        newAppointment.message = req.body.message;
+        newAppointment.description = req.body.description;
         await newAppointment.save();
     }
     let nextApp = await Appointment.findOne({Date: req.body.today, status: "waiting"});
@@ -55,14 +55,14 @@ router.route('/').post(async (req, res)=>{
         res.json({data: 
             {
                 userID: nextApp.userID,
-                lat: user.addresses[0].lat, 
-                lng: user.addresses[0].lng, 
+                lat: nextApp.address.lat, 
+                lng: nextApp.address.lng, 
                 name: user.Name, 
                 phone1: user.phone1,
                 phone2: user.phone2 , 
-                street: user.addresses[0].street, 
-                city:  user.addresses[0].city, 
-                governorate:  user.addresses[0].governorate
+                street: nextApp.address.street, 
+                city:  nextApp.address.city, 
+                governorate:  nextApp.address.governorate
             }})
     }
    else res.json("finished!!")

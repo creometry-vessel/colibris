@@ -18,8 +18,12 @@ const appointmentSchema = new Schema({
     Date: {
         type: String,
         required: true
+    },
+    address: {
+        type: Object,
+        required: true
     }
-    });
+    }); 
 const app = mongoose.model('appointment', appointmentSchema);
 
 module.exports = app;

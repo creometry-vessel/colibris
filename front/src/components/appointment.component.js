@@ -1,45 +1,66 @@
 import axios from 'axios';
 import {useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-
+let zones = [
+  ["marsa", "gammarth", "ain zaghouan", "aouina", "lac 1", "lac 2", "kram", "sidi boussaid", "carthage", "soukra", "chotrana"],
+  ["ghazela" , "ennasr", "riadh el andalous", "jardins Menzah", "Manar", "Menezeh"],
+  ["mutuelleville", "bardo", "alain savary", "menzah1", "centre urbain", "lac 1", "lac 2", "jardins de carthage", "aouina", "ain zaghouan"],
+  ["mornag", "banlieue sud"],
+  [],
+  [],
+  ["banlieue sud", "hammamet", "nabeul", "ben arous", "mourouj"]
+]
+const getDatePerLocation = (location)=>{
+  let availableDates = [];
+  for(let i = 0; i<zones.length; i++){
+    for(let j = 0; j<zones[i].length; j++){
+      if(zones[i][j] == location) {
+        availableDates.push(i);
+        break;
+      }
+    }
+  }
+  return availableDates
+}
 export default function Form() {
     const [availableDates, setAvailableDates] = useState([]);
     const [chosen, setChosen] = useState("");
     const [cookies] = useCookies(['colibrisID']);
     const [addresses, setAddre] = useState([])
+    const [currentAddr, setCurrent] = useState("")
     useEffect(()=>{
         getAllWeek()
         axios.get(`${process.env.REACT_APP_USER_SERVICE_URI}/`+cookies.colibrisID).then(res=>{
           setAddre(res.data.addresses)
         })
+        getDatePerLocation("lac 1")
     }, [cookies.colibrisID] )
     
-    const getAllWeek = ()=>{
-        let today = new Date();
-        let location = "Tunis";
-        let deliveryDate;
-        today.setDate(today.getDate() + 1);
-        switch (location){
-            case "Ariana": deliveryDate = 1; break;
-            case "Ben Arous": deliveryDate = 2; break;
-            case "Marsa": deliveryDate = 3; break;
-            case "Tunis": deliveryDate = 4; break;
-            case "": deliveryDate = 5; break;
-            case "a": deliveryDate = 6; break;
-            case "b": deliveryDate = 0; break;
-            default: deliveryDate = -1
-        }
-        while(today.getDay() !== deliveryDate && deliveryDate !== -1){
+    const getAllWeek = (address)=>{
+        if(! address) {
+          setAvailableDates([])
+          setCurrent("")
+          setChosen("")
+          return ;}
+        let available = getDatePerLocation(address.city)
+        let days = [];
+        for(let i = 0; i<available.length; i++){
+          let today = new Date();
+          today.setDate(today.getDate() + 1);
+          while(today.getDay() !== available[i] ){
             today.setDate(today.getDate() + 1);
+          }
+          days.push((today+"").substring(4,15)) 
+          today.setDate(today.getDate() + 7)
+          days.push((today+"").substring(4,15))
         }
-        let days = [(today+"").substring(4,15)];
-        today.setDate(today.getDate() + 7)
-        days.push((today+"").substring(4,15))
+        setCurrent(address)
         setAvailableDates(days)
     }
 
     const Submit = async ()=>{
-        let response = await axios.post(`${process.env.REACT_APP_APPOINT_SERVICE_URI}`, {userID : cookies.colibrisID, date: chosen });
+        if(!chosen || !currentAddr) return ;
+        let response = await axios.post(`${process.env.REACT_APP_APPOINT_SERVICE_URI}`, {userID : cookies.colibrisID, date: chosen, address: currentAddr });
         if(response.data.error){
             window.alert("Server error !!")
         }
@@ -65,10 +86,10 @@ export default function Form() {
             </div>
   
             <div className="container-fluid">
-            <select >
+            <select onClick={(e)=>getAllWeek(addresses[e.target.value])}>
                   <option>--choose an address--</option>
-                  {addresses.map((add)=>(
-                    <option>{add.street}, {add.city}, {add.governorate}  </option>
+                  {addresses.map((add, index)=>(
+                    <option value={index}>{add.street}, {add.city}, {add.governorate}  </option>
                   ))}
               </select>
               <select onChange={(e)=>{setChosen(e.target.value)}}>

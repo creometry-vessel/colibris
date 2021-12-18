@@ -49,7 +49,7 @@ export default function Markers() {
       .put(
         `${process.env.REACT_APP_APPOINT_SERVICE_URI}`,
         {
-          today: "Dec 23 2021",
+          today: (new Date()+"").substring(4,15),
           userID: Gdata.userID,
           status: status,
           description: args[0]?args[0]: ""
