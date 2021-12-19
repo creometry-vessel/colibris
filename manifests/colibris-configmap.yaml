@@ -5,3 +5,5 @@ metadata:
 data:
   database_url: mongodb://db:27017/Colibris?retryWrites=true&w=majority
   google_key: some-key
+  user_service: users
+  appointment_service: appointments

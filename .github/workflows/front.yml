@@ -1,6 +1,8 @@
 name: Front CI
 
 on:
+  push:
+    branches: [dev]
   pull_request:
     branches: [ dev ]
 

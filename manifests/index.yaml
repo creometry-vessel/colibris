@@ -19,11 +19,16 @@ spec:
         ports:
         - containerPort: 80
         env:
-          - name: REACT_APP_GOOGLE_API_KEY
+          - name: REACT_APP_USER_SERVICE_URI
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
-                key: google_key 
+                key: user_service
+          - name: REACT_APP_APPOINT_SERVICE_URI
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: appointment_service
 ---
 apiVersion: v1
 kind: Service
