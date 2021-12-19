@@ -6,6 +6,7 @@ import History from './components/history.component'
 import { Route, HashRouter as Router, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Test from "./components/test";
 import { useCookies } from 'react-cookie';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/markers" component={Markers} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/history" component={History} />
+        <Route exact path="/test" component={Test} />
           </div>
         ): (
           <div></div>
