@@ -2,7 +2,7 @@ name: Front CI
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ dev ]
 
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
       name: Build & push Docker image
       with:
         image: colibristn/front
-        tags: v0.2.0
+        tags: v0.2.1
         dockerfile: front/Dockerfile
         registry: docker.io
         directory: front
