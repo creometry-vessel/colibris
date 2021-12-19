@@ -14,7 +14,7 @@ const getDatePerLocation = (location)=>{
   let availableDates = [];
   for(let i = 0; i<zones.length; i++){
     for(let j = 0; j<zones[i].length; j++){
-      if(zones[i][j] == location) {
+      if(zones[i][j] == location.toLowerCase()) {
         availableDates.push(i);
         break;
       }
