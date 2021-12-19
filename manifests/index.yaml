@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: colibris
+  name: index
+spec:
+  selector:
+    matchLabels:
+      run: index
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: index
+    spec:
+      containers:
+      - name: front
+        image: colibristn/front:v0.1.1
+        ports:
+        - containerPort: 80
+        env:
+          - name: REACT_APP_GOOGLE_API_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: google_key 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: colibris
+  name: index
+  labels:
+    run: index
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: index

@@ -29,8 +29,8 @@ export default function Markers() {
           //infowindow.setContent(`<p>${data.address}</p>`+response.results[0].formatted_address);
           infowindow.setContent(
             `<p>nom: ${data.name}</p>
-            <p>numero tel: ${data.phone}</p>
-            <p>addresse: ${data.address}</p>
+            <p>numero tel: ${data.phone1} / ${data.phone2}</p>
+            <p>addresse: ${data.street} , ${data.city} , ${data.governorate}</p>
             <p>formatted address: ${response.results[0].formatted_address}</p>
             `
           );
@@ -45,18 +45,19 @@ export default function Markers() {
     if (marker) {
       marker.setMap(null);
     }
-    let ss = "";
-    if (args.length > 0) {
-      ss = "&description=" + args[0];
-    }
     axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URI}/marker?marker=${JSON.stringify(
-          Gdata
-        )}&status=${status + ss}`
+      .put(
+        `${process.env.REACT_APP_APPOINT_SERVICE_URI}`,
+        {
+          today: (new Date()+"").substring(4,15),
+          userID: Gdata.userID,
+          status: status,
+          description: args[0]?args[0]: ""
+        }
+       
       )
       .then((res) => {
-        if (res.data.data !== null) geocodeLatLng(res.data.data);
+        if (res.data.data) geocodeLatLng(res.data.data);
         else window.alert("you have no more markers");
       });
   };
@@ -81,6 +82,7 @@ export default function Markers() {
       infowindow = new window.google.maps.InfoWindow();
     }, 1000);
   });
+  
   return (
     <div>
       <button

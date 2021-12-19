@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  Front:
+    image: 'colibristn/front'
+    ports:
+      - "3000:3000"
+    container_name: front-colibris
+    depends_on:
+      - Postgresql
+      - JsonServer
+    environment:
+      - REACT_APP_GOOGLE_API_KEY=some-key
+      - REACT_APP_APPOINT_SERVICE_URI=http://AppointService:5000
+      - REACT_APP_USER_SERVICE_URI=http://UserService:5001
+      
+  AppointService:
+    image: colibristn/appointservice
+    ports:
+      - "5000:5000"
+    container_name: Appoint-Service
+    depends_on:
+      - Mongo
+      - UserService
+    environment:
+      - ATLAS_URI=mongodb://Mongo:27017/Colibris
+      - USER_SERVICE_URL=http://UserService:5001
+  
+  UserService:
+    image: 'colibristn/userservice'
+    ports:
+      - "5001:5001"
+    container_name: User-Service
+    depends_on:
+      - Mongo
+    environment:
+      - ATLAS_URI=mongodb://Mongo:27017/Colibris
+
+  Mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: Colibris-DB

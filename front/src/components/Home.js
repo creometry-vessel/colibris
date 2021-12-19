@@ -1,6 +1,38 @@
 import React from "react";
+import FacebookLogin from 'react-facebook-login';
+import axios from "axios"
+import { withCookies } from 'react-cookie';
 
 class Home extends React.Component {
+  constructor(props){
+    super(props);
+    const { cookies } = this.props;
+    this.state = {
+      loggedIn: cookies.cookies.colibrisID? true: false
+    }
+    this.Login = this.Login.bind(this);
+    this.removeCookies = this.removeCookies.bind(this);
+  }
+
+   async Login(userInfo){
+    const { cookies } = this.props;
+     if(userInfo.userID){
+      let response = await axios.post(`${process.env.REACT_APP_USER_SERVICE_URI}/auth/facebook`, userInfo)
+      if(response.data.userID){
+        cookies.set('colibrisID', response.data._id, { path: '/' });
+        window.location.reload()
+      }
+      else{
+        console.log(response)
+        window.alert("couldn't connect to facebook")
+      }      
+     }
+    
+  }
+  removeCookies(){
+    const { cookies } = this.props;
+    cookies.remove("colibrisID")
+  }
   render() {
     return (
       <div>
@@ -29,18 +61,39 @@ class Home extends React.Component {
                           </strong>
                         </h1>
 
-                        <div className="row">
-                          <div className="col-lg-4">
-                            <a className="mb-4" href="/#form">
-                              Fill the form
+                          {this.state.loggedIn? 
+                          <div className="row">
+                            <div className="col-lg-4">
+                            <a className="mb-4" href="/#/profile">
+                              Profile
                             </a>
                           </div>
                           <div className="col">
-                            <a className="mb-4" href="/#markers">
-                              Pick a client
+                            <a className="mb-4" href="/#/appointment">
+                              Take an appointement
                             </a>
                           </div>
-                        </div>
+                          <div className="col" onClick={this.removeCookies}>
+                            <a className="mb-4" href="/">
+                              disconnect
+                            </a>
+                          </div>
+                          <div className="col">
+                            <a className="mb-4" href="/#/history">
+                              history
+                            </a>
+                          </div>
+                          </div> : 
+                          <div className="row">
+                            <FacebookLogin
+                              appId="201651958770779"
+                              autoLoad={true}
+                              fields="name,email,picture"
+                              callback={this.Login} />
+                            </div>  
+                              }
+                          
+                          
                       </div>
                     </div>
                   </div>
@@ -88,4 +141,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withCookies(Home);

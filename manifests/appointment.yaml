@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment
+  namespace: colibris
+spec:
+  selector:
+    matchLabels:
+      app: colibris
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: colibris
+    spec:
+      containers:
+      - name: appointservice
+        image: colibristn/appointservice:v0.1.1
+        ports:
+        - containerPort: 5000
+        env:
+          - name: ATLAS_URI
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: database_url 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointment
+  labels:
+    app: colibris
+  namespace: colibris
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+  selector:
+    app: colibris

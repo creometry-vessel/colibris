@@ -3,31 +3,42 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const clientSchema = new Schema({
-    name: {
+    userID:{
+        type: String,
+        trim: true,
+        required: true
+    },
+    Name: {
         type: String, 
-        required: true, 
+        trim: true
     },
     email: {
         type: String,
-        required: true,
-        unique: true,
+        trim: true
     },
-    phone: {
+    phone1: {
         type: String,
-        required: true,
+        trim: true
     },
-    address:{
+    phone2: {
         type: String,
-        required: true,
+        trim: true
     },
-    lat: {
+    MultipleLocation: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    addresses:{
+        type: Array,
+        required: true,
+        default: []
+    },
+    Score: {
         type: Number,
         required: true,
-    },
-    lng: {
-        type: Number,
-        required: true,
-    },
+        default: 2.5
+    }
     });
 const app = mongoose.model('client', clientSchema);
 

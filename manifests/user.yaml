@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+  namespace: colibris
+spec:
+  selector:
+    matchLabels:
+      run: user
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: user
+    spec:
+      containers:
+      - name: userservice
+        image: colibristn/userservice:v0.1.1
+        ports:
+        - containerPort: 5001
+        env:
+          - name: ATLAS_URI
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: database_url 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+  labels:
+    run: user
+spec:
+  ports:
+  - port: 5001
+    protocol: TCP
+  selector:
+    run: user

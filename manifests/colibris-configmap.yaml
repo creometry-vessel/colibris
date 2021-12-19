@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: colibris-configmap
+data:
+  database_url: mongodb://db:27017/Colibris?retryWrites=true&w=majority
+  google_key: some-key
