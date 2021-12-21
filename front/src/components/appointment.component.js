@@ -122,49 +122,48 @@ export default function Form() {
               <div class="col-lg-4">
                 <div class="booking-content">
                   <div class="section-header">
-                    <h2>Book Your appointment & wait for our agent to call you </h2>
+                    <h2>
+                      Book Your appointment & wait for our agent to call you{" "}
+                    </h2>
                   </div>
                 </div>
               </div>
               <div class="col-lg-8">
                 <div class="booking-form">
-                  <form>
-                    <div class="control-group">
-                      <div class="input-group">
-                        <select
-                          class="custom-select form-control"
-                          multiple="yes"
-                          onClick={(e) => getAllWeek(addresses[e.target.value])}
-                        >
-                          <option>--choose an address--</option>
-                          {addresses.map((add, index) => (
-                            <option value={index}>
-                              {add.street}, {add.city}, {add.governorate}{" "}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div class="control-group">
-                      <div class="input-group">
-                        <select
-                          class="custom-select form-control"
-                          multiple="yes"
-                          onChange={(e) => {
-                            setChosen(e.target.value);
-                          }}
-                        >
-                          <option>
-                            --choose a date for your appointement--
+                  <div class="control-group">
+                    <div class="input-group">
+                      <select
+                        class="custom-select form-control"
+                        multiple="yes"
+                        onClick={(e) => getAllWeek(addresses[e.target.value])}
+                      >
+                        <option>--choose an address--</option>
+                        {addresses.map((add, index) => (
+                          <option value={index}>
+                            {add.street}, {add.city}, {add.governorate}{" "}
                           </option>
-                          {availableDates.map((date) => (
-                            <option>{date}</option>
-                          ))}
-                        </select>
-                      </div>
+                        ))}
+                      </select>
                     </div>
-                    <div className="row">
-                      <div className="col-lg-4 mt-2" />
+                  </div>
+                  <div class="control-group">
+                    <div class="input-group">
+                      <select
+                        class="custom-select form-control"
+                        multiple="yes"
+                        onChange={(e) => {
+                          setChosen(e.target.value);
+                        }}
+                      >
+                        <option>--choose a date for your appointement--</option>
+                        {availableDates.map((date) => (
+                          <option>{date}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-lg-4 mt-2" />
 
                     <div className="col-lg-4 text-center">
                       <button
@@ -175,9 +174,7 @@ export default function Form() {
                         Submit
                       </button>
                     </div>
-                    </div>
-                  
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>

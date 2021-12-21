@@ -54,54 +54,50 @@ export default function History(props) {
         ))}
         ------------------------------------------------------------------------
         <h2>Current :</h2>
-        <div >
-         
-            <table className="table white">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Date</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Cancel</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>26 dec 2021</td>
-                  <td>20 rue 8416 cité el khadra</td>
-                  <td><a className="red-btn">X</a></td>
-                </tr>
-                
-              </tbody>
-            </table>
-          
+        <div>
+          <table className="table white">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Address</th>
+                <th scope="col">Cancel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>26 dec 2021</td>
+                <td>20 rue 8416 cité el khadra</td>
+                <td>
+                  <a className="red-btn">X</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <h2>Ancient :</h2>
         <div>
-        
-            <table className="table white">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Date</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Description</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>26 dec 2021</td>
-                  <td>20 rue 8416 cité el khadra</td>
-                  <td>Active</td>
-                  <td>DEEEESCRIPTION</td>
-                </tr>
-                
-              </tbody>
-            </table>    
+          <table className="table white">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Address</th>
+                <th scope="col">Status</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>26 dec 2021</td>
+                <td>20 rue 8416 cité el khadra</td>
+                <td>Active</td>
+                <td>DEEEESCRIPTION</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

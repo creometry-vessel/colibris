@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 
 let map = null;
 let marker = null;
@@ -13,40 +13,41 @@ export default function Profile() {
   const [email, setEmail] = useState("");
   const [phone1, setPhone1] = useState("");
   const [phone2, setPhone2] = useState("");
-  const [street1 , setStreet1] = useState("");
-  const [street2 , setStreet2] = useState("");
-  const [city1 , setCity1] = useState("");
-  const [city2 , setCity2] = useState("");
+  const [street1, setStreet1] = useState("");
+  const [street2, setStreet2] = useState("");
+  const [city1, setCity1] = useState("");
+  const [city2, setCity2] = useState("");
   const [gov1, setGov1] = useState("");
   const [gov2, setGov2] = useState("");
-  const [cookies] = useCookies(['colibrisID']);
-  const [enablePhone2, setEnablePhone] = useState(false)
-  const [enableAddr2, setEnableAddr] = useState(false)
-  useEffect(()=>{
-    axios.get(`${process.env.REACT_APP_USER_SERVICE_URI}/${cookies.colibrisID}`).then(res=>{
-      setName(res.data.Name);
-      setPhone1(res.data.phone1);
-      setStreet1(res.data.addresses[0].street);
-      setCity1(res.data.addresses[0].city);
-      setGov1(res.data.addresses[0].governorate)
-      setLat1(res.data.addresses[0].lat);
-      setLng1(res.data.addresses[0].lng)
-      setEmail(res.data.email);
-      if(res.data.phone2){
-        setEnablePhone(true);
-        setPhone2(res.data.phone2)
-      }
-      if(res.data.addresses.length === 2){
-        setEnableAddr(true);
-        setStreet2(res.data.addresses[1].street);
-        setCity2(res.data.addresses[1].city);
-        setGov2(res.data.addresses[1].governorate)
-        setLat2(res.data.addresses[1].lat);
-        setLng2(res.data.addresses[1].lng)
-      }
-    })
-
-  }, [cookies.colibrisID])
+  const [cookies] = useCookies(["colibrisID"]);
+  const [enablePhone2, setEnablePhone] = useState(false);
+  const [enableAddr2, setEnableAddr] = useState(false);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_USER_SERVICE_URI}/${cookies.colibrisID}`)
+      .then((res) => {
+        setName(res.data.Name);
+        setPhone1(res.data.phone1);
+        setStreet1(res.data.addresses[0].street);
+        setCity1(res.data.addresses[0].city);
+        setGov1(res.data.addresses[0].governorate);
+        setLat1(res.data.addresses[0].lat);
+        setLng1(res.data.addresses[0].lng);
+        setEmail(res.data.email);
+        if (res.data.phone2) {
+          setEnablePhone(true);
+          setPhone2(res.data.phone2);
+        }
+        if (res.data.addresses.length === 2) {
+          setEnableAddr(true);
+          setStreet2(res.data.addresses[1].street);
+          setCity2(res.data.addresses[1].city);
+          setGov2(res.data.addresses[1].governorate);
+          setLat2(res.data.addresses[1].lat);
+          setLng2(res.data.addresses[1].lng);
+        }
+      });
+  }, [cookies.colibrisID]);
 
   useEffect(() => {
     if (!window.google) {
@@ -74,7 +75,6 @@ export default function Profile() {
       }
     }, 1000);
   }, []);
-
 
   const getInfo = (Lat, Lng) => {
     if (marker) marker.setMap(null);
@@ -111,9 +111,17 @@ export default function Profile() {
       window.alert("insert a valid longitude");
       return;
     }*/
-    let addresses = [{street: street1, city: city1, governorate: gov1 ,lat: lat1,lng: lng1}]
-    if(enableAddr2  && lat2 !== 0 && lng2 !== 0){
-      addresses.push({street: street2, city: city2, governorate: gov2 ,lat: lat2,lng: lng2})
+    let addresses = [
+      { street: street1, city: city1, governorate: gov1, lat: lat1, lng: lng1 },
+    ];
+    if (enableAddr2 && lat2 !== 0 && lng2 !== 0) {
+      addresses.push({
+        street: street2,
+        city: city2,
+        governorate: gov2,
+        lat: lat2,
+        lng: lng2,
+      });
     }
     axios
       .put(`${process.env.REACT_APP_USER_SERVICE_URI}/${cookies.colibrisID}`, {
@@ -124,7 +132,7 @@ export default function Profile() {
       })
       .then((res) => {
         if (res.data === "client updated successfully!!") {
-          window.location.href = '/' 
+          window.location.href = "/";
         }
       })
       .catch((err) => window.alert(err));
@@ -132,24 +140,21 @@ export default function Profile() {
   return (
     <div>
       <div>
-      <div className="page-header mb-0">
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <h2>Profile</h2>
-                    </div>
-                    
-                </div>
+        <div className="page-header mb-0">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <h2>Profile</h2>
+              </div>
             </div>
+          </div>
         </div>
-        
       </div>
-      
-      
+
       <div className="container-fluid mt-3 contact">
         <div className="row ">
-          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3 padding  contact-form" >
-            <form >
+          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3 padding  contact-form">
+            <form>
               <div className="row container-fluid">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
@@ -177,24 +182,36 @@ export default function Profile() {
                     onChange={(e) => setPhone1(e.target.value)}
                   />
                 </div>
-                {enablePhone2? (
+                {enablePhone2 ? (
                   <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <input
-                    placeholder="deuxiéme numero de téléphone"
-                    className="form-control mb-2"
-                    value={phone2}
-                    onChange={(e) => setPhone2(e.target.value)}
-                  />
-                  <a className="btn-circle" onClick={()=> {setPhone2(""); setEnablePhone(false) } }>
-                  <i className="fas fa-minus mt-3 green"></i>
-                  </a>
+                    <input
+                      placeholder="deuxiéme numero de téléphone"
+                      className="form-control mb-2"
+                      value={phone2}
+                      onChange={(e) => setPhone2(e.target.value)}
+                    />
+                    <a
+                      className="btn-circle"
+                      onClick={() => {
+                        setPhone2("");
+                        setEnablePhone(false);
+                      }}
+                    >
+                      <i className="fas fa-minus mt-3 green"></i>
+                    </a>
                   </div>
-                ) : (  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <a className="btn-circle mt-2" onClick={()=>{setEnablePhone(true)}}>
-                      <i className="fas fa-plus green" ></i>
-                      </a> 
-                      </div>
-                  )}
+                ) : (
+                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <a
+                      className="btn-circle mt-2"
+                      onClick={() => {
+                        setEnablePhone(true);
+                      }}
+                    >
+                      <i className="fas fa-plus green"></i>
+                    </a>
+                  </div>
+                )}
 
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
@@ -209,7 +226,7 @@ export default function Profile() {
                     placeholder="ville"
                     className="form-control"
                     value={city1}
-                    onChange={(e) =>  setCity1(e.target.value)}
+                    onChange={(e) => setCity1(e.target.value)}
                   />
                 </div>
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
@@ -217,7 +234,7 @@ export default function Profile() {
                     placeholder="governorat"
                     className="form-control"
                     value={gov1}
-                    onChange={(e) =>  setGov1(e.target.value)}
+                    onChange={(e) => setGov1(e.target.value)}
                   />
                 </div>
 
@@ -239,35 +256,35 @@ export default function Profile() {
                     id="lng"
                     type="number"
                     value={lng1}
-                    onChange={(e) => setLng1( parseFloat(e.target.value))}
+                    onChange={(e) => setLng1(parseFloat(e.target.value))}
                   />
                 </div>
-                {enableAddr2? (
+                {enableAddr2 ? (
                   <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <input
-                      placeholder="rue"
-                      className="form-control"
-                      value={street2}
-                      onChange={(e) => setStreet2(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <input
-                      placeholder="ville"
-                      className="form-control"
-                      value={city2}
-                      onChange={(e) =>  setCity2(e.target.value)}
-                    />
-                  </div>
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <input
-                      placeholder="governorat"
-                      className="form-control"
-                      value={gov2}
-                      onChange={(e) =>  setGov2(e.target.value)}
-                    />
-                  </div>
+                      <input
+                        placeholder="rue"
+                        className="form-control"
+                        value={street2}
+                        onChange={(e) => setStreet2(e.target.value)}
+                      />
+                    </div>
+                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <input
+                        placeholder="ville"
+                        className="form-control"
+                        value={city2}
+                        onChange={(e) => setCity2(e.target.value)}
+                      />
+                    </div>
+                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <input
+                        placeholder="governorat"
+                        className="form-control"
+                        value={gov2}
+                        onChange={(e) => setGov2(e.target.value)}
+                      />
+                    </div>
 
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <input
@@ -290,25 +307,37 @@ export default function Profile() {
                         onChange={(e) => setLng2(parseFloat(e.target.value))}
                       />
                     </div>
-                    <a className="btn-circle" onClick={()=>{
-                      setEnableAddr(false);
-                      setGov2("");
-                      setCity2("");
-                      setStreet2("")
-                      setLat2(0);
-                      setLng2("");
-                    }}> <i className="fas fa-minus mr-2 green"> </i>Delete address
+                    <a
+                      className="btn-circle"
+                      onClick={() => {
+                        setEnableAddr(false);
+                        setGov2("");
+                        setCity2("");
+                        setStreet2("");
+                        setLat2(0);
+                        setLng2("");
+                      }}
+                    >
+                      {" "}
+                      <i className="fas fa-minus mr-2 green"> </i>Delete address
                     </a>
                   </div>
-                ) : <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-                    <a className="btn-circle" onClick={()=>{setEnableAddr(true)}}>
-                      <i className="fas fa-plus green mr-3" ></i>
+                ) : (
+                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                    <a
+                      className="btn-circle"
+                      onClick={() => {
+                        setEnableAddr(true);
+                      }}
+                    >
+                      <i className="fas fa-plus green mr-3"></i>
                       Add an address
                     </a>
-                      </div>}
-                  
-                  <div className="col-lg-3 mt-2" />
-                      
+                  </div>
+                )}
+
+                <div className="col-lg-3 mt-2" />
+
                 <div className="col-lg-3">
                   <button
                     className="btn custom-btn"
@@ -318,22 +347,21 @@ export default function Profile() {
                   </button>
                 </div>
                 <div className="col-lg-2">
-                  <button
-                   onClick={Submit}
-                   className="btn custom-btn"
-                  >
+                  <button onClick={Submit} className="btn custom-btn">
                     Submit
                   </button>
                 </div>
               </div>
             </form>
-            
-            <div id="map" className="mt-3 container-fluid" style={{width: "90%", height: "400px"}}></div>
 
+            <div
+              id="map"
+              className="mt-3 container-fluid"
+              style={{ width: "90%", height: "400px" }}
+            ></div>
           </div>
         </div>
       </div>
-  
     </div>
   );
 }

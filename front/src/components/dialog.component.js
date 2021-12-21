@@ -60,7 +60,9 @@ export default function ConfirmationDialog(props) {
 
   return (
     <div>
-      <button className="red-custom-btn" onClick={handleClickListItem}>Problème</button>
+      <button className="red-custom-btn" onClick={handleClickListItem}>
+        Problème
+      </button>
       <ConfirmationDialogRaw
         id="ringtone-menu"
         keepMounted
