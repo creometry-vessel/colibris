@@ -5,7 +5,7 @@ import ListItemText from "@mui/material/ListItemText";
 import DialogContent from "@mui/material/DialogContent";
 import Dialog from "@mui/material/Dialog";
 
-const options = ["client injoignable", "place non reconnue"];
+const options = ["Client injoignable", "Place non reconnue"];
 
 function ConfirmationDialogRaw(props) {
   const { onClose, value: valueProp, open, getMarker, ...other } = props;
@@ -60,7 +60,7 @@ export default function ConfirmationDialog(props) {
 
   return (
     <div>
-      <button onClick={handleClickListItem}>probléme</button>
+      <button className="red-custom-btn" onClick={handleClickListItem}>Problème</button>
       <ConfirmationDialogRaw
         id="ringtone-menu"
         keepMounted

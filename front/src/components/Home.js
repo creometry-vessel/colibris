@@ -42,7 +42,7 @@ class Home extends React.Component {
                 <div class="">
                     <div class="carousel-item">
                         <div class="carousel-img">
-                            <img src="img/trees.jpg" alt="Image"/>
+                            <img src="img/colibris8.jpg" alt="Image"/>
                         </div>
                         <div class="carousel-text">
                             <h1>  أعمل إلّي <span>عليك</span> </h1>
@@ -71,7 +71,7 @@ class Home extends React.Component {
                 <div class="row align-items-center">
                     <div class="col-lg-6">
                         <div class="about-img">
-                            <img src="img/about.jpg" alt="Image"/>
+                            <img src="img/colibris1.jpg" alt="Image"/>
                            
                         </div>
                     </div>
@@ -79,7 +79,7 @@ class Home extends React.Component {
                         <div class="about-content">
                             <div class="section-header">
                                 <p>About Us</p>
-                                <h2>Cooking Since 1990</h2>
+                                <h2>Collecting Since 2018</h2>
                             </div>
                             <div class="about-text">
                                 <p>
@@ -89,6 +89,31 @@ class Home extends React.Component {
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem. Curabitur non nisl nec nisi scelerisque maximus. Aenean consectetur convallis porttitor. Aliquam interdum at lacus non blandit.
                                 </p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about">
+            <div class="container">
+                <div class="row align-items-center">
+                    
+                    <div class="col-lg-4">
+                        <div class="about-img">
+                            <img src="img/colibris5.jpg" alt="Image"/>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="about-img">
+                            <img src="img/colibris7.jpg" alt="Image"/>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="about-img">
+                            <img src="img/colibris4.jpg" alt="Image"/>
+                           
                         </div>
                     </div>
                 </div>

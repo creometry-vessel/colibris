@@ -163,6 +163,9 @@ export default function Form() {
                         </select>
                       </div>
                     </div>
+                    <div className="row">
+                      <div className="col-lg-4 mt-2" />
+
                     <div className="col-lg-4 text-center">
                       <button
                         onClick={Submit}
@@ -172,6 +175,8 @@ export default function Form() {
                         Submit
                       </button>
                     </div>
+                    </div>
+                  
                   </form>
                 </div>
               </div>

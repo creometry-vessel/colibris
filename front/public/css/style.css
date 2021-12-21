@@ -535,11 +535,6 @@ a:focus {
   border: 1px solid #ffffff;
 }
 
-.booking .booking-form .btn.custom-btn:hover {
-  color: #ffffff;
-  background: transparent;
-}
-
 /*******************************/
 /********** Menu CSS ***********/
 /*******************************/
@@ -1966,4 +1961,51 @@ a:focus {
 }
 .green {
   color: #39b54a;
+}
+.white {
+  color: #ffffff;
+  background-color: #20a69b;
+}
+.red-btn {
+  background: linear-gradient(to bottom, #db4234 5%, #f24437 100%);
+  background-color: #db4234;
+  border-radius: 42px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Verdana;
+  font-size: 15px;
+  padding: 10px 20px;
+  text-decoration: none;
+  text-shadow: 0px 3px 0px #8c0e05;
+}
+.red-btn:hover {
+  background: linear-gradient(to bottom, #f24437 5%, #db4234 100%);
+  background-color: #f24437;
+}
+.red-btn:active {
+  position: relative;
+  top: 1px;
+}
+.red-custom-btn {
+  padding: 12px 25px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #b43232;
+  border: 2px solid #b43232;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+
+.red-custom-btn:hover {
+  color: #b43232;
+  background: transparent;
+}
+
+.red-custom-btn:focus,
+.form-control:focus,
+.custom-select:focus {
+  box-shadow: none;
 }

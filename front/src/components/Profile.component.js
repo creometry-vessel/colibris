@@ -306,8 +306,10 @@ export default function Profile() {
                       Add an address
                     </a>
                       </div>}
+                  
+                  <div className="col-lg-3 mt-2" />
                       
-                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                <div className="col-lg-3">
                   <button
                     className="btn custom-btn"
                     onClick={() => getInfo(lat1, lng1)}
@@ -315,7 +317,7 @@ export default function Profile() {
                     vérifier coordonnées
                   </button>
                 </div>
-                <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                <div className="col-lg-2">
                   <button
                    onClick={Submit}
                    className="btn custom-btn"
