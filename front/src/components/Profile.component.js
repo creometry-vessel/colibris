@@ -130,26 +130,28 @@ export default function Profile() {
       .catch((err) => window.alert(err));
   };
   return (
-    <div id="content">
-      <div id="contact" className="contact">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="title mt-5">
-                <h2>
-                  P<strong className="black">rofile</strong> :
-                </h2>
-              </div>
+    <div>
+      <div>
+      <div className="page-header mb-0">
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <h2>Profile</h2>
+                    </div>
+                    
+                </div>
             </div>
-          </div>
         </div>
+        
       </div>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 padding">
-            <form className="main_form">
-              <div className="row">
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      
+      
+      <div className="container-fluid mt-3 contact">
+        <div className="row ">
+          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3 padding  contact-form" >
+            <form >
+              <div className="row container-fluid">
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
                     placeholder="nom et prénom"
                     className="form-control"
@@ -158,7 +160,7 @@ export default function Profile() {
                   />
                 </div>
 
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
                     placeholder="addresse email"
                     className="form-control"
@@ -167,7 +169,7 @@ export default function Profile() {
                   />
                 </div>
 
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
                     placeholder="numero de téléphone"
                     className="form-control"
@@ -176,19 +178,25 @@ export default function Profile() {
                   />
                 </div>
                 {enablePhone2? (
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
                     placeholder="deuxiéme numero de téléphone"
-                    className="form-control"
+                    className="form-control mb-2"
                     value={phone2}
                     onChange={(e) => setPhone2(e.target.value)}
                   />
-                  <button onClick={()=> {setPhone2(""); setEnablePhone(false) } }>disable</button>
+                  <a className="btn-circle" onClick={()=> {setPhone2(""); setEnablePhone(false) } }>
+                  <i className="fas fa-minus mt-3 green"></i>
+                  </a>
                   </div>
-                ) : (                  <button onClick={()=>{setEnablePhone(true)}}>enable</button>
+                ) : (  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                      <a className="btn-circle mt-2" onClick={()=>{setEnablePhone(true)}}>
+                      <i className="fas fa-plus green" ></i>
+                      </a> 
+                      </div>
                   )}
 
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
                     placeholder="rue"
                     className="form-control"
@@ -196,7 +204,7 @@ export default function Profile() {
                     onChange={(e) => setStreet1(e.target.value)}
                   />
                 </div>
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
                     placeholder="ville"
                     className="form-control"
@@ -204,7 +212,7 @@ export default function Profile() {
                     onChange={(e) =>  setCity1(e.target.value)}
                   />
                 </div>
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
                     placeholder="governorat"
                     className="form-control"
@@ -213,7 +221,7 @@ export default function Profile() {
                   />
                 </div>
 
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
                     placeholder="lat"
                     className="form-control"
@@ -224,7 +232,7 @@ export default function Profile() {
                   />
                 </div>
 
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
                     placeholder="lng"
                     className="form-control"
@@ -235,8 +243,8 @@ export default function Profile() {
                   />
                 </div>
                 {enableAddr2? (
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <input
                       placeholder="rue"
                       className="form-control"
@@ -244,7 +252,7 @@ export default function Profile() {
                       onChange={(e) => setStreet2(e.target.value)}
                     />
                   </div>
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <input
                       placeholder="ville"
                       className="form-control"
@@ -252,7 +260,7 @@ export default function Profile() {
                       onChange={(e) =>  setCity2(e.target.value)}
                     />
                   </div>
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <input
                       placeholder="governorat"
                       className="form-control"
@@ -261,7 +269,7 @@ export default function Profile() {
                     />
                   </div>
 
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <input
                         placeholder="lat"
                         className="form-control"
@@ -272,7 +280,7 @@ export default function Profile() {
                       />
                     </div>
 
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                       <input
                         placeholder="lng"
                         className="form-control"
@@ -282,28 +290,35 @@ export default function Profile() {
                         onChange={(e) => setLng2(parseFloat(e.target.value))}
                       />
                     </div>
-                    <button onClick={()=>{
+                    <a className="btn-circle" onClick={()=>{
                       setEnableAddr(false);
                       setGov2("");
                       setCity2("");
                       setStreet2("")
                       setLat2(0);
                       setLng2("");
-                    }}>disable address</button>
+                    }}> <i className="fas fa-minus mr-2 green"> </i>Delete address
+                    </a>
                   </div>
-                ) : <button onClick={()=>{setEnableAddr(true)}}>enable address</button>}
-                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                ) : <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                    <a className="btn-circle" onClick={()=>{setEnableAddr(true)}}>
+                      <i className="fas fa-plus green mr-3" ></i>
+                      Add an address
+                    </a>
+                      </div>}
+                      
+                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
                   <button
-                    className="btn-main"
+                    className="btn custom-btn"
                     onClick={() => getInfo(lat1, lng1)}
                   >
                     vérifier coordonnées
                   </button>
                 </div>
-                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                <div className="col-xl-2 col-lg-2 col-md-2 col-sm-2">
                   <button
                    onClick={Submit}
-                   className="btn-main"
+                   className="btn custom-btn"
                   >
                     Submit
                   </button>
@@ -311,7 +326,7 @@ export default function Profile() {
               </div>
             </form>
             
-            <div id="map" style={{width: "90%", height: "400px"}}></div>
+            <div id="map" className="mt-3 container-fluid" style={{width: "90%", height: "400px"}}></div>
 
           </div>
         </div>

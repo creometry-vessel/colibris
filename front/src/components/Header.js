@@ -1,59 +1,55 @@
 import React from "react";
+import { withCookies } from 'react-cookie';
+
 class Header extends React.Component {
+  constructor(props){
+    super(props);
+    const { cookies } = this.props;
+    this.state = {
+      loggedIn: cookies.cookies.colibrisID? true: false
+    }
+    this.removeCookies = this.removeCookies.bind(this);
+
+    
+  }
+  removeCookies(){
+    const { cookies } = this.props;
+    cookies.remove("colibrisID")
+  }
   render() {
     return (
       <div>
-        <header>
-          <div className="head-top">
-            <div className="container">
-              <div className="row">
-                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-                  <div className="email">
-                    <a href="">
-                      <img alt="" src="images/mail_icon.png" /> Email :
-                      colibris@gmail.com
-                    </a>
-                  </div>
-                </div>
-                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-                  <div className="logo">
-                    <a href="/">
-                      <img alt='' src="images/colibris.png" />
-                    </a>
-                  </div>
-                </div>
-                <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-                  <div className="contact_nu">
-                    <a href="#">
-                      <img alt='' src="images/phone_icon.png" /> Contact : +216 50 500
-                      500
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bg">
-            <div className="container">
-              <nav className="navigation navbar-expand-md  navbar-dark ">
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#navbarsExample04"
-                  aria-controls="navbarsExample04"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span className="navbar-toggler-icon"></span>
+        <div className="navbar navbar-expand-lg bg-light navbar-light">
+            <div className="container-fluid">
+                <a href="/" className="navbar-brand">
+                    <img src="img/colibris.png"/>
+                </a>
+                <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-              </nav>
+              
+              {this.state.loggedIn?
+                         
+                <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div className="navbar-nav ml-auto">
+                        <a href="/" className="nav-item nav-link ">Home</a>
+                        <a href="/#/profile" className="nav-item nav-link ">Profile</a>
+                        <a href="/#/appointment" className="nav-item nav-link ">Take an appointment</a>
+                        <a href="/#/history" className="nav-item nav-link ">History</a>
+                        
+                        <a class="btn custom-btn"  onClick={this.removeCookies} href="/">Disconnect</a>
+                          
+                    </div>
+                </div>
+              :
+              <div/>
+              }
             </div>
-          </div>
-        </header>
+        </div>
+        
       </div>
     );
   }
 }
 
-export default Header;
+export default withCookies(Header);
