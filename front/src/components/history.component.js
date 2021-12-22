@@ -9,7 +9,7 @@ export default function History(props) {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_APPOINT_SERVICE_URI}/` + cookies.colibrisID)
+      .get(`${window.ENV.APPOINT_SERVICE_URI}/` + cookies.colibrisID)
       .then((res) => {
         console.log(res.data);
         setCurrent(res.data.current);
@@ -18,7 +18,7 @@ export default function History(props) {
   }, [cookies.colibrisID]);
 
   const deleteApp = (id) => {
-    axios.delete(`${process.env.REACT_APP_APPOINT_SERVICE_URI}`, {
+    axios.delete(`${window.ENV.APPOINT_SERVICE_URI}`, {
       data: { id: id },
     });
   };
@@ -35,24 +35,7 @@ export default function History(props) {
         </div>
       </div>
       <div className="container-fluid">
-        <h2>Current:</h2>
-        {current.map((element, index) => (
-          <div>
-            <p>{element.Date}</p>
-            <div onClick={() => deleteApp(element._id)}>
-              <p style={{ color: "red" }}>X</p>
-            </div>
-          </div>
-        ))}
-        <h2>Ancient:</h2>
-        {ancient.map((element, index) => (
-          <div>
-            <p>{element.Date}</p>
-            <p>{element.status}</p>
-            <p>{element.description}</p>
-          </div>
-        ))}
-        ------------------------------------------------------------------------
+        
         <h2>Current :</h2>
         <div>
           <table className="table white">
@@ -65,14 +48,16 @@ export default function History(props) {
               </tr>
             </thead>
             <tbody>
+            {current.map((element, index) => (
               <tr>
-                <th scope="row">1</th>
-                <td>26 dec 2021</td>
-                <td>20 rue 8416 cité el khadra</td>
-                <td>
-                  <a className="red-btn">X</a>
-                </td>
-              </tr>
+              <th scope="row">{index + 1}</th>
+              <td>{element.Date}</td>
+              <td>{element.address.street+" ,"+element.address.city+" ,"+element.address.governorate}</td>
+              <td>
+                <a className="red-btn" onClick={() => deleteApp(element._id)}>X</a>
+              </td>
+            </tr>
+          ))}
             </tbody>
           </table>
         </div>
@@ -89,13 +74,16 @@ export default function History(props) {
               </tr>
             </thead>
             <tbody>
+            {ancient.map((element, index) => (
               <tr>
-                <th scope="row">1</th>
-                <td>26 dec 2021</td>
-                <td>20 rue 8416 cité el khadra</td>
-                <td>Active</td>
-                <td>DEEEESCRIPTION</td>
-              </tr>
+              <th scope="row">{index + 1}</th>
+              <td>{element.Date}</td>
+              <td>{element.address.street+" ,"+element.address.city+" ,"+element.address.governorate}</td>
+              <td>{element.status}</td>
+              <td>{element.description}</td>
+            </tr>
+            ))}
+              
             </tbody>
           </table>
         </div>

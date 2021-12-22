@@ -15,20 +15,18 @@ spec:
     spec:
       containers:
       - name: front
-        image: colibristn/front:v0.1.1
+        image: colibristn/front:v0.2.2
         ports:
         - containerPort: 80
-        env:
-          - name: REACT_APP_USER_SERVICE_URI
-            valueFrom:
-              configMapKeyRef:
-                name: colibris-configmap
-                key: user_service
-          - name: REACT_APP_APPOINT_SERVICE_URI
-            valueFrom:
-              configMapKeyRef:
-                name: colibris-configmap
-                key: appointment_service
+        volumeMounts:
+          - name: config
+            mountPath: /usr/share/nginx/html/app/build/config.js
+            readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: testing-configmap
+
 ---
 apiVersion: v1
 kind: Service

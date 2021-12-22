@@ -61,7 +61,7 @@ export default function Form() {
   useEffect(() => {
     getAllWeek();
     axios
-      .get(`${process.env.REACT_APP_USER_SERVICE_URI}/` + cookies.colibrisID)
+      .get(`${window.ENV.USER_SERVICE_URI}/` + cookies.colibrisID)
       .then((res) => {
         setAddre(res.data.addresses);
       });
@@ -94,7 +94,7 @@ export default function Form() {
   const Submit = async () => {
     if (!chosen || !currentAddr) return;
     let response = await axios.post(
-      `${process.env.REACT_APP_APPOINT_SERVICE_URI}`,
+      `${window.ENV.APPOINT_SERVICE_URI}`,
       { userID: cookies.colibrisID, date: chosen, address: currentAddr }
     );
     if (response.data.error) {
@@ -169,7 +169,6 @@ export default function Form() {
                       <button
                         onClick={Submit}
                         class="btn custom-btn"
-                        type="submit"
                       >
                         Submit
                       </button>
