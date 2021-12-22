@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: front
-        image: colibristn/front:testv1
+        image: colibristn/front:v0.2.2
         ports:
         - containerPort: 80
         volumeMounts:
