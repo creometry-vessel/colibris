@@ -24,7 +24,7 @@ export default function Profile() {
   const [enableAddr2, setEnableAddr] = useState(false);
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_USER_SERVICE_URI}/${cookies.colibrisID}`)
+      .get(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`)
       .then((res) => {
         setName(res.data.Name);
         setPhone1(res.data.phone1);
@@ -54,7 +54,7 @@ export default function Profile() {
       const script = document.createElement("script");
       script.src =
         "https://maps.googleapis.com/maps/api/js?key=" +
-        process.env.REACT_APP_GOOGLE_API_KEY +
+        window.ENV.GOOGLE_API_KEY +
         "&callback=initMap&v=weekly";
       script.async = true;
       document.body.appendChild(script);
@@ -124,7 +124,7 @@ export default function Profile() {
       });
     }
     axios
-      .put(`${process.env.REACT_APP_USER_SERVICE_URI}/${cookies.colibrisID}`, {
+      .put(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`, {
         Name: name,
         phone1: phone1,
         phone2: phone2,

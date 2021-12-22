@@ -46,9 +46,9 @@ export default function Markers() {
       marker.setMap(null);
     }
     axios
-      .put(`${process.env.REACT_APP_APPOINT_SERVICE_URI}`, {
+      .put(`${window.ENV.APPOINT_SERVICE_URI}`, {
         //today: (new Date()+"").substring(4,15),
-        today: "Dec 26 2021",
+        today: (new Date()+"").substring(4,15),
         userID: Gdata.userID,
         status: status,
         description: args[0] ? args[0] : "",
@@ -64,7 +64,7 @@ export default function Markers() {
       const script = document.createElement("script");
       script.src =
         "https://maps.googleapis.com/maps/api/js?key=" +
-        process.env.REACT_APP_GOOGLE_API_KEY +
+        window.ENV.GOOGLE_API_KEY +
         "&callback=initMap&v=weekly";
       script.async = true;
       document.body.appendChild(script);
