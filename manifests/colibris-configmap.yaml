@@ -4,6 +4,5 @@ metadata:
   name: colibris-configmap
 data:
   database_url: mongodb://db:27017/Colibris?retryWrites=true&w=majority
-  google_key: some-key
-  user_service: users
-  appointment_service: appointments
+  user_service: https://user:5001/
+  appointment_service: https://appointment:5000/
