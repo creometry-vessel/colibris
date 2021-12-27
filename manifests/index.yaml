@@ -15,13 +15,14 @@ spec:
     spec:
       containers:
       - name: front
-        image: colibristn/front:v0.2.2
+        image: colibristn/front:v0.2.3
         ports:
         - containerPort: 80
         volumeMounts:
           - name: config
-            mountPath: /usr/share/nginx/html/app/build/config.js
+            mountPath: /usr/share/nginx/html/config.js
             readOnly: true
+            subPath: config.js
       volumes:
       - name: config
         configMap:
