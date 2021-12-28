@@ -50,51 +50,6 @@ export default function Profile() {
       });
   }, [cookies.colibrisID]);
 
-  /*useEffect(() => {
-    if (!window.google) {
-      const script = document.createElement("script");
-      script.src =
-        "https://maps.googleapis.com/maps/api/js?key=" +
-        window.ENV.GOOGLE_API_KEY +
-        "&callback=initMap&v=weekly";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-    setTimeout(() => {
-      try {
-        map = new window.google.maps.Map(document.getElementById("map"), {
-          zoom: 11,
-          center: { lat: 36.80278, lng: 10.17972 },
-        });
-        map.addListener("click", async (e) => {
-          setLat1(e.latLng.lat());
-          setLng1(e.latLng.lng());
-          getInfo(e.latLng.lat(), e.latLng.lng());
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }, 1000);
-  }, []);
-*/
-  const getInfo = (Lat, Lng) => {
-    if (marker) marker.setMap(null);
-    const latlng = {
-      lat: Lat,
-      lng: Lng,
-    };
-    try {
-      marker = new window.google.maps.Marker({
-        position: latlng,
-        map: map,
-      });
-      map.setCenter(latlng);
-      map.setZoom(17);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const Submit = () => {
     /*if (!name || !phone1 || !address1 || !lat1 || !lng1) {
       window.alert("please fill all the form");
@@ -252,12 +207,7 @@ export default function Profile() {
                 <div className="col-lg-3 mt-2" />
 
                 <div className="col-lg-3">
-                  <button
-                    className="btn custom-btn"
-                    onClick={() => getInfo(lat1, lng1)}
-                  >
-                    vérifier coordonnées
-                  </button>
+                  
                 </div>
                 <div className="col-lg-2">
                   <button onClick={Submit} className="btn custom-btn">

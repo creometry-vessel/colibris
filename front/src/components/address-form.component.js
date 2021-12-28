@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 export default function Address(props) {
-    let map = null;
-    let marker = null;
-
+  const _map = useRef(null);
+  const _marker = useRef(null);
+  const _geocode = useRef(null);
+    
     useEffect(() => {
         if (!window.google) {
           const script = document.createElement("script");
@@ -15,11 +16,15 @@ export default function Address(props) {
         }
         setTimeout(() => {
           try {
-             map = new window.google.maps.Map(document.getElementById(props.id), {
+             _geocode.current = new window.google.maps.Geocoder();
+             _map.current = new window.google.maps.Map(document.getElementById(props.id), {
               zoom: 11,
               center: { lat: 36.80278, lng: 10.17972 },
             });
-            map.addListener("click", async (e) => {
+            _map.current.addListener("click", async (e) => {
+              /*_geocode.current.geocode({location: {lat: e.latLng.lat(), lng: e.latLng.lng()}}, (results, status)=>{
+                console.log(results);
+              })*/
               props.setLat(e.latLng.lat());
               props.setLng(e.latLng.lng());
               getInfo(e.latLng.lat(), e.latLng.lng());
@@ -30,23 +35,37 @@ export default function Address(props) {
           }
         }, 1000);
       }, []);
-      const getInfo = (Lat, Lng) => {
-        if (marker) marker.setMap(null);
+
+  const getInfo = (Lat, Lng) => {
+        if (_marker.current) _marker.current.setMap(null);
         const latlng = {
           lat: Lat,
           lng: Lng,
         };
         try {
-          marker = new window.google.maps.Marker({
+          _marker.current = new window.google.maps.Marker({
             position: latlng,
-            map: map,
+            map: _map.current,
           });
-          map.setCenter(latlng);
-          map.setZoom(17);
+          _map.current.setCenter(latlng);
+          _map.current.setZoom(17);
         } catch (err) {
           console.error(err);
         }
       };
+
+  const getMarkerFromAddress = ()=>{
+    _geocode.current.geocode({address: `${props.street} , ${props.city}, ${props.gov}`}, (results, status)=>{
+      if (status == 'OK') {
+        console.log(results.length)
+        getInfo(results[0].geometry.location.lat(), results[0].geometry.location.lng())
+        props.setLat(results[0].geometry.location.lat());
+        props.setLng(results[0].geometry.location.lng());
+      }else{
+        alert("on ne peut pas trouver cette addresse")
+      } 
+  })
+  }
     return(
         <div >
                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
@@ -100,6 +119,7 @@ export default function Address(props) {
                         className="mt-3 container-fluid"
                         style={{ width: "90%", height: "400px" }}
                     ></div>
+                    <button onClick={()=>getMarkerFromAddress()}>get marker</button>
                   </div>
     )
 }
