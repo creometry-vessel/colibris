@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import Address from "./address-form.component";
 
 let map = null;
 let marker = null;
@@ -49,7 +50,7 @@ export default function Profile() {
       });
   }, [cookies.colibrisID]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!window.google) {
       const script = document.createElement("script");
       script.src =
@@ -75,7 +76,7 @@ export default function Profile() {
       }
     }, 1000);
   }, []);
-
+*/
   const getInfo = (Lat, Lng) => {
     if (marker) marker.setMap(null);
     const latlng = {
@@ -154,7 +155,6 @@ export default function Profile() {
       <div className="container-fluid mt-3 contact">
         <div className="row ">
           <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3 padding  contact-form">
-            <form>
               <div className="row container-fluid">
                 <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <input
@@ -212,101 +212,14 @@ export default function Profile() {
                     </a>
                   </div>
                 )}
+                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
 
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <input
-                    placeholder="rue"
-                    className="form-control"
-                    value={street1}
-                    onChange={(e) => setStreet1(e.target.value)}
-                  />
-                </div>
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <input
-                    placeholder="ville"
-                    className="form-control"
-                    value={city1}
-                    onChange={(e) => setCity1(e.target.value)}
-                  />
-                </div>
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <input
-                    placeholder="governorat"
-                    className="form-control"
-                    value={gov1}
-                    onChange={(e) => setGov1(e.target.value)}
-                  />
-                </div>
-
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <input
-                    placeholder="lat"
-                    className="form-control"
-                    id="lat"
-                    type="number"
-                    value={lat1}
-                    onChange={(e) => setLat1(parseFloat(e.target.value))}
-                  />
-                </div>
-
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <input
-                    placeholder="lng"
-                    className="form-control"
-                    id="lng"
-                    type="number"
-                    value={lng1}
-                    onChange={(e) => setLng1(parseFloat(e.target.value))}
-                  />
+                  <Address id="ad1" street={street1} setStreet={setStreet1} city={city1} setCity={setCity1} gov={gov1} setGov={setGov1} lat={lat1} setLat={setLat1} lng={lng1} setLng={setLng1} />
                 </div>
                 {enableAddr2 ? (
                   <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <input
-                        placeholder="rue"
-                        className="form-control"
-                        value={street2}
-                        onChange={(e) => setStreet2(e.target.value)}
-                      />
-                    </div>
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <input
-                        placeholder="ville"
-                        className="form-control"
-                        value={city2}
-                        onChange={(e) => setCity2(e.target.value)}
-                      />
-                    </div>
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <input
-                        placeholder="governorat"
-                        className="form-control"
-                        value={gov2}
-                        onChange={(e) => setGov2(e.target.value)}
-                      />
-                    </div>
+                          <Address id="ad2" street={street2} setStreet={setStreet2} city={city2} setCity={setCity2} gov={gov2} setGov={setGov2} lat={lat2} setLat={setLat2} lng={lng2} setLng={setLng2} />
 
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <input
-                        placeholder="lat"
-                        className="form-control"
-                        id="lat"
-                        type="number"
-                        value={lat2}
-                        onChange={(e) => setLat2(parseFloat(e.target.value))}
-                      />
-                    </div>
-
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <input
-                        placeholder="lng"
-                        className="form-control"
-                        id="lng"
-                        type="number"
-                        value={lng2}
-                        onChange={(e) => setLng2(parseFloat(e.target.value))}
-                      />
-                    </div>
                     <a
                       className="btn-circle"
                       onClick={() => {
@@ -352,13 +265,8 @@ export default function Profile() {
                   </button>
                 </div>
               </div>
-            </form>
 
-            <div
-              id="map"
-              className="mt-3 container-fluid"
-              style={{ width: "90%", height: "400px" }}
-            ></div>
+            
           </div>
         </div>
       </div>
