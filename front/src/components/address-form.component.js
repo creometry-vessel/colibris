@@ -3,6 +3,7 @@ export default function Address(props) {
   const _map = useRef(null);
   const _marker = useRef(null);
   const _geocode = useRef(null);
+  const _infowindow = useRef(null);
     
     useEffect(() => {
         if (!window.google) {
@@ -17,18 +18,20 @@ export default function Address(props) {
         setTimeout(() => {
           try {
              _geocode.current = new window.google.maps.Geocoder();
+             _infowindow.current = new window.google.maps.InfoWindow();
              _map.current = new window.google.maps.Map(document.getElementById(props.id), {
               zoom: 11,
               center: { lat: 36.80278, lng: 10.17972 },
             });
             _map.current.addListener("click", async (e) => {
-              /*_geocode.current.geocode({location: {lat: e.latLng.lat(), lng: e.latLng.lng()}}, (results, status)=>{
-                console.log(results);
-              })*/
+              _geocode.current.geocode({location: {lat: e.latLng.lat(), lng: e.latLng.lng()}}, (results, status)=>{
+                _infowindow.current.setContent(results[0].formatted_address);
+              })
               props.setLat(e.latLng.lat());
               props.setLng(e.latLng.lng());
               getInfo(e.latLng.lat(), e.latLng.lng());
-              
+              _infowindow.current.open(_map.current, _marker.current);
+
             });
           } catch (err) {
             console.error(err);
@@ -57,7 +60,6 @@ export default function Address(props) {
   const getMarkerFromAddress = ()=>{
     _geocode.current.geocode({address: `${props.street} , ${props.city}, ${props.gov}`}, (results, status)=>{
       if (status == 'OK') {
-        console.log(results.length)
         getInfo(results[0].geometry.location.lat(), results[0].geometry.location.lng())
         props.setLat(results[0].geometry.location.lat());
         props.setLng(results[0].geometry.location.lng());

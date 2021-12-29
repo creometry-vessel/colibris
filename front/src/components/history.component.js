@@ -11,7 +11,6 @@ export default function History(props) {
     axios
       .get(`${window.ENV.APPOINT_SERVICE_URI}/` + cookies.colibrisID)
       .then((res) => {
-        console.log(res.data);
         setCurrent(res.data.current);
         setAncient(res.data.ancient);
       });
