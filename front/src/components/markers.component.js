@@ -13,7 +13,6 @@ export default function Markers() {
       lat: data.lat,
       lng: data.lng,
     };
-    console.log(latlng);
     geocoder
       .geocode({ location: latlng })
       .then((response) => {

@@ -23,7 +23,6 @@ class Home extends React.Component {
         window.location.reload()
       }
       else{
-        console.log(response)
         window.alert("couldn't connect to facebook")
       }      
      }
