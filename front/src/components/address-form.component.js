@@ -89,8 +89,7 @@ export default function Address(props) {
   }
     return(
         <div >
-          <div>
-                    <div>
+                    <div className="col-lg-12 mb-3">
                       <select className="col-lg-12 mb-3" onChange={(e)=> props.setGov(e.target.value)} value={props.gov}>
                         <option>--Governorat--</option>
                         {coord.map((element, index)=>(
@@ -98,7 +97,7 @@ export default function Address(props) {
                         ))}
                       </select>
                     </div>
-                    <div>
+                    <div className="col-lg-12 mb-3">
                     <select className="col-lg-12 mb-3" onChange={(e)=> props.setCity(e.target.value)} value={props.city}>
                         <option>--Ville--</option>
                         {coord.map((element, index)=>{
@@ -142,14 +141,16 @@ export default function Address(props) {
                         onChange={(e) => props.setLng(parseFloat(e.target.value))}
                       />
                     </div>
-                    <button onClick={()=>getMarkerFromAddress()}>get marker</button>
-
+                    <div className="col-lg-2">
+                    <button onClick={()=>getMarkerFromAddress()} className="btn custom-btn">
+                      Marquer sur la map
+                    </button>
+                </div>
                     <div
                         id={props.id}
                         className="mt-3 container-fluid"
                         style={{ width: "90%", height: "400px" }}
                     ></div>
-                    </div>
                   </div>
     )
 }
