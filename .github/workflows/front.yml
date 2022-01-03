@@ -31,7 +31,7 @@ jobs:
       name: Build & push Docker image
       with:
         image: colibristn/front
-        tags: v0.2.3
+        tags: v0.2.4
         dockerfile: front/Dockerfile
         registry: docker.io
         directory: front
