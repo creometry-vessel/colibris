@@ -22,16 +22,17 @@ class Header extends React.Component {
             <a href="/" className="navbar-brand">
               <img src="img/colibris.png" />
             </a>
-            <button
+            {this.state.loggedIn ? <button
               type="button"
               className="navbar-toggler"
               data-toggle="collapse"
               data-target="#navbarCollapse"
             >
               <span className="navbar-toggler-icon"></span>
-            </button>
+            </button> : <p></p>}
 
             {this.state.loggedIn ? (
+              
               <div
                 className="collapse navbar-collapse justify-content-between"
                 id="navbarCollapse"

@@ -89,16 +89,17 @@ export default function Address(props) {
   }
     return(
         <div >
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <select onChange={(e)=> props.setGov(e.target.value)} value={props.gov}>
+          <div>
+                    <div>
+                      <select className="col-lg-12 mb-3" onChange={(e)=> props.setGov(e.target.value)} value={props.gov}>
                         <option>--Governorat--</option>
                         {coord.map((element, index)=>(
                           <option index={index}>{element.gov}</option>
                         ))}
                       </select>
                     </div>
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <select onChange={(e)=> props.setCity(e.target.value)} value={props.city}>
+                    <div>
+                    <select className="col-lg-12 mb-3" onChange={(e)=> props.setCity(e.target.value)} value={props.city}>
                         <option>--Ville--</option>
                         {coord.map((element, index)=>{
                           if(element.gov == props.gov){
@@ -112,7 +113,7 @@ export default function Address(props) {
                         )}
                       </select>
                     </div>
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div className="col-lg-12 mb-3">
                       <input
                         placeholder="rue"
                         className="form-control"
@@ -120,7 +121,7 @@ export default function Address(props) {
                         onChange={(e) => props.setStreet(e.target.value)}
                       />
                     </div>
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div className="col-lg-12 mb-3">
                       <input
                         placeholder="lat"
                         className="form-control"
@@ -131,7 +132,7 @@ export default function Address(props) {
                       />
                     </div>
 
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div className="col-lg-12 mb-3">
                       <input
                         placeholder="lng"
                         className="form-control"
@@ -148,6 +149,7 @@ export default function Address(props) {
                         className="mt-3 container-fluid"
                         style={{ width: "90%", height: "400px" }}
                     ></div>
+                    </div>
                   </div>
     )
 }
