@@ -33,10 +33,10 @@ a:focus {
 }
 
 .btn.custom-btn {
-  padding: 12px 25px;
+  padding: 5px 20px;
   font-family: "Nunito", sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   color: #ffffff;
   background: #39b54a;
   border: 2px solid #39b54a;
@@ -1996,10 +1996,10 @@ a:focus {
   top: 1px;
 }
 .red-custom-btn {
-  padding: 12px 25px;
+  padding: 5px 20px;
   font-family: "Nunito", sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   color: #ffffff;
   background: #b43232;
   border: 2px solid #b43232;

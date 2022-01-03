@@ -92,10 +92,9 @@ export default function Markers() {
       </div>
       <div className="container-fluid">
         <div id="map" style={{ width: "100%", height: "400px" }}></div>
-        <div className="mt-2 row">
-          <div className="col-lg-4 mt-2" />
-
-          <div className="col-lg-2 mt-2">
+        <div className="mt-2 row align-items-center">
+          <div className="col-lg-5"></div>
+          <div className="ml-2 mt-2">
             <input
               className="btn custom-btn"
               id="submit"
@@ -104,7 +103,7 @@ export default function Markers() {
               onClick={() => getMarker("success")}
             />
           </div>
-          <div className="col-lg-4 mt-2">
+          <div className="ml-3 mt-2">
             <Dialog getMarker={getMarker} />
           </div>
         </div>
