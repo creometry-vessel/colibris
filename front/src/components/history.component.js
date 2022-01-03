@@ -53,7 +53,7 @@ export default function History(props) {
               <td>{element.Date}</td>
               <td>{element.address.street+" ,"+element.address.city+" ,"+element.address.governorate}</td>
               <td>
-                <a className="red-btn" onClick={() => deleteApp(element._id)}>X</a>
+                <a className="red-btn" onClick={() => deleteApp(element._id)}><i className="fas fa-calendar-times"></i></a>
               </td>
             </tr>
           ))}

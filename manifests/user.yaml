@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: userservice
-        image: colibristn/userservice:v0.1.1
+        image: colibristn/userservice:v0.2.2
         ports:
         - containerPort: 5001
         env:

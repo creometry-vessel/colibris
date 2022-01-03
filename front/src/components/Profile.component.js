@@ -109,9 +109,9 @@ export default function Profile() {
 
       <div className="container-fluid mt-3 contact">
         <div className="row ">
-          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3 padding  contact-form">
+          <div className="col-lg-12 mb-3 padding  contact-form">
               <div className="row container-fluid">
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <div className="col-lg-12 mb-3">
                   <input
                     placeholder="nom et prénom"
                     className="form-control"
@@ -119,8 +119,8 @@ export default function Profile() {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                
+                <div className="col-lg-12 mb-3">
                   <input
                     placeholder="addresse email"
                     className="form-control"
@@ -129,16 +129,17 @@ export default function Profile() {
                   />
                 </div>
 
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <div className="col-lg-12 mb-3">
                   <input
                     placeholder="numero de téléphone"
                     className="form-control"
+                    type="number"
                     value={phone1}
                     onChange={(e) => setPhone1(e.target.value)}
                   />
                 </div>
                 {enablePhone2 ? (
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div className="col-lg-12 mb-3">
                     <input
                       placeholder="deuxiéme numero de téléphone"
                       className="form-control mb-2"
@@ -156,7 +157,7 @@ export default function Profile() {
                     </a>
                   </div>
                 ) : (
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div className="col-lg-12 mb-3">
                     <a
                       className="btn-circle mt-2"
                       onClick={() => {
@@ -167,12 +168,12 @@ export default function Profile() {
                     </a>
                   </div>
                 )}
-                <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <div className="col-lg-12 mb-3">
 
                   <Address id="ad1" street={street1} setStreet={setStreet1} city={city1} setCity={setCity1} gov={gov1} setGov={setGov1} lat={lat1} setLat={setLat1} lng={lng1} setLng={setLng1} />
                 </div>
                 {enableAddr2 ? (
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div className="col-lg-12 mb-3">
                           <Address id="ad2" street={street2} setStreet={setStreet2} city={city2} setCity={setCity2} gov={gov2} setGov={setGov2} lat={lat2} setLat={setLat2} lng={lng2} setLng={setLng2} />
 
                     <a
@@ -191,7 +192,7 @@ export default function Profile() {
                     </a>
                   </div>
                 ) : (
-                  <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                  <div className="col-lg-12 mb-4">
                     <a
                       className="btn-circle"
                       onClick={() => {

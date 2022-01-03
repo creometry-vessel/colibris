@@ -1,4 +1,23 @@
 import { useEffect, useRef } from "react";
+let coord = [
+  {
+    gov: "Ariana",
+    villes: ["Riadh el Andalous", "Ghazela", "Soukra", "Chotrana", "Ennasr", "Jardins Menzah"]
+  },
+  {
+    gov: "Ben Arous",
+    villes: ["Ben Arous", "Mourouj", "Megrine", "Morneg"]
+  },
+  {
+    gov: "Nabeul",
+    villes: ["Hammamet", "Nabeul"]
+  },
+  {
+    gov: "Tunis",
+    villes: ["Marsa", "Gammarth", "Ain Zaghouan", "Aouina", "Lac 1", "Lac 2", "Kram", "Sidi Boussaid", "Carthage", "Manar", "Mutuelleville" , "Bardo", "Alain Savary", "Menzah 1", "Centre Urbain", "Jardins de Carthage" ]
+  },
+  
+]
 export default function Address(props) {
   const _map = useRef(null);
   const _marker = useRef(null);
@@ -70,7 +89,30 @@ export default function Address(props) {
   }
     return(
         <div >
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div className="col-lg-12 mb-3">
+                      <select className="col-lg-12 mb-3" onChange={(e)=> props.setGov(e.target.value)} value={props.gov}>
+                        <option>--Governorat--</option>
+                        {coord.map((element, index)=>(
+                          <option index={index}>{element.gov}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="col-lg-12 mb-3">
+                    <select className="col-lg-12 mb-3" onChange={(e)=> props.setCity(e.target.value)} value={props.city}>
+                        <option>--Ville--</option>
+                        {coord.map((element, index)=>{
+                          if(element.gov == props.gov){
+                            element.villes = element.villes.sort()
+                            return(element.villes.map((ville)=>(
+                              <option>{ville}</option>
+                            )))
+                          }
+                          
+                        }
+                        )}
+                      </select>
+                    </div>
+                    <div className="col-lg-12 mb-3">
                       <input
                         placeholder="rue"
                         className="form-control"
@@ -78,24 +120,7 @@ export default function Address(props) {
                         onChange={(e) => props.setStreet(e.target.value)}
                       />
                     </div>
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <input
-                        placeholder="ville"
-                        className="form-control"
-                        value={props.city}
-                        onChange={(e) => props.setCity(e.target.value)}
-                      />
-                    </div>
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                      <input
-                        placeholder="governorat"
-                        className="form-control"
-                        value={props.gov}
-                        onChange={(e) => props.setGov(e.target.value)}
-                      />
-                    </div>
-
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div className="col-lg-12 mb-3">
                       <input
                         placeholder="lat"
                         className="form-control"
@@ -106,7 +131,7 @@ export default function Address(props) {
                       />
                     </div>
 
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <div className="col-lg-12 mb-3">
                       <input
                         placeholder="lng"
                         className="form-control"
@@ -116,12 +141,16 @@ export default function Address(props) {
                         onChange={(e) => props.setLng(parseFloat(e.target.value))}
                       />
                     </div>
+                    <div className="col-lg-2">
+                    <button onClick={()=>getMarkerFromAddress()} className="btn custom-btn">
+                      Marquer sur la map
+                    </button>
+                </div>
                     <div
                         id={props.id}
                         className="mt-3 container-fluid"
                         style={{ width: "90%", height: "400px" }}
                     ></div>
-                    <button onClick={()=>getMarkerFromAddress()}>get marker</button>
                   </div>
     )
 }
