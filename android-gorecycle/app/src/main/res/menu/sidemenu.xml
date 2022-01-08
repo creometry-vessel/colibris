@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemhome"
+        android:title="Accueil"
+        android:icon="@drawable/accu"/>
+    <item
+        android:id="@+id/itemlist"
+        android:title="Vos Donnations"
+        android:icon="@drawable/list"/>
+
+    <item
+        android:id="@+id/itemprofile"
+        android:title="Profil"
+        android:icon="@drawable/proofil"/>
+    <item
+        android:id="@+id/itemcode"
+        android:title="Mon Qr_Code"
+        android:icon="@drawable/code"/>
+    <item
+        android:id="@+id/itemscore"
+        android:title="Mon Score"
+        android:icon="@drawable/score"/>
+    <item
+        android:id="@+id/itemevenement"
+        android:title="Mes evenements"
+        android:icon="@drawable/events"/>
+    <item
+        android:id="@+id/itemsponsor"
+        android:title="Nos Sponsor"
+        android:icon="@drawable/list"/>
+
+    <item
+        android:id="@+id/itemlogout"
+        android:title="Deconnexion"
+        android:icon="@drawable/logout"/>
+</menu>

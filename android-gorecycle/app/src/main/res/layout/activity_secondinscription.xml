@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/signin"
+    android:orientation="vertical"
+    tools:context=".secondinscription">
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="360dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ecologo" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="450dp"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="6dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+
+            <EditText
+                android:id="@+id/Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/editext"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+
+                android:elevation="8dp"
+
+                />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/editext"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:elevation="8dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+            <EditText
+                android:id="@+id/Confirmpassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/editext"
+                android:inputType="textPassword"
+                android:hint="Confirm Password"
+                android:elevation="8dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+            <EditText
+                android:id="@+id/Adresse"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/editext"
+                android:hint="Adresse"
+                android:elevation="8dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+           <androidx.appcompat.widget.AppCompatSpinner
+               android:id="@+id/status"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"
+             
+
+               />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
+            <Button
+                android:id="@+id/inscrire"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button"
+                android:fontFamily="@font/frank_bold"
+                android:textSize="18dp"
+                android:text="S'inscrire"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            android:text="40 cite zitouna 2 kantaoui Sousse,4089"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp"
+            android:fontFamily="@font/roboto_bold"
+
+            />
+        <TextView
+            android:id="@+id/latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            android:text="40 cite zitouna 2 kantaoui Sousse,4089"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp"
+            android:fontFamily="@font/roboto_bold"
+
+            />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

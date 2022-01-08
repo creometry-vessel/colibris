@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/bachkroug2"
+    tools:openDrawer="start"
+    tools:context=".AccueilSponsor">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frame_layout"
+            >
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="152dp"
+                android:theme="@style/AppTheme2"
+                app:layout_constraintBottom_toTopOf="@+id/cardscore"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:navigationIcon="@drawable/iconmenu"
+
+                />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/carddetail"
+                android:layout_width="350dp"
+                android:layout_height="400dp"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="6dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="201dp"
+                android:layout_marginEnd="31dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robo_regular"
+                    android:text="Introduire les points a transferer"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+                <EditText
+                    android:id="@+id/points"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/frank_bold"
+                android:outlineAmbientShadowColor="@color/colorPrimary"
+                android:outlineSpotShadowColor="@color/colorPrimary"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:inputType="number"
+                android:textColor="@color/colorPrimary"
+                android:textColorHighlight="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary"
+                />
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="80dp"/>
+                <Button
+                    android:id="@+id/transferer"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Transeferer"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/robo_regular"
+                    android:background="@drawable/button"/>
+
+
+            </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+       <com.google.android.material.navigation.NavigationView
+            android:id="@+id/sidenavig"
+            android:layout_width="wrap_content"
+            app:itemTextColor="@color/colorPrimaryDark"
+            app:itemIconTint="@color/colorPrimaryDark"
+            app:menu="@menu/menusponsor"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/sidemenu"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+    </androidx.drawerlayout.widget.DrawerLayout>
+
