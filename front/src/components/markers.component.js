@@ -13,7 +13,6 @@ export default function Markers() {
       lat: data.lat,
       lng: data.lng,
     };
-    console.log(latlng);
     geocoder
       .geocode({ location: latlng })
       .then((response) => {
@@ -46,16 +45,13 @@ export default function Markers() {
       marker.setMap(null);
     }
     axios
-      .put(
-        `${process.env.REACT_APP_APPOINT_SERVICE_URI}`,
-        {
-          today: (new Date()+"").substring(4,15),
-          userID: Gdata.userID,
-          status: status,
-          description: args[0]?args[0]: ""
-        }
-       
-      )
+      .put(`${window.ENV.APPOINT_SERVICE_URI}`, {
+        //today: (new Date()+"").substring(4,15),
+        today: (new Date()+"").substring(4,15),
+        userID: Gdata.userID,
+        status: status,
+        description: args[0] ? args[0] : "",
+      })
       .then((res) => {
         if (res.data.data) geocodeLatLng(res.data.data);
         else window.alert("you have no more markers");
@@ -67,7 +63,7 @@ export default function Markers() {
       const script = document.createElement("script");
       script.src =
         "https://maps.googleapis.com/maps/api/js?key=" +
-        process.env.REACT_APP_GOOGLE_API_KEY +
+        window.ENV.GOOGLE_API_KEY +
         "&callback=initMap&v=weekly";
       script.async = true;
       document.body.appendChild(script);
@@ -82,24 +78,36 @@ export default function Markers() {
       infowindow = new window.google.maps.InfoWindow();
     }, 1000);
   });
-  
+
   return (
     <div>
-      <button
-        onClick={() => {
-          window.location.href = "/#form";
-        }}
-      >
-        {"<--Form"}
-      </button>
-      <div id="map" style={{ width: "100%", height: "400px" }}></div>
-      <input
-        id="submit"
-        type="button"
-        value="next"
-        onClick={() => getMarker("success")}
-      />
-      <Dialog getMarker={getMarker} />
+      <div className="page-header mb-3">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h2>Markers</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container-fluid">
+        <div id="map" style={{ width: "100%", height: "400px" }}></div>
+        <div className="mt-2 row align-items-center">
+          <div className="col-lg-5"></div>
+          <div className="ml-2 mt-2">
+            <input
+              className="btn custom-btn"
+              id="submit"
+              type="button"
+              value="next →"
+              onClick={() => getMarker("success")}
+            />
+          </div>
+          <div className="ml-3 mt-2">
+            <Dialog getMarker={getMarker} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
