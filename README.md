@@ -6,15 +6,15 @@
 Colibris is an environmental service company that provides door-to-door pick up of recyclabe waste with an incentive system and behavioural mechanisms to encourage eco-responsible waste management.
 This repository hosts the software used by Colibris to automate the business process and track customers, pick-ups, incentives, and generate insights.
 
-## [Contribution guidelines](docs/CONTRIBUTING.md)
+## ![Contribution guidelines](./CONTRIBUTING.md)
 Feel free to fork the repo and send PRs
 
-## License
+## ![License](./LICENSE)
 This project is licensed under the terms of the [GPLv3 license](https://choosealicense.com/licenses/gpl-3.0).
 do almost anything they want with your project, **except distributing closed source versions**.
 
 ## Maintainers
 This software is developed and maintained by [Creometry Lab](https://lab.creometry.com)
 
-## Security vulnerabilities reporting
-Report vulnerabilities privately to [the maintainers via email](mailto:colibris@creometry.dev?subject=[Colibris]%20security%20vulnerability)
+## [Security vulnerabilities reporting](./SECURITY.md)
+Please report vulnerabilities privately to [the maintainers via email](mailto:colibris@creometry.dev)
