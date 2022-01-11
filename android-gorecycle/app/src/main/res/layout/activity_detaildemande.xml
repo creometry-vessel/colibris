@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bachkroug2"
+    tools:context=".Detaildemande">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="160dp"
+        android:theme="@style/AppTheme2"
+        app:layout_constraintBottom_toTopOf="@+id/cardscore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:navigationIcon="@drawable/iconmenu" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/carddetail"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="6dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="201dp"
+        android:layout_marginEnd="31dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="detail donnation"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="@font/frank_bold"
+                android:textSize="20dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vector"/>
+
+                <TextView
+                    android:id="@+id/nomdetail"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:background="@color/cardview_light_background"
+                    android:text="Mahdi Khelil"
+                    android:textAllCaps="false"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/robo_regular"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:id="@+id/numdetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="28411000"
+                android:textColor="@color/colorlight"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/produitname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/robo_regular"
+                    android:text="Bouteille en verre"
+                    />
+                <TextView
+                    android:id="@+id/detailqantite"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robo_regular"
+                    android:textColor="@color/colorlight"
+                    android:text="5 bouteilles"/>
+
+
+            </LinearLayout>
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="10dp"/>
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/datedonnation"
+                    android:layout_width="130dp"
+                    android:fontFamily="@font/robo_regular"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorlight"
+                    android:text="deposé lundi à 21:30"
+                    />
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorlight"
+                    android:fontFamily="@font/robo_regular"
+                    android:text="wxplfjg4"/>
+                <TextView
+                    android:id="@+id/tempsattente"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12dp"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/robo_regular"
+                    android:text="2 heures d'attente"
+                    android:layout_marginBottom="10dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnannuler"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="170dp"
+                android:text="Annuler"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/robo_regular"
+                android:background="@drawable/button2"/>
+
+            <Button
+                android:id="@+id/btnchat"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/chat"
+                android:textSize="5dp" />
+        </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

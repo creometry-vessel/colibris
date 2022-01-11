@@ -6,25 +6,16 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
+  tls:
+  - hosts:
+    - colibris.creometry.dev
+    secretName: test
   rules:
   - host: colibris.creometry.dev
     http:
       paths:
-      - path: /users
-        pathType: Prefix
-        backend:
-          service:
-            name: user
-            port:
-              number: 5001
-      - path: /appointments
-        pathType: Prefix
-        backend:
-          service:
-            name: appointment
-            port:
-              number: 5000
       - path: /
         pathType: Prefix
         backend:

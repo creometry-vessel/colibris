@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bachkroug2"
+    tools:context=".Ramasseurpswd">
+
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="130dp"
+        android:text="Modifier Votre password"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="@font/roboto_bold"
+        android:textAllCaps="false"
+        android:textSize="20dp"
+        android:layout_marginBottom="360dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="6dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <EditText
+                android:id="@+id/cd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:hint="Code" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+            <EditText
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:hint="Mot de passe"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:password="true"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+            <EditText
+                android:id="@+id/rep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:hint="Repeter Mot de passe"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:password="true"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+            <Button
+                android:id="@+id/reset"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button"
+                android:fontFamily="@font/frank_bold"
+                android:textSize="12dp"
+                android:text="Changer Mot de passe"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

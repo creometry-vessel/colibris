@@ -15,15 +15,19 @@ spec:
     spec:
       containers:
       - name: front
-        image: colibristn/front:v0.1.1
+        image: colibristn/front:v0.2.4
         ports:
         - containerPort: 80
-        env:
-          - name: REACT_APP_GOOGLE_API_KEY
-            valueFrom:
-              configMapKeyRef:
-                name: colibris-configmap
-                key: google_key 
+        volumeMounts:
+          - name: config
+            mountPath: /usr/share/nginx/html/config.js
+            readOnly: true
+            subPath: config.js
+      volumes:
+      - name: config
+        configMap:
+          name: testing-configmap
+
 ---
 apiVersion: v1
 kind: Service

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bachkroug2"
+    android:orientation="vertical"
+    tools:context=".RamasseurProfil">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardscore"
+        android:layout_width="350dp"
+        android:layout_height="450dp"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="6dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="201dp"
+        android:layout_marginEnd="31dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mon Profil"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="20dp"/>
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+            <ImageView
+                android:id="@+id/imageram"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/vector"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:orientation="horizontal">
+            <TextView
+                android:id="@+id/firstr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="true"
+                android:text="Imen El abed"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15dp"
+                android:fontFamily="@font/robo_regular"
+                />
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/lastr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="true"
+                android:text="Imen El abed"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15dp"
+                android:fontFamily="@font/robo_regular"
+                />
+        </LinearLayout>
+            <TextView
+                android:id="@+id/numramasseur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="true"
+                android:text="55755201"
+                android:textColor="@color/colorlight"
+                android:textSize="12dp"
+                android:fontFamily="@font/roboto_bold"
+                />
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="10dp"/>
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textColor="@color/colorlight"
+                android:textSize="12dp"
+                android:fontFamily="@font/roboto_bold"
+                />
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnmodif"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:editable="true"
+                android:text="Enregistrer"
+                android:textColor="@color/colorAccent"
+                android:background="@drawable/button"
+                android:textSize="10dp"
+                android:textAllCaps="false"
+                android:fontFamily="@font/robo_regular"
+                />
+               <Space
+                   android:layout_width="20dp"
+                   android:layout_height="20dp"/>
+               <Button
+               android:id="@+id/reset"
+               android:layout_width="100dp"
+               android:layout_height="25dp"
+               android:editable="true"
+               android:text="Modifier mot de passe"
+               android:textColor="@color/colorPrimary"
+               android:background="@drawable/button2"
+               android:textSize="8dp"
+                   android:textAllCaps="false"
+               android:fontFamily="@font/robo_regular"
+               />
+           </LinearLayout>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
