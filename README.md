@@ -1,5 +1,5 @@
-# Colibris Tunisia 
-### أعمل إلي عليك
+# Colibris Tunisia أعمل إلي عليك
+
 ![foo](https://github.com/creometry-incubator/colibris/blob/8cca564b56108597bf1c6ee9bc061ec8a61d1b59/front/public/images/colibris.png "title")
 
 ## Overview
@@ -9,6 +9,6 @@ This repository hosts the software used by Colibris to automate the business pro
 
 
 [Contribution guidelines](docs/CONTRIBUTING.md)
+Feel free to fork the repo and send PRs
 
-
-This software is developed and maintained by @github/Creometry.
+This software is developed and maintained by @github/Creometry
