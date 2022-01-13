@@ -3,8 +3,6 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import Address from "./address-form.component";
 
-let map = null;
-let marker = null;
 export default function Profile() {
   const [lat1, setLat1] = useState(0);
   const [lng1, setLng1] = useState(0);
