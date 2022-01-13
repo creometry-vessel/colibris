@@ -111,12 +111,12 @@ export default function Form(props) {
       }
     };
     return(
-        <div class="booking-form">
+        <div className="booking-form">
 
-        <div class="control-group">
-                    <div class="input-group">
+        <div className="control-group">
+                    <div className="input-group">
                       <select
-                        class="custom-select form-control"
+                        className="custom-select form-control"
                         multiple="yes"
                         onClick={(e) => getAllWeek(addresses[e.target.value])}
                       >
@@ -129,10 +129,10 @@ export default function Form(props) {
                       </select>
                     </div>
                   </div>
-                  <div class="control-group">
-                    <div class="input-group">
+                  <div className="control-group">
+                    <div className="input-group">
                       <select
-                        class="custom-select form-control"
+                        className="custom-select form-control"
                         multiple="yes"
                         onChange={(e) => {
                           setChosen(e.target.value);
@@ -151,7 +151,7 @@ export default function Form(props) {
                     <div className="col-lg-4 text-center">
                       <button
                         onClick={Submit}
-                        class="btn custom-btn"
+                        className="btn custom-btn"
                       >
                         Submit
                       </button>

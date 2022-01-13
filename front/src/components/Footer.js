@@ -3,59 +3,59 @@ class Footer extends React.Component {
   render() {
     return (
       <div>
-        <div class="footer">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="footer-contact">
+        <div className="footer">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6">
+                <div className="footer-contact">
                   <h2>Infos</h2>
                   <p>
-                    <i class="fa fa-map-marker"></i>123 Street, New York, USA
+                    <i className="fa fa-map-marker"></i>123 Street, New York, USA
                   </p>
                   <p>
-                    <i class="fa fa-phone"></i>58 330 734
+                    <i className="fa fa-phone"></i>58 330 734
                   </p>
                   <p>
-                    <i class="fa fa-envelope"></i>
+                    <i className="fa fa-envelope"></i>
                     selim@colibristunisie.com
                   </p>
-                  <div class="footer-social">
+                  <div className="footer-social">
                     <a href="">
-                      <i class="fab fa-twitter"></i>
+                      <i className="fab fa-twitter"></i>
                     </a>
                     <a href="https://www.facebook.com/colibristunisie">
-                      <i class="fab fa-facebook-f"></i>
+                      <i className="fab fa-facebook-f"></i>
                     </a>
                     <a href="">
-                      <i class="fab fa-youtube"></i>
+                      <i className="fab fa-youtube"></i>
                     </a>
                     <a href="https://www.instagram.com/colibristunisie/">
-                      <i class="fab fa-instagram"></i>
+                      <i className="fab fa-instagram"></i>
                     </a>
                     <a href="">
-                      <i class="fab fa-linkedin-in"></i>
+                      <i className="fab fa-linkedin-in"></i>
                     </a>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6">
-                <div class="footer-newsletter">
+              <div className="col-lg-6">
+                <div className="footer-newsletter">
                   <h2>Newsletter</h2>
                   <p>
                     Lorem ipsum dolor sit amet elit. Quisque eu lectus a leo
                     dictum nec non quam. Tortor eu placerat rhoncus, lorem quam
                     iaculis felis, sed lacus neque id eros.
                   </p>
-                  <div class="form">
-                    <input class="form-control" placeholder="Email goes here" />
-                    <button class="btn custom-btn">Submit</button>
+                  <div className="form">
+                    <input className="form-control" placeholder="Email goes here" />
+                    <button className="btn custom-btn">Submit</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="copyright">
-            <div class="container">
+          <div className="copyright">
+            <div className="container">
               <p>
                 Copyright &copy; <a href="#">Colibris</a>, All Right Reserved.{" "}
                 <br />

@@ -16,19 +16,19 @@ export default function Form() {
             </div>
           </div>
         </div>
-        <div class="booking">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-lg-4">
-                <div class="booking-content">
-                  <div class="section-header">
+        <div className="booking">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-lg-4">
+                <div className="booking-content">
+                  <div className="section-header">
                     <h2>
                       Book Your appointment & wait for our agent to call you{" "}
                     </h2>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-8">
+              <div className="col-lg-8">
                 <AppointmentForm close={(message)=>{
                   window.alert(message);
                   window.location.href = "/";

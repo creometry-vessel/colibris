@@ -40,7 +40,7 @@ export default function ConfirmationDialog(props) {
 
   return (
     <div>
-      <a className="red-btn" onClick={handleClickListItem}><i class="fas fa-pen"></i></a>
+      <a className="red-btn" onClick={handleClickListItem}><i className="fas fa-pen"></i></a>
       <ConfirmationDialogRaw
         id="ringtone-menu"
         keepMounted
