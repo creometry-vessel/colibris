@@ -3,9 +3,9 @@ let Appointment = require("../models/appointment.models");
 const axios = require("axios");
 router.route('/').post(async (req, res)=>{
     try{
-        let appointment = await Appointment.findOne({Date: req.body.date, userID: req.body.userID, address: req.body.address});
+        let appointment = await Appointment.findOne({date: req.body.date, userID: req.body.userID, address: req.body.address});
         if(!appointment){
-            appointment = new Appointment({userID: req.body.userID, status: "waiting", description: "", Date: req.body.date, address: req.body.address});
+            appointment = new Appointment({userID: req.body.userID, status: "waiting", description: "", date: req.body.date, address: req.body.address});
             await appointment.save();
             res.json("booked successfully !!!")
         }
@@ -41,14 +41,14 @@ router.route('/').post(async (req, res)=>{
      res.json("deleted")
  })
 
- router.route('/').put(async (req, res)=>{
-    let newAppointment = await Appointment.findOne({Date: req.body.today, userID: req.body.userID});
+ /*router.route('/').put(async (req, res)=>{
+    let newAppointment = await Appointment.findOne({date: req.body.today, userID: req.body.userID});
     if(newAppointment){
         newAppointment.status = req.body.status;
         newAppointment.description = req.body.description;
         await newAppointment.save();
     }
-    let nextApp = await Appointment.findOne({Date: req.body.today, status: "waiting"});
+    let nextApp = await Appointment.findOne({date: req.body.today, status: "waiting"});
     if(nextApp){
         let user = (await axios.get(process.env.USER_SERVICE_URL+'/'+nextApp.userID)).data
     
@@ -67,5 +67,14 @@ router.route('/').post(async (req, res)=>{
     }
    else res.json("finished!!")
     
+})*/
+
+router.route('/').put(async (req, res)=>{
+    let app = await Appointment.findById(req.body.id);
+    app.date = req.body.date? req.body.date : app.date;
+    app.address = req.body.address? req.body.address : app.address;
+    app.status = req.body.status? req.body.status : app.status;
+    app.description = req.body.description? req.body.description : app.description;
+    app.save().then(response=> res.json(response))
 })
 module.exports = router;
