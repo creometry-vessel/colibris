@@ -15,10 +15,12 @@ function ConfirmationDialogRaw(props) {
       {...other}
     >
       <DialogContent dividers>
-        <AppoitmentForm id={id} close={()=>{
-          onClose();
-          refresh()
-
+        <AppoitmentForm id={id} close={(message)=>{
+          window.alert(message)
+          if(message == "Changed Successfully !"){
+            onClose();
+            refresh()
+          }
         }} />
       </DialogContent>
     </Dialog>
@@ -32,7 +34,7 @@ export default function ConfirmationDialog(props) {
     setOpen(true);
   };
 
-  const handleClose = (newValue) => {
+  const handleClose = () => {
     setOpen(false);
   };
 

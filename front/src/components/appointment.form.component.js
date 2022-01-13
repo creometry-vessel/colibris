@@ -97,7 +97,7 @@ export default function Form(props) {
       let response ;
       if(props.id){
         response = await axios.put(`${window.ENV.APPOINT_SERVICE_URI}`, {
-          date: chosen, address: currentAddr, id: props.id
+            userID: cookies.colibrisID, date: chosen, address: currentAddr, id: props.id
         })
       }
       else  response = await axios.post(
@@ -107,7 +107,7 @@ export default function Form(props) {
       if (response.data.error) {
         window.alert("Server error !!");
       } else {
-        props.close();
+        props.close(response.data);
       }
     };
     return(

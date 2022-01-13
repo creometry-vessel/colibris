@@ -61,7 +61,7 @@ export default function History(props) {
             {current.map((element, index) => (
               <tr>
               <th scope="row">{index + 1}</th>
-              <td>{element.Date}</td>
+              <td>{element.date}</td>
               <td>{element.address.street+" ,"+element.address.city+" ,"+element.address.governorate}</td>
               <td>
                 <a className="red-btn" onClick={() => deleteApp(element._id, index)}>X</a>

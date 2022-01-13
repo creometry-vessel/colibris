@@ -71,10 +71,19 @@ router.route('/').post(async (req, res)=>{
 
 router.route('/').put(async (req, res)=>{
     let app = await Appointment.findById(req.body.id);
-    app.date = req.body.date? req.body.date : app.date;
-    app.address = req.body.address? req.body.address : app.address;
-    app.status = req.body.status? req.body.status : app.status;
-    app.description = req.body.description? req.body.description : app.description;
-    app.save().then(response=> res.json(response))
+    let app2 = await Appointment.findOne({
+        date: req.body.date? req.body.date : app.date ,
+        address: req.body.address? req.body.address : app.address,
+        userID : req.body.userID
+    })
+    console.log(app2)
+    if(! app2){
+        app.date = req.body.date? req.body.date : app.date;
+        app.address = req.body.address? req.body.address : app.address;
+        app.status = req.body.status? req.body.status : app.status;
+        app.description = req.body.description? req.body.description : app.description;
+        app.save().then(()=> res.json("Changed Successfully !"))
+    } 
+    else res.json("already booked")
 })
 module.exports = router;

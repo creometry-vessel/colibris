@@ -29,8 +29,8 @@ export default function Form() {
                 </div>
               </div>
               <div class="col-lg-8">
-                <AppointmentForm close={()=>{
-                  window.alert("Booked Successfully !");
+                <AppointmentForm close={(message)=>{
+                  window.alert(message);
                   window.location.href = "/";
                   }} />
               </div>
