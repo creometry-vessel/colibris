@@ -76,7 +76,6 @@ router.route('/').put(async (req, res)=>{
         address: req.body.address? req.body.address : app.address,
         userID : req.body.userID
     })
-    console.log(app2)
     if(! app2){
         app.date = req.body.date? req.body.date : app.date;
         app.address = req.body.address? req.body.address : app.address;
