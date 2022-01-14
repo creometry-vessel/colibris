@@ -44,8 +44,8 @@ export default function Markers() {
     if (marker) {
       marker.setMap(null);
     }
-    /*axios
-      .put(`${window.ENV.APPOINT_SERVICE_URI}`, {
+    axios
+      .put(`${window.ENV.APPOINT_SERVICE_URI}/markers`, {
         today: (new Date()+"").substring(4,15),
         userID: Gdata.userID,
         status: status,
@@ -54,7 +54,7 @@ export default function Markers() {
       .then((res) => {
         if (res.data.data) geocodeLatLng(res.data.data);
         else window.alert("you have no more markers");
-      });*/
+      });
   };
 
   useEffect(() => {
