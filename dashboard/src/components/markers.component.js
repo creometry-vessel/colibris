@@ -80,7 +80,7 @@ export default function Markers() {
 
   return (
     <div>
-      <div className="page-header mb-3">
+      <div className=" mb-3">
         <div className="container">
           <div className="row">
             <div className="col-12">
