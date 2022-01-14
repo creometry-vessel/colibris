@@ -64,9 +64,14 @@ export default function Form(props) {
       axios
         .get(`${window.ENV.USER_SERVICE_URI}/` + cookies.colibrisID)
         .then((res) => {
-          setAddre(res.data.addresses);
+          let final = []
+          for(let addr of res.data.addresses){
+            if(addr.street && addr.city && addr.governorate && addr.lat && addr.lng){
+              final.push(addr)
+            }
+          }
+          setAddre(final);
         });
-      getDatePerLocation("lac 1");
     }, [cookies.colibrisID]);
   
     const getAllWeek = (address) => {
@@ -89,7 +94,8 @@ export default function Form(props) {
         days.push((today + "").substring(4, 15));
       }
       setCurrent(address);
-      setAvailableDates(days);
+      
+      setAvailableDates(days.sort());
     };
   
     const Submit = async () => {
@@ -118,11 +124,11 @@ export default function Form(props) {
                       <select
                         className="custom-select form-control"
                         multiple="yes"
-                        onClick={(e) => getAllWeek(addresses[e.target.value])}
+                        onChange={(e) => getAllWeek(addresses[e.target.value])}
                       >
                         <option>--choose an address--</option>
                         {addresses.map((add, index) => (
-                          <option value={index}>
+                          <option value={index} key={index} >
                             {add.street}, {add.city}, {add.governorate}{" "}
                           </option>
                         ))}
@@ -135,12 +141,13 @@ export default function Form(props) {
                         className="custom-select form-control"
                         multiple="yes"
                         onChange={(e) => {
+                          if(e.target.value !== "--choose a date for your appointement--")
                           setChosen(e.target.value);
                         }}
                       >
                         <option>--choose a date for your appointement--</option>
-                        {availableDates.map((date) => (
-                          <option>{date}</option>
+                        {availableDates.map((date, index) => (
+                          <option key={index*10}>{date}</option>
                         ))}
                       </select>
                     </div>
