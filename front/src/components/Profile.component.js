@@ -3,8 +3,6 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import Address from "./address-form.component";
 
-let map = null;
-let marker = null;
 export default function Profile() {
   const [lat1, setLat1] = useState(0);
   const [lng1, setLng1] = useState(0);
@@ -27,7 +25,7 @@ export default function Profile() {
     axios
       .get(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`)
       .then((res) => {
-        setName(res.data.Name);
+        setName(res.data.name);
         setPhone1(res.data.phone1);
         setStreet1(res.data.addresses[0].street);
         setCity1(res.data.addresses[0].city);
@@ -50,23 +48,25 @@ export default function Profile() {
       });
   }, [cookies.colibrisID]);
 
+
+  const verify = ()=>{
+    //check all info
+    if(! name || !email || !phone1 || !street1 || !city1 || !gov1 || !lat1 || !lng1 ) return "please fill the form";
+    //check phone 
+    if(phone1.length !== 8 && (phone1.substring(0,1)!== "9" || phone1.substring(0,1) !== "2" || phone1.substring(0,1) !== "5") )
+    return "verifier numero de telephone"
+    if(phone2 && phone2.length !== 8 && (phone2.substring(0,1)!== "9" || phone2.substring(0,1) !== "2" || phone2.substring(0,1) !== "5") )
+    return "verifier le deuxiéme numéro de telephone"    
+    return "ok"
+  }
+
+
   const Submit = () => {
-    /*if (!name || !phone1 || !address1 || !lat1 || !lng1) {
-      window.alert("please fill all the form");
+    let verif = verify()
+    if(verif !== "ok"){
+      window.alert(verif)
       return;
     }
-    if (phone1.length !== 8) {
-      window.alert("phone number should be an 8 digit");
-      return;
-    }
-    if (lat1 > 90 || lat1 < -90) {
-      window.alert("insert a valid latitude");
-      return;
-    }
-    if (lng1 > 180 || lng1 < -180) {
-      window.alert("insert a valid longitude");
-      return;
-    }*/
     let addresses = [
       { street: street1, city: city1, governorate: gov1, lat: lat1, lng: lng1 },
     ];
@@ -81,7 +81,7 @@ export default function Profile() {
     }
     axios
       .put(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`, {
-        Name: name,
+        name: name,
         phone1: phone1,
         phone2: phone2,
         addresses: addresses,

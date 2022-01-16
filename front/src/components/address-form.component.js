@@ -93,7 +93,7 @@ export default function Address(props) {
                       <select className="col-lg-12 mb-3" onChange={(e)=> props.setGov(e.target.value)} value={props.gov}>
                         <option>--Governorat--</option>
                         {coord.map((element, index)=>(
-                          <option index={index}>{element.gov}</option>
+                          <option index={index} key={index}>{element.gov}</option>
                         ))}
                       </select>
                     </div>
@@ -103,8 +103,8 @@ export default function Address(props) {
                         {coord.map((element, index)=>{
                           if(element.gov == props.gov){
                             element.villes = element.villes.sort()
-                            return(element.villes.map((ville)=>(
-                              <option>{ville}</option>
+                            return(element.villes.map((ville, index2)=>(
+                              <option key={index + "," + index2}>{ville}</option>
                             )))
                           }
                           

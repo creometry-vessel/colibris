@@ -8,7 +8,7 @@ const clientSchema = new Schema({
         trim: true,
         required: true
     },
-    Name: {
+    name: {
         type: String, 
         trim: true
     },
@@ -24,17 +24,12 @@ const clientSchema = new Schema({
         type: String,
         trim: true
     },
-    MultipleLocation: {
-        type: Boolean,
-        required: true,
-        default: false
-    },
     addresses:{
         type: Array,
         required: true,
         default: []
     },
-    Score: {
+    score: {
         type: Number,
         required: true,
         default: 2.5
