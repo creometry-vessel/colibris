@@ -31,7 +31,7 @@ jobs:
       name: Build & push Docker image
       with:
         image: colibristn/dashboard
-        tags: v0.2.4
+        tags: v0.1.0
         dockerfile: dashboard/Dockerfile
         registry: docker.io
         directory: dashboard
