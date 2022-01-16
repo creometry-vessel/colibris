@@ -1,4 +1,3 @@
-import Markers from "./components/markers.component";
 import Home from './components/Home';
 import Profile from "./components/Profile.component"
 import Appointement from "./components/appointment.component"
@@ -20,7 +19,6 @@ function App() {
         {cookies.colibrisID? (
           <div>
         <Route exact path ="/appointment" component={Appointement} />
-        <Route exact path="/markers" component={Markers} />
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/history" component={History} />
           </div>

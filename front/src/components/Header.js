@@ -52,7 +52,7 @@ class Header extends React.Component {
                   </a>
 
                   <a
-                    class="btn custom-btn"
+                    className="btn custom-btn"
                     onClick={this.removeCookies}
                     href="/"
                   >

@@ -8,7 +8,7 @@ import Dialog from "@mui/material/Dialog";
 const options = ["Client injoignable", "Place non reconnue"];
 
 function ConfirmationDialogRaw(props) {
-  const { onClose, value: valueProp, open, getMarker, ...other } = props;
+  const { onClose, open, getMarker, ...other } = props;
 
   return (
     <Dialog
@@ -44,7 +44,6 @@ function ConfirmationDialogRaw(props) {
 
 export default function ConfirmationDialog(props) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("Dione");
 
   const handleClickListItem = () => {
     setOpen(true);
@@ -52,10 +51,6 @@ export default function ConfirmationDialog(props) {
 
   const handleClose = (newValue) => {
     setOpen(false);
-
-    if (newValue) {
-      setValue(newValue);
-    }
   };
 
   return (
@@ -68,7 +63,6 @@ export default function ConfirmationDialog(props) {
         keepMounted
         open={open}
         onClose={handleClose}
-        value={value}
         getMarker={props.getMarker}
       />
     </div>

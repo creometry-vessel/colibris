@@ -36,14 +36,14 @@ class Home extends React.Component {
     return (
       <div>
         
-        <div class="carousel">
-            <div class="container-fluid">
-                <div class="">
-                    <div class="carousel-item">
-                        <div class="carousel-img">
+        <div className="carousel">
+            <div className="container-fluid">
+                <div className="">
+                    <div className="carousel-item">
+                        <div className="carousel-img">
                             <img src="img/colibris8.jpg" alt="Image"/>
                         </div>
-                        <div class="carousel-text">
+                        <div className="carousel-text">
                             <h1>  أعمل إلّي <span>عليك</span> </h1>
                             <p>
                             Colibris crée des emplois décents et durables en organisant la collecte, en porte à porte, des déchets recyclables des ménages et des entreprises.    
@@ -65,22 +65,22 @@ class Home extends React.Component {
                 </div>
             </div>
         </div>
-        <div class="about">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="about-img">
+        <div className="about">
+            <div className="container">
+                <div className="row align-items-center">
+                    <div className="col-lg-6">
+                        <div className="about-img">
                             <img src="img/colibris1.jpg" alt="Image"/>
                            
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="about-content">
-                            <div class="section-header">
+                    <div className="col-lg-6">
+                        <div className="about-content">
+                            <div className="section-header">
                                 <p>About Us</p>
                                 <h2>Collecting Since 2018</h2>
                             </div>
-                            <div class="about-text">
+                            <div className="about-text">
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
                                 </p>
@@ -93,24 +93,24 @@ class Home extends React.Component {
                 </div>
             </div>
         </div>
-        <div class="about">
-            <div class="container">
-                <div class="row align-items-center">
+        <div className="about">
+            <div className="container">
+                <div className="row align-items-center">
                     
-                    <div class="col-lg-4">
-                        <div class="about-img">
+                    <div className="col-lg-4">
+                        <div className="about-img">
                             <img src="img/colibris5.jpg" alt="Image"/>
                            
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="about-img">
+                    <div className="col-lg-4">
+                        <div className="about-img">
                             <img src="img/colibris7.jpg" alt="Image"/>
                            
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="about-img">
+                    <div className="col-lg-4">
+                        <div className="about-img">
                             <img src="img/colibris4.jpg" alt="Image"/>
                            
                         </div>
@@ -118,15 +118,15 @@ class Home extends React.Component {
                 </div>
             </div>
         </div>
-        <div class="food mt-0">
-            <div class="container">
-            <div class="section-header">
+        <div className="food mt-0">
+            <div className="container">
+            <div className="section-header">
                                 <h2>Our goals</h2>
                             </div>
-                <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <div class="food-item">
-                          <i class="fas fa-recycle"></i>
+                <div className="row align-items-center">
+                    <div className="col-md-4">
+                        <div className="food-item">
+                          <i className="fas fa-recycle"></i>
                             <h2>Burgers</h2>
                             <p>
                                 Lorem ipsum dolor sit amet elit. Phasel nec pretium mi. Curabit facilis ornare velit non vulputa. Aliquam metus tortor auctor quis sem. 
@@ -134,9 +134,9 @@ class Home extends React.Component {
                             
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="food-item">
-                        <i class="fas fa-globe-africa"></i>
+                    <div className="col-md-4">
+                        <div className="food-item">
+                        <i className="fas fa-globe-africa"></i>
                             <h2>Snacks</h2>
                             <p>
                                 Lorem ipsum dolor sit amet elit. Phasel nec pretium mi. Curabit facilis ornare velit non vulputa. Aliquam metus tortor auctor quis sem. 
@@ -144,9 +144,9 @@ class Home extends React.Component {
                             
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="food-item">
-                        <i class="fas fa-seedling"></i>
+                    <div className="col-md-4">
+                        <div className="food-item">
+                        <i className="fas fa-seedling"></i>
                             <h2>Beverages</h2>
                             <p>
                                 Lorem ipsum dolor sit amet elit. Phasel nec pretium mi. Curabit facilis ornare velit non vulputa. Aliquam metus tortor auctor quis sem. 

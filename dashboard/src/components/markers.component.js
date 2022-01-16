@@ -45,8 +45,7 @@ export default function Markers() {
       marker.setMap(null);
     }
     axios
-      .put(`${window.ENV.APPOINT_SERVICE_URI}`, {
-        //today: (new Date()+"").substring(4,15),
+      .put(`${window.ENV.APPOINT_SERVICE_URI}/markers`, {
         today: (new Date()+"").substring(4,15),
         userID: Gdata.userID,
         status: status,
@@ -81,7 +80,7 @@ export default function Markers() {
 
   return (
     <div>
-      <div className="page-header mb-3">
+      <div className=" mb-3">
         <div className="container">
           <div className="row">
             <div className="col-12">
