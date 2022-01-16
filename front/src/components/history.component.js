@@ -90,7 +90,7 @@ export default function History(props) {
             {ancient.map((element, index) => (
               <tr>
               <th scope="row">{index + 1}</th>
-              <td>{element.Date}</td>
+              <td>{element.date}</td>
               <td>{element.address.street+" ,"+element.address.city+" ,"+element.address.governorate}</td>
               <td>{element.status}</td>
               <td>{element.description}</td>

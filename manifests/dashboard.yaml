@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: colibris
+  name: dashboard
+spec:
+  selector:
+    matchLabels:
+      run: dashboard
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: dashboard
+    spec:
+      containers:
+      - name: dashboard
+        image: colibristn/dashboard:v0.1.0
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: config
+            mountPath: /usr/share/nginx/html/config.js
+            readOnly: true
+            subPath: config.js
+      volumes:
+      - name: config
+        configMap:
+          name: testing-configmap
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: colibris
+  name: dashboard
+  labels:
+    run: dashboard
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: dashboard
