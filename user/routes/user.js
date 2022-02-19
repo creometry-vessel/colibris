@@ -51,14 +51,15 @@ router.route('/').get(async (req, res) => {
   //create a client if doesn't exist
   router.route('/auth/facebook').post(async (req, res) => {
     try{
-      let client = await Client.findOne({userID: req.body.userID});
+      let client = await Client.findOne({providerID: req.body.userID});
       if(!client){
-        client = new Client({userID: req.body.userID, email: req.body.email, addresses: [{address: "", lat: 0, lng: 0}]})
+        client = new Client({providerID: req.body.userID, email: req.body.email, name: req.body.name, role: "customer", avatar: req.body.picture.data.url})
         await client.save();
       }
         res.json(client)
     }
     catch (e){
+      console.log(e)
       res.json({
         status: "error",
         message: e.message
