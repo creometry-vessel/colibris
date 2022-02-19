@@ -1,7 +1,19 @@
 const router = require("express").Router();
 let Client = require("../models/client.model");
 let Location = require("../models/location.model")
+const axios = require("axios")
+router.route('/map').get(async (req, res)=>{
+  console.log(req.query.address)
+  let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.address}&key=AIzaSyBOqJFEL9f1qDYOZv9PPcEHOXGR0-V5vCU`)
+  res.json({
+    location: response.data.results[0].geometry.location
+  });
 
+})
+router.route('/location/:id').delete(async (req, res)=>{
+  await Location.findByIdAndDelete(req.params.id);
+  res.json("location deleted")
+})
 //get All clients
 router.route('/').get(async (req, res) => {
     try{
@@ -40,10 +52,24 @@ router.route('/').get(async (req, res) => {
   router.route('/:id').put(async (req, res) => {
     try{
       await Client.findByIdAndUpdate(req.params.id, req.body);
-  
+
+      for(let location of req.body.locations){
+        if(location._id){
+          await Location.findByIdAndUpdate(location._id, location);
+        }
+        else {
+          location = new Location({
+            userID: req.params.id,
+            managers: [req.params.id],
+            address: location.address
+          })
+          await location.save()
+        }
+      }
       res.json("client updated successfully!!")
     }
     catch (e){
+      console.log(e)
       res.json({
         status: "error",
         message: e.message
@@ -69,5 +95,6 @@ router.route('/').get(async (req, res) => {
       })
     }
   })
+
 
 module.exports = router;
