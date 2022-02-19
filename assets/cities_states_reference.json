@@ -1,0 +1,6 @@
+{
+    "info": "this file contains the states and cities used within the colibris platform",
+    "states": ["Tunis", "Ariana Ben Arous", "Manouba","Nabeul", "Zaghouan", "Bizerte", "Béja", "Jendouba", "Kef", "Siliana", "Sousse", "Monastir", "Mahdia", "Sfax", "Kairouan", "Kasserine", "Sidi Bouzid", "Gabès", "Mednine", "Tataouine", "Gafsa", "Tozeur", "Kebili"],
+
+    "cities": ["Ariana Médina", "Cité Ettadhamen", "El Mnihla", "Kalaât El Andalous", "Raoued", "Sidi Thabet", "Soukra", "Bab El Bhar", "Bab Souika", "Carthage", "Cité El Khadhra", "Djebel Djelloud", "El Hrairia", "El Kabaria", "El Menzah", "El Omrane", "El Omrane Supérieur", "El Ouardia", "Ettahrir", "Ezzouhour", "La Goulette", "La Marsa", "La Medina", "Le Bardo", "Le Kram", "Sidi El Béchir", "Sidi Hassine", "Sijoumi", "Ben Arous", "Bou Mhel El Bassatine", "El Mourouj", "Ezzahra", "Fouchana", "Hammam Chôtt", "Hammam Lif", "La Nouvelle Medina", "Mégrine", "Mohamedia", "Mornag", "Radès"]
+}
