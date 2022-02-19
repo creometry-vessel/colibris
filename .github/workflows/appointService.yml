@@ -1,4 +1,4 @@
-name: Appointment Service CI
+name: scheduling Service CI
 
 on:
   pull_request:
@@ -22,16 +22,16 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install --production
-      working-directory: appointService
+      working-directory: schedule
     - run: npm test
-      working-directory: appointService
+      working-directory: schedule
     - uses: mr-smithers-excellent/docker-build-push@v5
       name: Build & push Docker image
       with:
-        image: colibristn/appointservice
+        image: colibristn/schedule
         tags: v0.2.2
-        dockerfile: appointService/Dockerfile
+        dockerfile: schedule/Dockerfile
         registry: docker.io
-        directory: appointService
+        directory: schedule
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.COLIBRIS_TOKEN }}
