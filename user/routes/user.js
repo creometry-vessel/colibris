@@ -1,15 +1,17 @@
 const router = require("express").Router();
 let Client = require("../models/client.model");
-
-router.route('/').put((req, res)=>{
-   
-})
+let Location = require("../models/location.model")
 
 //get All clients
 router.route('/').get(async (req, res) => {
     try{
       let clients = await Client.find();
-      res.json(clients)
+      let result = ["aziz"]
+      for(let client of clients){
+        let location = await Location.find({managers: client._id})
+        result.push({...client._doc, locations: location})
+      }
+      res.json(result)
     }
     catch (e){
       res.json({
@@ -23,7 +25,8 @@ router.route('/').get(async (req, res) => {
   router.route('/:id').get(async (req, res) => {
     try{
       let client = await Client.findById(req.params.id);
-      res.json(client)
+      let location = await Location.find({managers: client._id})
+      res.json({...client._doc, locations: location})
     }
     catch (e){
       res.json({

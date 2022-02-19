@@ -21,18 +21,20 @@ export default function Profile() {
   const [cookies] = useCookies(["colibrisID"]);
   const [enablePhone2, setEnablePhone] = useState(false);
   const [enableAddr2, setEnableAddr] = useState(false);
+  const [locations, setLocations] = useState([]);
   useEffect(() => {
     axios
       .get(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`)
       .then((res) => {
         setName(res.data.name);
+        setEmail(res.data.email);
+        setLocations(res.data.locations);
         setPhone1(res.data.phone1);
         setStreet1(res.data.addresses[0].street);
         setCity1(res.data.addresses[0].city);
         setGov1(res.data.addresses[0].governorate);
         setLat1(res.data.addresses[0].lat);
         setLng1(res.data.addresses[0].lng);
-        setEmail(res.data.email);
         if (res.data.phone2) {
           setEnablePhone(true);
           setPhone2(res.data.phone2);
@@ -169,8 +171,13 @@ export default function Profile() {
                   </div>
                 )}
                 <div className="col-lg-12 mb-3">
+                      {
+                        locations.map((location, index)=>(
+                          <Address id="ad1" location={location} />
+                        ))
+//                        <Address id="ad1" street={street1} setStreet={setStreet1} city={city1} setCity={setCity1} gov={gov1} setGov={setGov1} lat={lat1} setLat={setLat1} lng={lng1} setLng={setLng1} />
 
-                  <Address id="ad1" street={street1} setStreet={setStreet1} city={city1} setCity={setCity1} gov={gov1} setGov={setGov1} lat={lat1} setLat={setLat1} lng={lng1} setLng={setLng1} />
+                      }
                 </div>
                 {enableAddr2 ? (
                   <div className="col-lg-12 mb-3">
@@ -196,7 +203,9 @@ export default function Profile() {
                     <a
                       className="btn-circle"
                       onClick={() => {
-                        setEnableAddr(true);
+                        //setEnableAddr(true);
+                        
+                        setLocations([...locations, {lng: 0, lat: 0, addressType: "appartment", locationType: "professional", streetNumber: 0,streetName:"", state: "", city: "", zipCode: 0}]);
                       }}
                     >
                       <i className="fas fa-plus green mr-3"></i>
