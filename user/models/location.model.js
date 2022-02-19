@@ -16,10 +16,14 @@ const addressSchema = new Schema({
     locationType:{
         type: String,
         trim: true,
-        enum: ["professionel", "residental"]
+        enum: ["professional", "residental"]
     },
     streetNumber:{
         type: Number,
+    },
+    streetName:{
+        type: String,
+        trim: true,
     },
     state:{
         type: String,
