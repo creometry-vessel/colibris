@@ -53,6 +53,7 @@ export default function History(props) {
                 <th scope="col">#</th>
                 <th scope="col">Date</th>
                 <th scope="col">Address</th>
+                <th scope="col">shift</th>
                 <th scope="col">Cancel</th>
                 <th scope="col">Edit</th>
               </tr>
@@ -61,8 +62,9 @@ export default function History(props) {
             {current.map((element, index) => (
               <tr>
               <th scope="row">{index + 1}</th>
-              <td>{element.date}</td>
-              <td>{element.address.street+" ,"+element.address.city+" ,"+element.address.governorate}</td>
+              <td>{element.dueDate}</td>
+              <td>{element.location.address.streetNumber},{element.location.address.streetName},{element.location.address.city},{element.location.address.state}</td>
+              <td>{element.shift}</td>
               <td>
                 <a className="red-btn" onClick={() => deleteApp(element._id, index)}>X</a>
               </td>
@@ -82,18 +84,23 @@ export default function History(props) {
                 <th scope="col">#</th>
                 <th scope="col">Date</th>
                 <th scope="col">Address</th>
+                <th scope="col">shift</th>
                 <th scope="col">Status</th>
                 <th scope="col">Description</th>
+                <th scope="col">Attempts</th>
+
               </tr>
             </thead>
             <tbody>
             {ancient.map((element, index) => (
               <tr>
               <th scope="row">{index + 1}</th>
-              <td>{element.date}</td>
-              <td>{element.address.street+" ,"+element.address.city+" ,"+element.address.governorate}</td>
+              <td>{element.dueDate}</td>
+              <td>{element.location.address.streetNumber},{element.location.address.streetName},{element.location.address.city},{element.location.address.state}</td>
+              <td>{element.shift}</td>
               <td>{element.status}</td>
-              <td>{element.description}</td>
+              <td>{element.reason}</td>
+              <td>{element.attempts}</td>
             </tr>
             ))}
               

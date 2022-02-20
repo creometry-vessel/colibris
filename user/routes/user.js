@@ -13,6 +13,15 @@ router.route('/location/:id').delete(async (req, res)=>{
   await Location.findByIdAndDelete(req.params.id);
   res.json("location deleted")
 })
+router.route('/location/:id').get(async (req, res)=>{
+  let location = await Location.findById(req.params.id);
+  res.json(location)
+})
+
+router.route('/location').get(async (req, res)=>{
+  let locations = await Location.find({managers: req.query.userID});
+  res.json(locations)
+})
 
 router.route("/username").get(async (req, res)=>{
   let clients = await Client.find();
