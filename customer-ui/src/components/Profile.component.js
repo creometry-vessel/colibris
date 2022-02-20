@@ -6,12 +6,15 @@ import Address from "./address-form.component";
 export default function Profile() {
 
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone1, setPhone1] = useState("");
   const [phone2, setPhone2] = useState("");
   const [cookies] = useCookies(["colibrisID"]);
   const [enablePhone2, setEnablePhone] = useState(false);
   const [locations, setLocations] = useState([]);
+  const [avatar, setAvatar] = useState("");
+
   useEffect(() => {
     axios
       .get(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`)
@@ -20,6 +23,8 @@ export default function Profile() {
         setEmail(res.data.email);
         setLocations(res.data.locations);
         setPhone1(res.data.phone1);
+        setUsername(res.data.username);
+        setAvatar(res.data.avatar)
         if (res.data.phone2) {
           setEnablePhone(true);
           setPhone2(res.data.phone2);
@@ -28,36 +33,10 @@ export default function Profile() {
   }, [cookies.colibrisID]);
 
 
-  /*const verify = ()=>{
-    //check all info
-    if(! name || !email || !phone1 || !street1 || !city1 || !gov1 || !lat1 || !lng1 ) return "please fill the form";
-    //check phone 
-    if(phone1.length !== 8 && (phone1.substring(0,1)!== "9" || phone1.substring(0,1) !== "2" || phone1.substring(0,1) !== "5") )
-    return "verifier numero de telephone"
-    if(phone2 && phone2.length !== 8 && (phone2.substring(0,1)!== "9" || phone2.substring(0,1) !== "2" || phone2.substring(0,1) !== "5") )
-    return "verifier le deuxiéme numéro de telephone"    
-    return "ok"
-  }*/
 
 
   const Submit = () => {
-    /*let verif = verify()
-    if(verif !== "ok"){
-      window.alert(verif)
-      return;
-    }
-    let addresses = [
-      { street: street1, city: city1, governorate: gov1, lat: lat1, lng: lng1 },
-    ];
-    if (enableAddr2 && lat2 !== 0 && lng2 !== 0) {
-      addresses.push({
-        street: street2,
-        city: city2,
-        governorate: gov2,
-        lat: lat2,
-        lng: lng2,
-      });
-    }*/
+   //verif
     axios
       .put(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`, {
         name: name,
@@ -65,6 +44,8 @@ export default function Profile() {
         phone1: phone1,
         phone2: phone2,
         locations: locations,
+        avatar: avatar,
+        username: username
       })
       .then((res) => {
         if (res.data === "client updated successfully!!") {
@@ -86,7 +67,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
-
+      
       <div className="container-fluid mt-3 contact">
         <div className="row ">
           <div className="col-lg-12 mb-3 padding  contact-form">
@@ -99,7 +80,23 @@ export default function Profile() {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                
+                <div className="col-lg-12 mb-3">
+                  <input
+                    placeholder="pseudo nom"
+                    className="form-control"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </div>
+                <img src={avatar}></img>
+                <div className="col-lg-12 mb-3">
+                  <input
+                    placeholder="lien image"
+                    className="form-control"
+                    value={avatar}
+                    onChange={(e) => setAvatar(e.target.value)}
+                  />
+                </div>
                 <div className="col-lg-12 mb-3">
                   <input
                     placeholder="addresse email"
@@ -151,7 +148,7 @@ export default function Profile() {
                 <div className="col-lg-12 mb-3">
                       {
                         locations.map((location, index)=>(
-                          <Address id="ad1" locations={locations} index={index} setLocations={setLocations} />
+                          <Address id="ad1" locations={locations} index={index} setLocations={setLocations} colibrisID={cookies.colibrisID}/>
                         ))
 
                       }
@@ -163,7 +160,7 @@ export default function Profile() {
                       onClick={() => {
                         //setEnableAddr(true);
                         
-                        setLocations([...locations, {address: {lng: 0, lat: 0, addressType: "appartment", locationType: "professional", streetNumber: 0,streetName:"", state: "", city: "", zipCode: 0}}]);
+                        setLocations([...locations, { managers:[], address: {lng: 0, lat: 0, addressType: "appartment", locationType: "professional", streetNumber: 0,streetName:"", state: "", city: "", zipCode: 0}}]);
                       }}
                     >
                       <i className="fas fa-plus green mr-3"></i>
