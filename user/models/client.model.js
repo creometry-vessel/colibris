@@ -18,7 +18,8 @@ const customerSchema = new Schema({
     },
     username: {
         type: String,
-        trim: true
+        trim: true,
+        unique: true
     },
     phone1: {
         type: String,
