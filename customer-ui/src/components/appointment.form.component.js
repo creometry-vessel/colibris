@@ -59,16 +59,17 @@ export default function Form(props) {
     const [cookies] = useCookies(["colibrisID"]);
     const [addresses, setAddre] = useState([]);
     const [currentAddr, setCurrent] = useState("");
+    const [shift, setShift] = useState("morning");
     useEffect(() => {
       getAllWeek();
       axios
-        .get(`${window.ENV.USER_SERVICE_URI}/` + cookies.colibrisID)
+        .get(`${window.ENV.USER_SERVICE_URI}/location?userID=` + cookies.colibrisID)
         .then((res) => {
           let final = []
-          for(let addr of res.data.addresses){
-            if(addr.street && addr.city && addr.governorate && addr.lat && addr.lng){
+          for(let addr of res.data){
+            //if(addr.address.street && addr.address.city && addr.address.governorate && addr.address.lat && addr.address.lng){
               final.push(addr)
-            }
+            //}
           }
           setAddre(final);
         });
@@ -81,7 +82,7 @@ export default function Form(props) {
         setChosen("");
         return;
       }
-      let available = getDatePerLocation(address.city);
+      let available = getDatePerLocation(address.address.city);
       let days = [];
       for (let i = 0; i < available.length; i++) {
         let today = new Date();
@@ -103,12 +104,12 @@ export default function Form(props) {
       let response ;
       if(props.id){
         response = await axios.put(`${window.ENV.APPOINT_SERVICE_URI}`, {
-            userID: cookies.colibrisID, date: chosen, address: currentAddr, id: props.id
+          dueDate: chosen, location: currentAddr._id, shift: shift, contact: cookies.colibrisID, id: props.id
         })
       }
       else  response = await axios.post(
         `${window.ENV.APPOINT_SERVICE_URI}`,
-        { userID: cookies.colibrisID, date: chosen, address: currentAddr }
+        { createdBy: cookies.colibrisID, dueDate: chosen, location: currentAddr._id, shift: shift, contact: cookies.colibrisID }
       );
       if (response.data.error) {
         window.alert("Server error !!");
@@ -129,7 +130,7 @@ export default function Form(props) {
                         <option>--choose an address--</option>
                         {addresses.map((add, index) => (
                           <option value={index} key={index} >
-                            {add.street}, {add.city}, {add.governorate}{" "}
+                            {add.address.streetNumber} {add.address.streetName}, {add.address.city}, {add.address.state}
                           </option>
                         ))}
                       </select>
@@ -149,6 +150,22 @@ export default function Form(props) {
                         {availableDates.map((date, index) => (
                           <option key={index*10}>{date}</option>
                         ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="control-group">
+                    <div className="input-group">
+                      <select
+                        className="custom-select form-control"
+                        multiple="yes"
+                        onChange={(e) => {
+                          if(e.target.value !== "--choose a shift--")
+                          setShift(e.target.value);
+                        }}
+                      >
+                        <option>--choose a shift--</option>
+                          <option>morning</option>
+                          <option>afternoon</option>
                       </select>
                     </div>
                   </div>
