@@ -16,7 +16,7 @@ jobs:
         with:
           go-version: 1.17
       - name: Run Unit Tests
-        run: go test -v ./../ratings
+        run: go test -v ./...
   build:
     runs-on: ubuntu-latest
     needs: test
