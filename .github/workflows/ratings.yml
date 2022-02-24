@@ -25,7 +25,7 @@ jobs:
       - uses: mr-smithers-excellent/docker-build-push@v5
         name: Build & push Docker image
         with:
-          image: colibristn/ratingsService
+          image: colibristn/ratingservice
           tags: v1.0.0, latest
           dockerfile: ratings/Dockerfile
           registry: docker.io
