@@ -67,9 +67,10 @@ export default function Form(props) {
         .then((res) => {
           let final = []
           for(let addr of res.data){
-            //if(addr.address.street && addr.address.city && addr.address.governorate && addr.address.lat && addr.address.lng){
+            console.log(! addr.address.lng)
+            if(addr.address.streetName && addr.address.city && addr.address.state && addr.address.lat && addr.address.lng){
               final.push(addr)
-            //}
+            }
           }
           setAddre(final);
         });
