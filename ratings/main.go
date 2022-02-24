@@ -7,16 +7,16 @@ import (
 	d "github.com/creometry-incubator/colibris/database"
 	r "github.com/creometry-incubator/colibris/routes"
 	"github.com/gofiber/fiber/v2"
-	// "github.com/joho/godotenv"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	
-	/* err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	} */
 
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("Error loading .env file, getting env variables from docker")
+	}
+	
 	d.InitializeDB()
 
 	app := fiber.New()
