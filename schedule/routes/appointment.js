@@ -90,14 +90,15 @@ router.route('/').post(async (req, res)=>{
     
 })
 
-router.route('/').put(async (req, res)=>{
+router.route('/:id').put(async (req, res)=>{
     let appointments = await Appointment.find({dueDate: req.body.dueDate, location: req.body.location,shift: req.body.shift});
     if(appointments.length >= parseInt(process.env.MAX_APPS)){
         res.json("full for today")
+        return;
     }
     let appointment = await Appointment.findOne({dueDate: req.body.dueDate, location: req.body.location,shift: req.body.shift, contact: req.body.contact});
     if(!appointment){
-         await Appointment.findByIdAndUpdate(req.body.id, req.body);
+         await Appointment.findByIdAndUpdate(req.params.id, req.body);
         res.json("Changed Successfully !")
     }
     else res.json("already booked")

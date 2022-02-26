@@ -1,5 +1,5 @@
 import AppointmentForm from "./appointment.form.component"
-
+import Schedule from './scheduleAppointment.component'
 export default function Form() {
   
 
@@ -29,10 +29,12 @@ export default function Form() {
                 </div>
               </div>
               <div className="col-lg-8">
-                <AppointmentForm close={(message)=>{
+                <Schedule />
+                {/*<AppointmentForm close={(message)=>{
                   window.alert(message);
                   window.location.href = "/";
-                  }} />
+                  }} />*/
+                }
               </div>
             </div>
           </div>
