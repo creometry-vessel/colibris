@@ -1,7 +1,7 @@
 import DialogContent from "@mui/material/DialogContent";
 import Dialog from "@mui/material/Dialog";
 import { useState } from "react";
-import AppoitmentForm from './appointment.form.component'
+import Schedule from './scheduleAppointment.component'
 
 function ConfirmationDialogRaw(props) {
   const { onClose, open, refresh, id , ...other } = props;
@@ -15,7 +15,7 @@ function ConfirmationDialogRaw(props) {
       {...other}
     >
       <DialogContent dividers>
-        <AppoitmentForm id={id} close={(message)=>{
+        <Schedule id={id} close={(message)=>{
           window.alert(message)
           if(message == "Changed Successfully !"){
             onClose();
