@@ -10,8 +10,9 @@ import Adresses from './listAddress.component'
 import Shift from './shift.component'
 import axios from 'axios';
 import { useCookies } from "react-cookie";
+import Confirm from './confirAppointment.component';
 
-const steps = ['Select address', 'select Date', 'select shift'];
+const steps = ['Select address', 'select Date', 'select shift', 'confirm appointment'];
 
 export default function HorizontalLinearStepper(props) {
     const [activeStep, setActiveStep] = React.useState(0);
@@ -50,6 +51,9 @@ export default function HorizontalLinearStepper(props) {
 
 
   const handleReset = () => {
+    setChosenAddr({});
+    setMyDate(null);
+    shift("morning")
     setActiveStep(0);
   };
 
@@ -58,7 +62,7 @@ export default function HorizontalLinearStepper(props) {
         case 0: return(<Adresses handleNext={handleNext} setChosenAddr={setChosenAddr}   />)
         case 1: return(<DatePicker myDate={myDate} setMyDate={setMyDate}   />)
         case 2: return(<Shift shift={shift} setShift={setShift}  />)
-        case 3: return(<p>step4</p>)
+        case 3: return(<Confirm myDate={myDate} shift={shift} chosenAddr={chosenAddr} />)
 
     }
 }
@@ -96,6 +100,11 @@ export default function HorizontalLinearStepper(props) {
             >
               Back
             </Button>
+            {activeStep == steps.length - 1 ? 
+                        <Button onClick={handleReset}>Reset</Button>
+              :
+              <div></div>
+            }
             <Box sx={{ flex: '1 1 auto' }} />
             
             {activeStep == 0? <div></div>:
@@ -103,6 +112,7 @@ export default function HorizontalLinearStepper(props) {
                 
             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
           </Button>
+          
           }
             
           </Box>
