@@ -5,3 +5,4 @@ metadata:
 data:
   database_url: mongodb://db:27017/Colibris?retryWrites=true&w=majority
   user_service: http://user:5001
+  postgres_database_url: host=postgresdb port=5432 password=password user=postgres dbname=service sslmode=disable

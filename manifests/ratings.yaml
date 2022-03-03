@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: D:\Documents\bin\kompose-windows-amd64.exe convert -f .\docker-compose.yaml
     kompose.version: 1.26.1 (a9d05d509)
   creationTimestamp: null
   labels:
@@ -26,7 +25,10 @@ spec:
       containers:
         - env:
             - name: DB_URL
-              value: host=postgresdb port=5432 password=password user=postgres dbname=service sslmode=disable
+              valueFrom:
+                configMapKeyRef:
+                  name: colibris-configmap
+                  key: postgres_database_url
           image: colibristn/ratingservice
           name: ratings
           ports:
@@ -34,3 +36,23 @@ spec:
           resources: {}
       restartPolicy: Always
 status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ratings
+  name: ratings
+spec:
+  ports:
+    - name: "3000"
+      port: 3000
+      targetPort: 3000
+  selector:
+    io.kompose.service: ratings
+status:
+  loadBalancer: {}
