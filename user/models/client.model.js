@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const clientSchema = new Schema({
-    userID:{
+const customerSchema = new Schema({
+    providerID:{
         type: String,
         trim: true,
         required: true
@@ -16,6 +16,11 @@ const clientSchema = new Schema({
         type: String,
         trim: true
     },
+    username: {
+        type: String,
+        trim: true,
+        unique: true
+    },
     phone1: {
         type: String,
         trim: true
@@ -24,17 +29,17 @@ const clientSchema = new Schema({
         type: String,
         trim: true
     },
-    addresses:{
-        type: Array,
+    role: {
+        type: String,
+        trim: true,
         required: true,
-        default: []
+        enum: ["customer", "collector", "admin"]
     },
-    score: {
-        type: Number,
-        required: true,
-        default: 2.5
+    avatar: {
+        type: String,
+        trim: true,
     }
     });
-const app = mongoose.model('client', clientSchema);
+const app = mongoose.model('customer',  customerSchema);
 
 module.exports = app;

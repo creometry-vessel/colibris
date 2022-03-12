@@ -18,7 +18,7 @@ class Home extends React.Component {
     const { cookies } = this.props;
      if(userInfo.userID){
       let response = await axios.post(`${window.ENV.USER_SERVICE_URI}/auth/facebook`, userInfo)
-      if(response.data.userID){
+      if(response.data.providerID){
         cookies.set('colibrisID', response.data._id, { path: '/' });
         window.location.reload()
       }

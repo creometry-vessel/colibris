@@ -1,4 +1,7 @@
-import { useEffect, useRef } from "react";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import Select from 'react-select'
+import Dialog from "./dialogMap.component"
 let coord = [
   {
     gov: "Ariana",
@@ -19,92 +22,99 @@ let coord = [
   
 ]
 export default function Address(props) {
-  const _map = useRef(null);
-  const _marker = useRef(null);
-  const _geocode = useRef(null);
-  const _infowindow = useRef(null);
-    
-    useEffect(() => {
-        if (!window.google) {
-          const script = document.createElement("script");
-          script.src =
-            "https://maps.googleapis.com/maps/api/js?key=" +
-            window.ENV.GOOGLE_API_KEY +
-            "&callback=initMap&v=weekly";
-          script.async = true;
-          document.body.appendChild(script);
-        }
-        setTimeout(() => {
-          try {
-             _geocode.current = new window.google.maps.Geocoder();
-             _infowindow.current = new window.google.maps.InfoWindow();
-             _map.current = new window.google.maps.Map(document.getElementById(props.id), {
-              zoom: 11,
-              center: { lat: 36.80278, lng: 10.17972 },
-            });
-            _map.current.addListener("click", async (e) => {
-              _geocode.current.geocode({location: {lat: e.latLng.lat(), lng: e.latLng.lng()}}, (results, status)=>{
-                _infowindow.current.setContent(results[0].formatted_address);
-              })
-              props.setLat(e.latLng.lat());
-              props.setLng(e.latLng.lng());
-              getInfo(e.latLng.lat(), e.latLng.lng());
-              _infowindow.current.open(_map.current, _marker.current);
-
-            });
-          } catch (err) {
-            console.error(err);
-          }
-        }, 1000);
-      }, []);
-
-  const getInfo = (Lat, Lng) => {
-        if (_marker.current) _marker.current.setMap(null);
-        const latlng = {
-          lat: Lat,
-          lng: Lng,
-        };
-        try {
-          _marker.current = new window.google.maps.Marker({
-            position: latlng,
-            map: _map.current,
-          });
-          _map.current.setCenter(latlng);
-          _map.current.setZoom(17);
-        } catch (err) {
-          console.error(err);
-        }
-      };
-
-  const getMarkerFromAddress = ()=>{
-    _geocode.current.geocode({address: `${props.street} , ${props.city}, ${props.gov}`}, (results, status)=>{
-      if (status == 'OK') {
-        getInfo(results[0].geometry.location.lat(), results[0].geometry.location.lng())
-        props.setLat(results[0].geometry.location.lat());
-        props.setLng(results[0].geometry.location.lng());
-      }else{
-        alert("on ne peut pas trouver cette addresse")
-      } 
-  })
+  const {locations, index, setLocations ,colibrisID, ...others} = props;
+  const [usernames, setUsernames] = useState([]);
+  useEffect(()=>{
+    axios.get(`${window.ENV.USER_SERVICE_URI}/username`).then((res)=>{
+      let data = [];
+      for(let username of res.data){
+        if(colibrisID != username.id)
+        data.push({label: username.username, value: username.id})
+      }
+      data.push({label: "hadhemi", value: "54794155"})
+      setUsernames(data)
+    })
+  }, [])
+  const updateLoc = (champ, value)=>{
+    let locs = [...locations]
+    let loc = {...locations[index], address: {...locations[index].address, [champ]: value}}
+    locs[index] = loc
+    setLocations(locs)  
   }
+
+  const deleteLoc = async ()=>{
+    if(locations[index]._id){
+      await axios.delete(`${window.ENV.USER_SERVICE_URI}/location/${locations[index]._id}`)
+    }
+    setLocations(locations.filter((tag, ind) => index !== ind));
+  }
+
+
     return(
         <div >
+            <div className="col-lg-12 mb-3">
+                  <input type="radio" id="appartment" checked={locations[index].address.addressType === "appartment"}
+                  name="addressType" value="appartment" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
+                  <label for="appartment">appartment</label>
+                  
+                  <input type="radio" id="building" checked={locations[index].address.addressType === "building"}
+                  name="addressType" value="building" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
+                  <label for="building">buildling</label>
+                  
+                  <input type="radio" id="house" checked={locations[index].address.addressType === "house"}
+                  name="addressType" value="house" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
+                  <label for="house">house</label>
+            </div>
+
+            <div className="col-lg-12 mb-3">
+                  <input type="radio" id="professional" checked={locations[index].address.locationType === "professional"}
+                  name="locationType" value="professional" onChange={(e)=>updateLoc("locationType", e.target.value)}/>
+                  <label for="professional">professional</label>
+                  
+                  <input type="radio" id="residental" checked={locations[index].address.locationType === "residental"}
+                  name="locationType" value="residental" onChange={(e)=>updateLoc("locationType", e.target.value)}/>
+                  <label for="residental">residental</label>
+                  
+                  
+            </div>
+      <Select options={usernames} 
+      inputId="54794155"
+      defaultValue={()=> {
+       /* let loc = locations[index];
+        let id = ""
+        if(loc.managers[0] == colibrisID) id= loc.managers[1]
+        id= loc.managers[0]
+        console.log(usernames)
+        for(let user of usernames){
+          console.log(usernames)
+          if (user.value == id) {console.log(user)}
+        }*/
+      }}
+       onChange={e=> {
+        let locs = [...locations]
+        let loc = locations[index];
+        if(loc.managers[0] == colibrisID) loc.managers[1] = e.value;
+        else loc.managers[0] = e.value
+        locs[index] = loc
+        setLocations(locs)  
+      }}/>
+
                     <div className="col-lg-12 mb-3">
-                      <select className="col-lg-12 mb-3" onChange={(e)=> props.setGov(e.target.value)} value={props.gov}>
-                        <option>--Governorat--</option>
+                      <select className="col-lg-12 mb-3" onChange={(e)=> updateLoc("state", e.target.value)} value={locations[index].address.state}>
+                        <option>--State--</option>
                         {coord.map((element, index)=>(
                           <option index={index} key={index}>{element.gov}</option>
                         ))}
                       </select>
                     </div>
                     <div className="col-lg-12 mb-3">
-                    <select className="col-lg-12 mb-3" onChange={(e)=> props.setCity(e.target.value)} value={props.city}>
+                    <select className="col-lg-12 mb-3" onChange={(e)=> updateLoc("city", e.target.value)} value={locations[index].address.city}>
                         <option>--Ville--</option>
-                        {coord.map((element, index)=>{
-                          if(element.gov == props.gov){
+                        {coord.map((element, ind)=>{
+                          if(element.gov == locations[index].address.state){
                             element.villes = element.villes.sort()
                             return(element.villes.map((ville, index2)=>(
-                              <option key={index + "," + index2}>{ville}</option>
+                              <option key={ind + "," + index2}>{ville}</option>
                             )))
                           }
                           
@@ -116,8 +126,33 @@ export default function Address(props) {
                       <input
                         placeholder="rue"
                         className="form-control"
-                        value={props.street}
-                        onChange={(e) => props.setStreet(e.target.value)}
+                        value={locations[index].address.streetName}
+                        onChange={(e) => {
+                          updateLoc("streetName", e.target.value)
+                        }}
+                      />
+                    </div>
+                    <div className="col-lg-12 mb-3">
+                      <input
+                        placeholder="street number"
+                        className="form-control"
+                        id="streetnumber"
+                        type="number"
+                        value={locations[index].address.streetNumber}
+                        onChange={(e) => updateLoc("streetNumber", parseFloat(e.target.value))}
+                
+                      />
+                    </div>
+                    <div className="col-lg-12 mb-3">
+                      <input
+                        placeholder="zipCode"
+                        className="form-control"
+                        id="zipCode"
+                        type="number"
+                        value={locations[index].address.zipCode}
+                        onChange={(e) => updateLoc("zipCode", parseFloat(e.target.value))}
+                        
+                
                       />
                     </div>
                     <div className="col-lg-12 mb-3">
@@ -126,8 +161,10 @@ export default function Address(props) {
                         className="form-control"
                         id="lat"
                         type="number"
-                        value={props.lat}
-                        onChange={(e) => props.setLat(parseFloat(e.target.value))}
+                        value={locations[index].address.lat}
+                        onChange={(e) => updateLoc("lat", parseFloat(e.target.value))}
+                        hidden
+                
                       />
                     </div>
 
@@ -137,20 +174,17 @@ export default function Address(props) {
                         className="form-control"
                         id="lng"
                         type="number"
-                        value={props.lng}
-                        onChange={(e) => props.setLng(parseFloat(e.target.value))}
+                        value={locations[index].address.lng}
+                        onChange={(e) => updateLoc("lng", parseFloat(e.target.value))}
+                        hidden
                       />
                     </div>
                     <div className="col-lg-2">
-                    <button onClick={()=>getMarkerFromAddress()} className="btn custom-btn">
-                      Marquer sur la map
-                    </button>
+                    
+                    
+                    <Dialog address={`${locations[index].streetName},${locations[index].city},${locations[index].state}`} setLat={(val)=>updateLoc("lat", val)} setLng={(val)=>updateLoc("lng", val)} />
                 </div>
-                    <div
-                        id={props.id}
-                        className="mt-3 container-fluid"
-                        style={{ width: "90%", height: "400px" }}
-                    ></div>
+                    <button onClick={deleteLoc}>delete location</button>
                   </div>
     )
 }

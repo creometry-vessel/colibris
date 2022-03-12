@@ -1,11 +1,27 @@
 const router = require("express").Router();
 let Appointment = require("../models/appointment.models");
 const axios = require("axios");
+
+
 router.route('/').post(async (req, res)=>{
     try{
-        let appointment = await Appointment.findOne({date: req.body.date, userID: req.body.userID, address: req.body.address});
+        let appointments = await Appointment.find({dueDate: req.body.dueDate, location: req.body.location,shift: req.body.shift});
+        if(appointments.length >= parseInt(process.env.MAX_APPS) ){
+            res.json("full for today")
+        }
+        let appointment = await Appointment.findOne({dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift, contact: req.body.contact});
         if(!appointment){
-            appointment = new Appointment({userID: req.body.userID, status: "waiting", description: "", date: req.body.date, address: req.body.address});
+            appointment = new Appointment({
+                createdBy: req.body.createdBy, 
+                status: "pending", 
+                reason: "", 
+                dueDate: req.body.dueDate, 
+                location: req.body.location,
+                shift: req.body.shift,
+                contact: req.body.contact,
+                waypointRank: -1,
+                attempts: 0
+            });
             await appointment.save();
             res.json("booked successfully !!!")
         }
@@ -14,7 +30,6 @@ router.route('/').post(async (req, res)=>{
         }
     }
     catch(err){
-        console.log(err)
         res.json({
             error: err
         })
@@ -26,14 +41,20 @@ router.route('/').post(async (req, res)=>{
  })
 
  router.route("/:userID").get(async (req, res)=>{
-    let all = await Appointment.find({userID: req.params.userID});
-    let current = [];
-    let ancient = [];
-    for(let app of all){
-        if(app.status == "waiting") current.push(app);
-        else ancient.push(app)
+     try{
+        let all = await Appointment.find({$or: [{createdBy: req.params.userID}, {contact: req.params.userID}]});
+        let current = [];
+        let ancient = [];
+        for(let app of all){
+            let loc = await axios.get(process.env.USER_SERVICE_URL+"/location/"+app.location);
+            if(app.status == "pending") current.push({...app._doc, location:loc.data});
+            else ancient.push({...app._doc, location: loc.data})
+        }
+        res.json({ancient: ancient, current: current});
+     }
+    catch(err){
+        res.json({error: err})
     }
-    res.json({ancient: ancient, current: current});
  })
 
  router.route("/").delete(async (req, res)=>{
@@ -69,20 +90,17 @@ router.route('/').post(async (req, res)=>{
     
 })
 
-router.route('/').put(async (req, res)=>{
-    let app = await Appointment.findById(req.body.id);
-    let app2 = await Appointment.findOne({
-        date: req.body.date? req.body.date : app.date ,
-        address: req.body.address? req.body.address : app.address,
-        userID : req.body.userID
-    })
-    if(! app2){
-        app.date = req.body.date? req.body.date : app.date;
-        app.address = req.body.address? req.body.address : app.address;
-        app.status = req.body.status? req.body.status : app.status;
-        app.description = req.body.description? req.body.description : app.description;
-        app.save().then(()=> res.json("Changed Successfully !"))
-    } 
+router.route('/:id').put(async (req, res)=>{
+    let appointments = await Appointment.find({dueDate: req.body.dueDate, location: req.body.location,shift: req.body.shift});
+    if(appointments.length >= parseInt(process.env.MAX_APPS)){
+        res.json("full for today")
+        return;
+    }
+    let appointment = await Appointment.findOne({dueDate: req.body.dueDate, location: req.body.location,shift: req.body.shift, contact: req.body.contact});
+    if(!appointment){
+         await Appointment.findByIdAndUpdate(req.params.id, req.body);
+        res.json("Changed Successfully !")
+    }
     else res.json("already booked")
 })
 module.exports = router;
