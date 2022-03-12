@@ -37,7 +37,7 @@ router.route('/').post(async (req, res)=>{
     
 })
  router.route("/").get(async (req, res)=>{
-    res.json(await Appointment.find(JSON.parse(req.query.filter)));
+    res.json(await Appointment.find());
  })
 
  router.route("/:userID").get(async (req, res)=>{
