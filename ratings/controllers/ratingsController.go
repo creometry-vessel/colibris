@@ -1,11 +1,10 @@
 package controllers
 
 import (
-	"strconv"
-
 	"github.com/creometry-incubator/colibris/models"
 	"github.com/creometry-incubator/colibris/services"
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 var ratingsService = services.CreateRatingsService()
@@ -22,14 +21,13 @@ func GetRatings(c *fiber.Ctx) error {
 
 func GetRatingById(c *fiber.Ctx) error {
 	id := c.Params("id")
-	// convert id to int
-	idInt, err := strconv.Atoi(id)
-	if err != nil {
+	// check if id is a valid uuid
+	if _, err := uuid.Parse(id); err != nil {
 		return c.Status(500).JSON(fiber.Map{
-			"error": "id must be an integer",
+			"error": "id must be a valid uuid",
 		})
 	}
-	Rating, err := ratingsService.GetRating(idInt)
+	Rating, err := ratingsService.GetRating(id)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": err.Error(),
@@ -42,14 +40,13 @@ func GetRatingById(c *fiber.Ctx) error {
 
 func GetRatingByUserId(c *fiber.Ctx) error {
 	id := c.Params("user_id")
-	// convert id to int
-	idInt, err := strconv.Atoi(id)
-	if err != nil {
+	// check if id is a valid uuid
+	if _, err := uuid.Parse(id); err != nil {
 		return c.Status(500).JSON(fiber.Map{
-			"error": "id must be an integer",
+			"error": "user_id must be a valid uuid",
 		})
 	}
-	Rating, err := ratingsService.GetRatingByUserId(idInt)
+	Rating, err := ratingsService.GetRatingByUserId(id)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": err.Error(),
@@ -67,11 +64,26 @@ func CreateRating(c *fiber.Ctx) error {
 			"error": err.Error(),
 		})
 	}
-	if rating.PickupRequestID == 0 || rating.UserId == 0 || rating.Quality == 0 || rating.Quantity == 0 || rating.Treatment == 0 {
+	if rating.PickupRequestID == "" || rating.UserId == "" || rating.Quality == 0 || rating.Quantity == 0 || rating.Treatment == 0 {
 		return c.Status(500).JSON(fiber.Map{
 			"error": "all fields must be filled",
 		})
 	}
+
+	// check if user_id is a valid uuid
+	if _, err := uuid.Parse(rating.UserId); err != nil {
+		return c.Status(500).JSON(fiber.Map{
+			"error": "user_id must be a valid uuid",
+		})
+	}
+
+	// check if pickup_request_id is a valid uuid
+	if _, err := uuid.Parse(rating.PickupRequestID); err != nil {
+		return c.Status(500).JSON(fiber.Map{
+			"error": "pickup_request_id must be a valid uuid",
+		})
+	}
+
 	if err := ratingsService.CreateRating(rating); err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": err.Error(),
@@ -89,9 +101,28 @@ func UpdateRating(c *fiber.Ctx) error {
 			"error": err.Error(),
 		})
 	}
-	if rating.ID == 0 || rating.PickupRequestID == 0 || rating.UserId == 0 || rating.Quality == 0 || rating.Quantity == 0 || rating.Treatment == 0 {
+	if rating.UUID == "" || rating.PickupRequestID == "" || rating.UserId == "" || rating.Quality == 0 || rating.Quantity == 0 || rating.Treatment == 0 {
 		return c.Status(500).JSON(fiber.Map{
 			"error": "all fields must be filled",
+		})
+	}
+	// check if id is a valid uuid
+	if _, err := uuid.Parse(rating.UUID); err != nil {
+		return c.Status(500).JSON(fiber.Map{
+			"error": "id must be a valid uuid",
+		})
+	}
+	// check if user_id is a valid uuid
+	if _, err := uuid.Parse(rating.UserId); err != nil {
+		return c.Status(500).JSON(fiber.Map{
+			"error": "user_id must be a valid uuid",
+		})
+	}
+
+	// check if pickup_request_id is a valid uuid
+	if _, err := uuid.Parse(rating.PickupRequestID); err != nil {
+		return c.Status(500).JSON(fiber.Map{
+			"error": "pickup_request_id must be a valid uuid",
 		})
 	}
 	if err := ratingsService.UpdateRating(rating); err != nil {
@@ -106,14 +137,13 @@ func UpdateRating(c *fiber.Ctx) error {
 
 func DeleteRating(c *fiber.Ctx) error {
 	id := c.Params("id")
-	// convert id to int
-	idInt, err := strconv.Atoi(id)
-	if err != nil {
+	// check if id is a valid uuid
+	if _, err := uuid.Parse(id); err != nil {
 		return c.Status(500).JSON(fiber.Map{
-			"error": "id must be an integer",
+			"error": "id must be a valid uuid",
 		})
 	}
-	if err := ratingsService.DeleteRating(idInt); err != nil {
+	if err := ratingsService.DeleteRating(id); err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": err.Error(),
 		})

@@ -4,17 +4,18 @@ package services
 import (
 	d "github.com/creometry-incubator/colibris/database"
 	m "github.com/creometry-incubator/colibris/models"
+	"github.com/google/uuid"
 )
 
 type ratingsService struct{}
 
 type RatingsServiceInterface interface {
 	GetRatings() (*[]m.Rating, error)
-	GetRating(id int) (*m.Rating, error)
-	GetRatingByUserId(id int) (*m.Rating, error)
+	GetRating(id string) (*m.Rating, error)
+	GetRatingByUserId(id string) (*m.Rating, error)
 	CreateRating(Rating *m.Rating) error
 	UpdateRating(Rating *m.Rating) error
-	DeleteRating(id int) error
+	DeleteRating(id string) error
 }
 
 func CreateRatingsService() RatingsServiceInterface {
@@ -28,15 +29,15 @@ func (*ratingsService) GetRatings() (*[]m.Rating, error) {
 	return &Ratings, nil
 }
 
-func (*ratingsService) GetRating(id int) (*m.Rating, error) {
+func (*ratingsService) GetRating(id string) (*m.Rating, error) {
 	var Rating m.Rating
-	if result := d.DB.First(&Rating, id); result.Error != nil {
+	if result := d.DB.Where("uuid = ?", id).First(&Rating); result.Error != nil {
 		return nil, result.Error
 	}
 	return &Rating, nil
 }
 
-func (*ratingsService) GetRatingByUserId(id int) (*m.Rating, error) {
+func (*ratingsService) GetRatingByUserId(id string) (*m.Rating, error) {
 	var Rating m.Rating
 	if result := d.DB.Where("user_id = ?", id).First(&Rating); result.Error != nil {
 		return nil, result.Error
@@ -45,6 +46,7 @@ func (*ratingsService) GetRatingByUserId(id int) (*m.Rating, error) {
 }
 
 func (*ratingsService) CreateRating(Rating *m.Rating) error {
+	Rating.UUID = uuid.New().String()
 	if result := d.DB.Create(Rating); result.Error != nil {
 		return result.Error
 	}
@@ -58,8 +60,8 @@ func (*ratingsService) UpdateRating(Rating *m.Rating) error {
 	return nil
 }
 
-func (*ratingsService) DeleteRating(id int) error {
-	if result := d.DB.Delete(&m.Rating{ID: id}); result.Error != nil {
+func (*ratingsService) DeleteRating(id string) error {
+	if result := d.DB.Delete(&m.Rating{UUID: id}); result.Error != nil {
 		return result.Error
 	}
 	return nil
