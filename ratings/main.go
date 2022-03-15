@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		log.Println("Error loading .env file, getting env variables from docker")
 	}
-	
+
 	d.InitializeDB()
 
 	app := fiber.New()

@@ -7,11 +7,11 @@ import (
 )
 
 func PublicRoutes(app *fiber.App) {
-	app.Get("/ratings",c.GetRatings)
-	app.Get("/ratings/:id",c.GetRatingById)
-	app.Get("/ratings/user/:user_id",c.GetRatingByUserId)
-	app.Post("/ratings",c.CreateRating)
-	app.Put("/ratings",c.UpdateRating)
-	app.Delete("/ratings/:id",c.DeleteRating)
+	app.Get("/ratings", c.GetRatings)
+	app.Get("/ratings/:id", c.GetRatingById)
+	app.Get("/ratings/user/:user_id", c.GetRatingByUserId)
+	app.Post("/ratings", c.CreateRating)
+	app.Put("/ratings", c.UpdateRating)
+	app.Delete("/ratings/:id", c.DeleteRating)
 
 }

@@ -8,9 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-
 var ratingsService = services.CreateRatingsService()
-
 
 func GetRatings(c *fiber.Ctx) error {
 	Ratings, err := ratingsService.GetRatings()
