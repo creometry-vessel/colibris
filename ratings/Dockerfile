@@ -9,11 +9,13 @@ RUN go mod download
 
 COPY . .
 
-ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+ENV CGO_ENABLED=1 GOOS=linux GOARCH=amd64
+
+RUN apk add build-base
 
 RUN go build -ldflags="-s -w" -o apiserver .
 
-FROM scratch
+FROM alpine
 
 COPY --from=builder ["/build/apiserver", "/"]
 

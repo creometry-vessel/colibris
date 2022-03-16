@@ -2,17 +2,15 @@
 package database
 
 import (
-	"os"
-
 	"github.com/creometry-incubator/colibris/models"
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB = nil
 
 func InitializeDB() {
-	database, err := gorm.Open(postgres.Open(os.Getenv("DB_URL")), &gorm.Config{})
+	database, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
