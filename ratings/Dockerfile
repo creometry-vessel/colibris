@@ -19,6 +19,8 @@ FROM alpine
 
 COPY --from=builder ["/build/apiserver", "/"]
 
+RUN mkdir data
+
 EXPOSE 3000
 
 ENTRYPOINT ["/apiserver"]
