@@ -7,3 +7,4 @@ data:
   USER_SERVICE: http://user:5001
   MAX_APPS: "25"
   config.js: "window.ENV = {\r \"USER_SERVICE_URI\": \"http://localhost:5001\",\r \"APPOINT_SERVICE_URI\": \"http://localhost:5000\"\r }"
+
