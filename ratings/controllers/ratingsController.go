@@ -152,3 +152,23 @@ func DeleteRating(c *fiber.Ctx) error {
 		"data": "Rating deleted",
 	})
 }
+
+func AverageRatingsByUserId(c *fiber.Ctx) error {
+	id := c.Params("user_id")
+	// check if id is a valid uuid
+	if _, err := uuid.Parse(id); err != nil {
+		return c.Status(500).JSON(fiber.Map{
+			"error": "id must be a valid uuid",
+		})
+	}
+	averageRatings, err := ratingsService.AvgOverallRatingsByUserId(id)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"data": averageRatings,
+	})
+}

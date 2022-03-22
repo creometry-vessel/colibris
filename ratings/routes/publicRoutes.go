@@ -13,5 +13,6 @@ func PublicRoutes(app *fiber.App) {
 	app.Post("/ratings", c.CreateRating)
 	app.Put("/ratings", c.UpdateRating)
 	app.Delete("/ratings/:id", c.DeleteRating)
+	app.Get("/avg_ratings/:user_id", c.AverageRatingsByUserId)
 
 }

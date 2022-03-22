@@ -16,6 +16,7 @@ type RatingsServiceInterface interface {
 	CreateRating(Rating *m.Rating) error
 	UpdateRating(Rating *m.Rating) error
 	DeleteRating(id string) error
+	AvgOverallRatingsByUserId(id string) (*float64, error)
 }
 
 func CreateRatingsService() RatingsServiceInterface {
@@ -47,6 +48,7 @@ func (*ratingsService) GetRatingByUserId(id string) (*m.Rating, error) {
 
 func (*ratingsService) CreateRating(Rating *m.Rating) error {
 	Rating.UUID = uuid.New().String()
+	Rating.Overall = (Rating.Quality + Rating.Quantity + Rating.Treatment) / 3
 	if result := d.DB.Create(Rating); result.Error != nil {
 		return result.Error
 	}
@@ -65,4 +67,17 @@ func (*ratingsService) DeleteRating(id string) error {
 		return result.Error
 	}
 	return nil
+}
+
+func (* ratingsService) AvgOverallRatingsByUserId(id string) (*float64, error) {
+	var Ratings []m.Rating
+	if result := d.DB.Where("user_id = ?", id).Find(&Ratings); result.Error != nil {
+		return nil, result.Error
+	}
+	var overall float64
+	for _, Rating := range Ratings {
+		overall += float64(Rating.Overall)
+	}
+	avg:= overall / float64(len(Ratings))
+	return &avg, nil
 }
