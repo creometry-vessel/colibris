@@ -14,6 +14,7 @@ services:
       - PORT=3000
       - MONGO_USER=mohamed
       - MONGO_PASSWORD=colibris
+      - GOOGLE_API_KEY=AIzaSyDoDpVoO9zkkAwUIDI3DUot_MbXb8juqhA
     depends_on:
       - mongo
     command: npm run dev
