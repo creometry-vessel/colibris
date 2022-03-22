@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: appointment
+  name: schedule
   namespace: colibris
 spec:
   selector:
@@ -14,8 +14,8 @@ spec:
         app: colibris
     spec:
       containers:
-      - name: appointservice
-        image: colibristn/appointservice:v0.2.2
+      - name: schedule
+        image: colibristn/schedule:v0.2.2
         ports:
         - containerPort: 5000
         env:
@@ -23,18 +23,23 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
-                key: database_url 
+                key: ATLAS_URI 
           - name: USER_SERVICE_URL
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
-                key: user_service 
+                key: USER_SERVICE 
+          - name: MAX_APPS
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: MAX_APPS
           
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: appointment
+  name: schedule
   labels:
     app: colibris
   namespace: colibris

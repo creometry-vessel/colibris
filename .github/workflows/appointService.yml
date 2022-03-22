@@ -3,6 +3,8 @@ name: scheduling Service CI
 on:
   pull_request:
     branches: [ dev ]
+  push:
+    branches: [ update-manifest ]
 
 jobs:
   build:
