@@ -1,72 +1,64 @@
 import axios from "axios";
 import React, { Component } from "react";
 import Search from "./search.component";
+let filters = [
+  {id: "", key: "----"},
+  {id: "username", key: "username", type: "input"},
+  {id: "email", key: "email", type: "input"},
+  {id: "phone", key: "phone", type: "input"},
+]
 class Users extends Component {
   constructor(){
     super();
     this.state = {
-      users:[],
-      filter:[],
-      searchType:"name",
-      search:""
+      users:[]
     }
     this.getUsers()
     this.getUsers = this.getUsers.bind(this);
-    this.filter = this.filter.bind(this);
+    this.Submit = this.Submit.bind(this);
   }
   getUsers(){
     axios.get(window.ENV.USER_SERVICE_URI).then(res=>{
       this.setState({
         users: res.data,
-        filter: res.data
       })
     })
   }
-  filter(){
-    let tempArr = this.state.users.filter((user)=> user.name == this.state.search);
-    this.setState({ filter: tempArr})
+  Submit(filter , search){
+    console.log(`${window.ENV.USER_SERVICE_URI}?${filter}=${search}`)
+    axios.get(`${window.ENV.USER_SERVICE_URI}?${filter}=${search}`).then(res=>{
+      this.setState({
+        users: res.data,
+      })
+    })
   }
   render() {
     return (
       <div>
         <h3 class="page-title">Colibris' users</h3>
-        <Search />
+        <Search filters={filters} Submit={this.Submit} />
         <table class="table">
           <thead>
             <tr>
               <th>#</th>
               <th>Name</th>
+              <th>Username</th>
               <th>Email</th>
               <th>Phone Number</th>
-              <th>Address</th>
             </tr>
           </thead>
           <tbody>
             {
-              this.state.filter.map((user, index)=>(
+              this.state.users.map((user, index)=>(
                 <tr>
                   <td>{index}</td>
                   <td>{user.name}</td>
+                  <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <td>{user.phone1}</td>
-                  <td>{user.address?.city}</td>
+                  <td>{user.phone1}, {user.phone2}</td>
                 </tr>
               ))
             }
-            <tr>
-              <td>1</td>
-              <td>Steve</td>
-              <td>steve@gmail.com</td>
-              <td>55222366</td>
-              <td>Mourouj</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Simon</td>
-              <td>simon@hotmail.fr</td>
-              <td>20114118</td>
-              <td>Mansoura</td>
-            </tr>
             
           </tbody>
         </table>

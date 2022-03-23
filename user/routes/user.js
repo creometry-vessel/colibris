@@ -33,9 +33,14 @@ router.route("/username").get(async (req, res)=>{
 })
 //get All clients
 router.route('/').get(async (req, res) => {
+  let filter = {}
+  if(req.query.username) filter.username = req.query.username;
+  if(req.query.phone) filter.$or = [{phone1: req.query.phone}, {phone2: req.query.phone}];
+  if(req.query.email) filter.email = req.query.email;
+  
   let result = []
     try{
-      let clients = await Client.find();
+      let clients = await Client.find(filter);
       for(let client of clients){
         let location = await Location.find({managers: client._id})
         result.push({...client._doc, locations: location})
