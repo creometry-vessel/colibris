@@ -8,6 +8,7 @@ router.route('/').post(async (req, res)=>{
         let appointments = await Appointment.find({dueDate: req.body.dueDate, location: req.body.location,shift: req.body.shift});
         if(appointments.length >= parseInt(process.env.MAX_APPS) ){
             res.json("full for today")
+            return;
         }
         let appointment = await Appointment.findOne({dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift, contact: req.body.contact});
         if(!appointment){
@@ -15,7 +16,7 @@ router.route('/').post(async (req, res)=>{
                 createdBy: req.body.createdBy, 
                 status: "pending", 
                 reason: "", 
-                dueDate: req.body.dueDate, 
+                dueDate: new Date(new Date(req.body.dueDate).getTime() + 60*60*1000), 
                 location: req.body.location,
                 shift: req.body.shift,
                 contact: req.body.contact,
@@ -37,7 +38,11 @@ router.route('/').post(async (req, res)=>{
     
 })
  router.route("/").get(async (req, res)=>{
-     let appointments = await Appointment.find();
+     let filter = {};
+     if(req.query.shift) filter.shift =  req.query.shift;
+     if(req.query.dueDate) filter.dueDate =  req.query.dueDate;
+     if(req.query.status) filter.status =  req.query.status;
+     let appointments = await Appointment.find(filter);
      let result = [];
      for(let appointment of appointments){
         let location = await axios.get(`${process.env.USER_SERVICE_URL}/location/${appointment.location}`);
