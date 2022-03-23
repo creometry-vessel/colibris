@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
+import Search from "./search.component";
 class Users extends Component {
   constructor(){
     super();
@@ -29,35 +30,7 @@ class Users extends Component {
     return (
       <div>
         <h3 class="page-title">Colibris' users</h3>
-        <div class="row panel">
-          <div class="col-md-2">
-            <div class="panel-heading">
-              <h3 class="panel-title"> Search by :</h3>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div class="panel-heading">
-              <select class="form-control" onChange={(e)=>{this.setState({searchType: e.target.value})}}>
-                <option value="name">Name</option>
-                <option value="address">Address</option>
-                <option value="email">email</option>
-                <option value="phone">Phone Number</option>
-              </select>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div class="mt-4 mb-3">
-            <div class="input-group">
-              <input class="form-control" type="text" value={this.state.search} onChange={(e)=>{this.setState({search: e.target.value})}}/>
-              <span class="input-group-btn">
-                <button class="btn btn-primary" type="button" onClick={this.filter}>
-                    <i class="fas fa-search"></i>
-                </button>
-              </span>
-            </div>
-            </div>
-          </div>
-        </div>
+        <Search />
         <table class="table">
           <thead>
             <tr>

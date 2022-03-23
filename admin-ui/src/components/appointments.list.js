@@ -1,15 +1,25 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-
+import Search from './search.component'
+let filters = [
+  {id: "", key: "----"},
+  {id: "shift", key: "shift", type: "select", value: ["morning", "afternoon"]},
+  {id: "dueDate", key: "date", type: "date"},
+  {id: "status", key: "status",  type: "select", value: ["pending", "attempted", "completed", "canceled"]},
+]
 export default function ListAppointments(props){
     const [appointments, setAppointments] = useState([])
+    const [filter, setFilter] = useState(filters[0]);
+    const [search, setSearch] = useState("");
     useEffect(()=>{
         axios.get(`${window.ENV.APPOINT_SERVICE_URI}`).then(res=>{
             setAppointments(res.data)
         })
     }, [])
+    const Submit = ()=>{console.log(search)}
     return(
         <div>
+          <Search filters={filters} filter={filter} setFilter={setFilter} search={search} setSearch={setSearch} Submit={Submit}/>
             <table className="table white">
             <thead>
               <tr>
