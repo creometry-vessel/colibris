@@ -13,9 +13,12 @@ class Users extends Component {
     this.state = {
       users:[]
     }
-    this.getUsers()
     this.getUsers = this.getUsers.bind(this);
     this.Submit = this.Submit.bind(this);
+  }
+  componentDidMount(){
+    this.getUsers()
+
   }
   getUsers(){
     axios.get(window.ENV.USER_SERVICE_URI).then(res=>{
@@ -25,7 +28,6 @@ class Users extends Component {
     })
   }
   Submit(filter , search){
-    console.log(`${window.ENV.USER_SERVICE_URI}?${filter}=${search}`)
     axios.get(`${window.ENV.USER_SERVICE_URI}?${filter}=${search}`).then(res=>{
       this.setState({
         users: res.data,
@@ -35,9 +37,9 @@ class Users extends Component {
   render() {
     return (
       <div>
-        <h3 class="page-title">Colibris' users</h3>
+        <h3 className="page-title">Colibris' users</h3>
         <Search filters={filters} Submit={this.Submit} />
-        <table class="table">
+        <table className="table">
           <thead>
             <tr>
               <th>#</th>
@@ -50,7 +52,7 @@ class Users extends Component {
           <tbody>
             {
               this.state.users.map((user, index)=>(
-                <tr>
+                <tr key={index}>
                   <td>{index}</td>
                   <td>{user.name}</td>
                   <td>{user.username}</td>

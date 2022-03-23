@@ -37,7 +37,7 @@ export default function ListAppointments(props){
             </thead>
             <tbody>
             {appointments.map((element, index) => (
-              <tr>
+              <tr key={index}>
               <th scope="row">{index + 1}</th>
               <td>{element.dueDate.substring(0,10)}</td>
               <td>{element.shift}</td>

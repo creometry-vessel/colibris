@@ -6,7 +6,7 @@ class TopBar extends Component {
             <div>
                 <nav className="navbar navbar-default navbar-fixed-top">
 			<div className="brand">
-				<a href="/"><img src="assets/img/colibris.png" className="logo" alt="Klorofil Logo" className="img-responsive logo"/></a>
+				<a href="/"><img src="assets/img/colibris.png" alt="Klorofil Logo" className="img-responsive logo"/></a>
 			</div>
 			
 		</nav>

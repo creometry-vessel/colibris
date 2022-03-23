@@ -28,15 +28,15 @@ export default function Search(props){
         else return (<input className="form-control" onChange={getSearch}/>)
     }
     return(
-    <div class="row panel">
-    <div class="col-md-2">
-      <div class="panel-heading">
-        <h3 class="panel-title"> Search by :</h3>
+    <div className="row panel">
+    <div className="col-md-2">
+      <div className="panel-heading">
+        <h3 className="panel-title"> Search by :</h3>
       </div>
     </div>
     <div className="col-md-4">
-      <div class="panel-heading">
-        <select class="form-control" onChange={Change}>
+      <div className="panel-heading">
+        <select className="form-control" onChange={Change}>
             {props.filters.map((element, index)=>(
                 <option key={index} value={element.key}>{element.key}</option>
             ))}
@@ -44,12 +44,12 @@ export default function Search(props){
       </div>
     </div>
     <div className="col-md-6">
-      <div class="mt-4 mb-3">
-      <div class="input-group">
+      <div className="mt-4 mb-3">
+      <div className="input-group">
           {getInput()}
-        <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" onClick={()=>props.Submit(filter.id, search)}>
-              <i class="fas fa-search"></i>
+        <span className="input-group-btn">
+          <button className="btn btn-primary" type="button" onClick={()=>props.Submit(filter.id, search)}>
+              <i className="fas fa-search"></i>
           </button>
         </span>
       </div>
