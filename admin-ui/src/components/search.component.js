@@ -1,26 +1,30 @@
+import { useState } from "react";
+
 export default function Search(props){
+  const [filter, setFilter] = useState(props.filters[0]);
+    const [search, setSearch] = useState("");
     const Change = (e)=>{
-        props.setSearch("")
+        setSearch("")
         for(let i = 0; i < props.filters.length; i++){
             if(props.filters[i].key == e.target.value){
-                props.setFilter(props.filters[i])
+                setFilter(props.filters[i])
                 break;
             }
         }
     }
     const getSearch = (e)=>{
-        props.setSearch(e.target.value)
+        setSearch(e.target.value)
     }
     const getInput = ()=>{
-        if(!props.filter.type) return (<div></div>)
-        else if(props.filter.type == "select") 
+        if(!filter.type) return (<div></div>)
+        else if(filter.type == "select") 
         return(
             <select className="form-control" onChange={getSearch}>
-                {props.filter.value.map((element, index)=>(
+                {filter.value.map((element, index)=>(
                 <option key={index} value={element}>{element}</option>
                 ))}
             </select>)
-        else if(props.filter.type == "date") return (<input type="date" className="form-control" placeholder="dd-mm-yyyy" onChange={getSearch}/>)
+        else if(filter.type == "date") return (<input type="date" className="form-control" placeholder="dd-mm-yyyy" onChange={getSearch}/>)
         else return (<input className="form-control" onChange={getSearch}/>)
     }
     return(
@@ -44,7 +48,7 @@ export default function Search(props){
       <div class="input-group">
           {getInput()}
         <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" onClick={props.Submit}>
+          <button class="btn btn-primary" type="button" onClick={()=>props.Submit(filter.id, search)}>
               <i class="fas fa-search"></i>
           </button>
         </span>

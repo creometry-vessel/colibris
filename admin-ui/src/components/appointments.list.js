@@ -9,17 +9,20 @@ let filters = [
 ]
 export default function ListAppointments(props){
     const [appointments, setAppointments] = useState([])
-    const [filter, setFilter] = useState(filters[0]);
-    const [search, setSearch] = useState("");
+    
     useEffect(()=>{
         axios.get(`${window.ENV.APPOINT_SERVICE_URI}`).then(res=>{
             setAppointments(res.data)
         })
     }, [])
-    const Submit = ()=>{console.log(search)}
+    const Submit =  (filter , search) => {
+       axios.get(`${window.ENV.APPOINT_SERVICE_URI}?${filter}=${search}`).then(res=>{
+        setAppointments(res.data)
+    })
+    }
     return(
         <div>
-          <Search filters={filters} filter={filter} setFilter={setFilter} search={search} setSearch={setSearch} Submit={Submit}/>
+          <Search filters={filters} Submit={Submit}/>
             <table className="table white">
             <thead>
               <tr>
