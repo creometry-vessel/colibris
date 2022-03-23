@@ -15,8 +15,10 @@ export default function ListAppointments(props){
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Date</th>
+                <th scope="col">shift</th>
                 <th scope="col">Address</th>
                 <th scope="col">Status</th>
+                <th scope="col">Attempts</th>
                 <th scope="col">Description</th>
               </tr>
             </thead>
@@ -24,10 +26,12 @@ export default function ListAppointments(props){
             {appointments.map((element, index) => (
               <tr>
               <th scope="row">{index + 1}</th>
-              <td>{element.date}</td>
-              <td>{element.address.street+" ,"+element.address.city+" ,"+element.address.governorate}</td>
+              <td>{element.dueDate.substring(0,10)}</td>
+              <td>{element.shift}</td>
+              <td>{element.location?.address.streetNumber} {element.location?.address.streetName}, {element.location?.address.city}, {element.location?.address.state}</td>
               <td>{element.status}</td>
-              <td>{element.description}</td>
+              <td>{element.attempts}</td>
+              <td>{element.reason}</td>
             </tr>
             ))}
               

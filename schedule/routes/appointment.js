@@ -37,7 +37,13 @@ router.route('/').post(async (req, res)=>{
     
 })
  router.route("/").get(async (req, res)=>{
-    res.json(await Appointment.find());
+     let appointments = await Appointment.find();
+     let result = [];
+     for(let appointment of appointments){
+        let location = await axios.get(`${process.env.USER_SERVICE_URL}/location/${appointment.location}`);
+        result.push({...appointment._doc, location: location.data})
+     }
+    res.json(result);
  })
 
  router.route("/:userID").get(async (req, res)=>{
