@@ -53,15 +53,13 @@ router.route('/').post(async (req, res)=>{
 
  router.route("/:userID").get(async (req, res)=>{
      try{
-        let all = await Appointment.find({$or: [{createdBy: req.params.userID}, {contact: req.params.userID}]});
-        let current = [];
-        let ancient = [];
-        for(let app of all){
-            let loc = await axios.get(process.env.USER_SERVICE_URL+"/location/"+app.location);
-            if(app.status == "pending") current.push({...app._doc, location:loc.data});
-            else ancient.push({...app._doc, location: loc.data})
-        }
-        res.json({ancient: ancient, current: current});
+         let result = []
+        let appointments = await Appointment.find({$or: [{createdBy: req.params.userID}, {contact: req.params.userID}]});
+        for(let appointment of appointments){
+            let location = await axios.get(`${process.env.USER_SERVICE_URL}/location/${appointment.location}`);
+            result.push({...appointment._doc, location: location.data})
+         }
+        res.json(result);
      }
     catch(err){
         res.json({error: err})

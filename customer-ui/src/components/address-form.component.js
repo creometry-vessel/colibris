@@ -55,25 +55,25 @@ export default function Address(props) {
             <div className="col-lg-12 mb-3">
                   <input type="radio" id="appartment" checked={locations[index].address.addressType === "appartment"}
                   name="addressType" value="appartment" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label for="appartment">appartment</label>
+                  <label >appartment</label>
                   
                   <input type="radio" id="building" checked={locations[index].address.addressType === "building"}
                   name="addressType" value="building" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label for="building">buildling</label>
+                  <label >buildling</label>
                   
                   <input type="radio" id="house" checked={locations[index].address.addressType === "house"}
                   name="addressType" value="house" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label for="house">house</label>
+                  <label >house</label>
             </div>
 
             <div className="col-lg-12 mb-3">
                   <input type="radio" id="professional" checked={locations[index].address.locationType === "professional"}
                   name="locationType" value="professional" onChange={(e)=>updateLoc("locationType", e.target.value)}/>
-                  <label for="professional">professional</label>
+                  <label >professional</label>
                   
                   <input type="radio" id="residental" checked={locations[index].address.locationType === "residental"}
                   name="locationType" value="residental" onChange={(e)=>updateLoc("locationType", e.target.value)}/>
-                  <label for="residental">residental</label>
+                  <label >residental</label>
                   
                   
             </div>
