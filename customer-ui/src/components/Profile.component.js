@@ -148,7 +148,7 @@ export default function Profile() {
                 <div className="col-lg-12 mb-3">
                       {
                         locations.map((location, index)=>(
-                          <Address id="ad1" locations={locations} index={index} setLocations={setLocations} colibrisID={cookies.colibrisID}/>
+                          <Address key={index} id="ad1" locations={locations} index={index} setLocations={setLocations} colibrisID={cookies.colibrisID}/>
                         ))
 
                       }

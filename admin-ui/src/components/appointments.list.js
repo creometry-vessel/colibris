@@ -1,33 +1,50 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-
+import Search from './search.component'
+let filters = [
+  {id: "", key: "----"},
+  {id: "shift", key: "shift", type: "select", value: ["morning", "afternoon"]},
+  {id: "dueDate", key: "date", type: "date"},
+  {id: "status", key: "status",  type: "select", value: ["pending", "attempted", "completed", "canceled"]},
+]
 export default function ListAppointments(props){
     const [appointments, setAppointments] = useState([])
+    
     useEffect(()=>{
         axios.get(`${window.ENV.APPOINT_SERVICE_URI}`).then(res=>{
             setAppointments(res.data)
         })
     }, [])
+    const Submit =  (filter , search) => {
+       axios.get(`${window.ENV.APPOINT_SERVICE_URI}?${filter}=${search}`).then(res=>{
+        setAppointments(res.data)
+    })
+    }
     return(
         <div>
+          <Search filters={filters} Submit={Submit}/>
             <table className="table white">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Date</th>
+                <th scope="col">shift</th>
                 <th scope="col">Address</th>
                 <th scope="col">Status</th>
+                <th scope="col">Attempts</th>
                 <th scope="col">Description</th>
               </tr>
             </thead>
             <tbody>
             {appointments.map((element, index) => (
-              <tr>
+              <tr key={index}>
               <th scope="row">{index + 1}</th>
-              <td>{element.date}</td>
-              <td>{element.address.street+" ,"+element.address.city+" ,"+element.address.governorate}</td>
+              <td>{element.dueDate.substring(0,10)}</td>
+              <td>{element.shift}</td>
+              <td>{element.location?.address.streetNumber} {element.location?.address.streetName}, {element.location?.address.city}, {element.location?.address.state}</td>
               <td>{element.status}</td>
-              <td>{element.description}</td>
+              <td>{element.attempts}</td>
+              <td>{element.reason}</td>
             </tr>
             ))}
               

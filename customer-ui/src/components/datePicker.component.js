@@ -23,7 +23,8 @@ export default function StaticDatePickerLandscape(props) {
           value={myDate}
           shouldDisableDate={fn}
           onChange={(newValue) => {
-            setMyDate(new Date(newValue.toDateString()));
+            console.log(newValue.toDateString())
+            setMyDate(newValue.toDateString());
           }}
           renderInput={(params) => <TextField {...params} />}
         />
