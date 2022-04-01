@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+require("dotenv").config();
 
 const { MONGO_IP,MONGO_PASSWORD,MONGO_PORT,MONGO_USER} = require("./config")
 
@@ -17,10 +17,7 @@ mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_
         .then(()=> console.log("Succesfully connected to DB"))
         .catch((e)=> {
             console.log(e)});
-            
-       
-        
-                
+                   
 
 app.use(express.json());
 app.get("/", (req, res) => {
