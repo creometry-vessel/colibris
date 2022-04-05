@@ -16,7 +16,7 @@ export default function ListAppointments(props) {
   }, []);
   return (
     <div>
-      <h3 class="page-title">Appointments history</h3>
+      <h3 className="page-title">Appointments history</h3>
 
       <table className="table white">
         <thead>
@@ -30,7 +30,7 @@ export default function ListAppointments(props) {
         </thead>
         <tbody>
           {appointments.map((element, index) => (
-            <tr>
+            <tr key={index}>
               <th scope="row">{index + 1}</th>
               <td>{element.date}</td>
               <td>

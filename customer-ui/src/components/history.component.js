@@ -4,8 +4,7 @@ import { useCookies } from "react-cookie";
 import DialogApp from "./dialogAppointment.component"
 export default function History(props) {
   const [cookies] = useCookies(["colibrisID"]);
-  const [current, setCurrent] = useState([]);
-  const [ancient, setAncient] = useState([]);
+  const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
    getApp()
@@ -15,16 +14,15 @@ export default function History(props) {
     axios
     .get(`${window.ENV.APPOINT_SERVICE_URI}/` + cookies.colibrisID)
     .then((res) => {
-      setCurrent(res.data.current);
-      setAncient(res.data.ancient);
+      setAppointments(res.data);
     });
   }
 
   const deleteApp = (id, index) => {
     //delete from list 
-    let array = [... current];
+    let array = [... appointments];
     array.splice(index, 1);
-    setCurrent(array)
+    setAppointments(array)
     //delete from database
     axios.delete(`${window.ENV.APPOINT_SERVICE_URI}`, {
       data: { id: id },
@@ -45,38 +43,6 @@ export default function History(props) {
       </div>
       <div className="container-fluid">
         
-        <h2>Current :</h2>
-        <div>
-          <table className="table white">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Date</th>
-                <th scope="col">Address</th>
-                <th scope="col">shift</th>
-                <th scope="col">Cancel</th>
-                <th scope="col">Edit</th>
-              </tr>
-            </thead>
-            <tbody>
-            {current.map((element, index) => (
-              <tr>
-              <th scope="row">{index + 1}</th>
-              <td>{element.dueDate}</td>
-              <td>{element.location.address.streetNumber},{element.location.address.streetName},{element.location.address.city},{element.location.address.state}</td>
-              <td>{element.shift}</td>
-              <td>
-                <a className="red-btn" onClick={() => deleteApp(element._id, index)}>X</a>
-              </td>
-              <td>
-                <DialogApp refresh={getApp} id={element._id} />
-              </td>
-            </tr>
-          ))}
-            </tbody>
-          </table>
-        </div>
-        <h2>Ancient :</h2>
         <div>
           <table className="table white">
             <thead>
@@ -86,27 +52,32 @@ export default function History(props) {
                 <th scope="col">Address</th>
                 <th scope="col">shift</th>
                 <th scope="col">Status</th>
-                <th scope="col">Description</th>
-                <th scope="col">Attempts</th>
-
+                <th scope="col">Reason</th>
+                <th scope="col">Cancel</th>
+                <th scope="col">Edit</th>
               </tr>
             </thead>
             <tbody>
-            {ancient.map((element, index) => (
-              <tr>
+            {appointments.map((element, index) => (
+              <tr key={index}>
               <th scope="row">{index + 1}</th>
               <td>{element.dueDate}</td>
-              <td>{element.location.address.streetNumber},{element.location.address.streetName},{element.location.address.city},{element.location.address.state}</td>
+              <td>{element.location.address.streetNumber} {element.location.address.streetName},{element.location.address.city},{element.location.address.state} {element.location.address.zipCode}</td>
               <td>{element.shift}</td>
               <td>{element.status}</td>
               <td>{element.reason}</td>
-              <td>{element.attempts}</td>
+              <td>
+                <a className="red-btn" onClick={() => deleteApp(element._id, index)}>X</a>
+              </td>
+              <td>
+                {element.status == "pending"? <DialogApp refresh={getApp} id={element._id} />: <div></div> }
+              </td>
             </tr>
-            ))}
-              
+          ))}
             </tbody>
           </table>
         </div>
+        
       </div>
     </div>
   );

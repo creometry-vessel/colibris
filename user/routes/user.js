@@ -3,7 +3,7 @@ let Client = require("../models/client.model");
 let Location = require("../models/location.model")
 const axios = require("axios")
 router.route('/map').get(async (req, res)=>{
-  let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.address}&key=AIzaSyBOqJFEL9f1qDYOZv9PPcEHOXGR0-V5vCU`)
+  let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.address}&key=${process.env.MAPS_API_KEY}`)
   res.json({
     location: response.data.results[0].geometry.location
   });
@@ -33,9 +33,14 @@ router.route("/username").get(async (req, res)=>{
 })
 //get All clients
 router.route('/').get(async (req, res) => {
+  let filter = {}
+  if(req.query.username) filter.username = req.query.username;
+  if(req.query.phone) filter.$or = [{phone1: req.query.phone}, {phone2: req.query.phone}];
+  if(req.query.email) filter.email = req.query.email;
+  
   let result = []
     try{
-      let clients = await Client.find();
+      let clients = await Client.find(filter);
       for(let client of clients){
         let location = await Location.find({managers: client._id})
         result.push({...client._doc, locations: location})
