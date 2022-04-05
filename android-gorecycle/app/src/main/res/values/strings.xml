@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Go_Recycle</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="open">open navigation</string>
-    <string name="close">Close navigation</string>
-    <string name="title_activity_maps">Map</string>
-</resources>
