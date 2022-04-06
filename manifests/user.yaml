@@ -1,17 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user
+  name: colibris-user-deploy
   namespace: colibris
+  labels:
+    project: colibris
 spec:
   selector:
     matchLabels:
-      run: user
+      app: colibris-user
   replicas: 1
   template:
     metadata:
       labels:
-        run: user
+        app: colibris-user
+        project: colibris
     spec:
       containers:
       - name: user
@@ -28,13 +31,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: user
+  name: colibris-user-svc
   labels:
-    run: user
+    project: colibris
 spec:
   ports:
   - port: 5001
     protocol: TCP
   selector:
-    run: user
+    app: colibris-user
   
