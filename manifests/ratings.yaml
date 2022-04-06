@@ -3,9 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: colibris-ratings-pvc
 spec:
- 
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce 
   resources:
     requests:
       storage: 100Mi
@@ -14,18 +13,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: colibris-ratings-deploy
+    app: colibris-ratings
    
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: colibris-ratings-deploy 
+      app: colibris-ratings
   template:
     metadata:
       labels:
         project: colibris
-        app: colibris-ratings-deploy
+        app: colibris-ratings
     spec:
       volumes:
         - name: colibris-ratings-db-pv
@@ -45,7 +44,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: colibris-ratings-deploy
+    app: colibris-ratings
   name: colibris-ratings-svc
 spec:
   ports:
@@ -53,5 +52,5 @@ spec:
       port: 3000
       targetPort: 3000
   selector:
-    app: colibris-ratings-deploy
+    app: colibris-ratings
 
