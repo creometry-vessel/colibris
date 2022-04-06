@@ -44,7 +44,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: colibris-ratings
+    project: colibris
   name: colibris-ratings-svc
 spec:
   ports:

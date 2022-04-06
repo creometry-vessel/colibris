@@ -3,31 +3,31 @@ kind: Service
 metadata:
   name: colibris-mongodb-svc
   labels:
-    app: colibris-mongodb
+    project: colibris
 spec:
   ports:
   - port: 27017
     targetPort: 27017
-  ClusterIP: none  
+  clusterIP: none  
   selector:
-    app: colibris-mongodb
+    app: colibris-user-db
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: colibris-mongod
+  name: colibris-mongodb-sset
   namespace: colibris
 spec:
   serviceName: colibris-mongodb-svc
   replicas: 1
-  minReadySeconds: 10
+  
   selector:
     matchLabels:
-      app: colibris-mongodb
+      app: colibris-user-db
   template:
     metadata:
       labels:
-        app: colibris-mongodb
+        app: colibris-user-db
     spec:
      
       containers:

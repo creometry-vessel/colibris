@@ -6,12 +6,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: colibris
+      app: colibris-schedule
   replicas: 1
   template:
     metadata:
       labels:
-        app: colibris
+        app: colibris-schedule
+        project: colibris
     spec:
       containers:
       - name: schedule
@@ -39,13 +40,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: schedule
+  name: colibris-schedule-svc
   labels:
-    app: colibris
+    project: colibris
   namespace: colibris
 spec:
   ports:
   - port: 5000
     protocol: TCP
   selector:
-    app: colibris
+    app: colibris-schedule
