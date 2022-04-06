@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: schedule
+  name: colibris-schedule-deploy
   namespace: colibris
 spec:
   selector:

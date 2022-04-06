@@ -1,52 +1,52 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
+  name: colibris-mongodb-svc
   labels:
-    name: mongo
+    app: colibris-mongodb
 spec:
   ports:
   - port: 27017
     targetPort: 27017
+  ClusterIP: none  
   selector:
-    role: mongo
+    app: colibris-mongodb
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongod
+  name: colibris-mongod
+  namespace: colibris
 spec:
-  serviceName: mongodb
+  serviceName: colibris-mongodb-svc
   replicas: 1
+  minReadySeconds: 10
   selector:
     matchLabels:
-      role: mongo
+      app: colibris-mongodb
   template:
     metadata:
       labels:
-        role: mongo
-        environment: test
-        replicaset: MainRepSet
+        app: colibris-mongodb
     spec:
-      terminationGracePeriodSeconds: 10
+     
       containers:
         - name: mongod-container
           image: mongo
           ports:
-            - containerPort: 27017
+          - containerPort: 27017
+            name: colibris-mongodb-port
           volumeMounts:
-            - name: mongodb-persistent-storage-claim
+            - name: colibris-mongodb-pvc
               mountPath: /data/db
-      volumes:
-          - name: mongo-storage
-            emptyDir: {}
+     
   volumeClaimTemplates:
   - metadata:
-      name: mongodb-persistent-storage-claim
-      annotations:
-        volume.beta.kubernetes.io/storage-class: "standard"
+      name: colibris-mongodb-pvc
+    
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes: 
+        - ReadWriteOnce
       resources:
         requests:
-          storage: 1Gi
+          storage: 10Gi

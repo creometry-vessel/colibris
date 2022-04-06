@@ -30,10 +30,10 @@ spec:
                 name: appointment
                 port:
                   number: 5000
-          - path: /ratings(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: ratings
-                port:
-                  number: 3000
+          # - path: /ratings(/|$)(.*)
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: ratings
+          #       port:
+          #         number: 3000
