@@ -3,7 +3,7 @@ export default function Confirm(props){
         <div>
             {props.chosenAddr.address.streetNumber} {props.chosenAddr.address.streetName}, {props.chosenAddr.address.city}, {props.chosenAddr.address.state}
                 <br />
-                {props.myDate.toDateString()}
+                {props.myDate}
                 <br />
             {props.shift}
         </div>

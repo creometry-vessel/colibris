@@ -10,9 +10,9 @@ function App() {
       <TopBar />
       <Sidebar />
       
-      <div class="main">
-        <div class="main-content">
-          <div class="container-fluid">
+      <div className="main">
+        <div className="main-content">
+          <div className="container-fluid">
             {/* <ListAppointments /> */}
             <Router hashType="noslash">
               <Switch>

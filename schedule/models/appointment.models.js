@@ -24,23 +24,22 @@ const appointmentSchema = new Schema({
         type: String,
         required: true
     },
-    waypointRank:{
+    waypointRank: {
         type: Number
     },
-    status:{
+    status: {
         type: String,
-        enum: ["pending", "attempted", "completed", "canceled"] 
+        enum: ["pending", "attempted", "completed", "canceled"]
     },
-    attempts:{
+    attempts: {
         type: Number
     },
-    reason:{
+    reason: {
         type: String,
     }
-    },
-    {
-        timestamps: true
-    }); 
+}, {
+    timestamps: true
+});
 const app = mongoose.model('appointment', appointmentSchema);
 
 module.exports = app;

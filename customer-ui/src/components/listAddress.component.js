@@ -27,7 +27,7 @@ export default function List(props){
     return(
         <div>
             {address.map((element, index)=>(
-                <div onClick={()=>chooseAddr(element)}>
+                <div key={index} onClick={()=>chooseAddr(element)}>
                     {element.address.streetNumber} {element.address.streetName}, {element.address.city}, {element.address.state}
                 </div>
             ))}

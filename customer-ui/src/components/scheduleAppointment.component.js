@@ -54,7 +54,7 @@ export default function HorizontalLinearStepper(props) {
   const handleReset = () => {
     setChosenAddr({});
     setMyDate(null);
-    shift("morning")
+    setShift("morning")
 
     setActiveStep(0);
   };

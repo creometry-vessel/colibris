@@ -12,10 +12,10 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true,  useUnifiedTopology: true });
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection.once("open", () => {
-  console.log("database connected !!!");
+    console.log("database connected !!!");
 });
 
 const appointmentRouter = require('./routes/appointment')
@@ -26,5 +26,5 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(port, () => {
-  console.log("server is running on port",port);
+    console.log("server is running on port", port);
 });
