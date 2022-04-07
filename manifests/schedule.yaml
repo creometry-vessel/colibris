@@ -25,7 +25,7 @@ spec:
               configMapKeyRef:
                 name: colibris-configmap
                 key: ATLAS_URI
-          - name: USER_SERVICE
+          - name: USER_SERVICE_URL
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
