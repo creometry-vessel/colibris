@@ -29,7 +29,7 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
-                key: USER_SERVICE 
+                key: USER_SERVICE
           - name: MAX_APPS
             valueFrom:
               configMapKeyRef:
