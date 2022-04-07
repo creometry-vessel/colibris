@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: colibris-schedule-deploy
-  namespace: colibris
+#  namespace: colibris
 spec:
   selector:
     matchLabels:
@@ -24,8 +24,8 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
-                key: ATLAS_URI 
-          - name: USER_SERVICE_URL
+                key: ATLAS_URI
+          - name: USER_SERVICE
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
@@ -43,7 +43,7 @@ metadata:
   name: colibris-schedule-svc
   labels:
     project: colibris
-  namespace: colibris
+#  namespace: colibris
 spec:
   ports:
   - port: 5000

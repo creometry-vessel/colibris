@@ -8,7 +8,7 @@ spec:
   ports:
   - port: 27017
     targetPort: 27017
-  clusterIP: none  
+  
   selector:
     app: colibris-user-db
 ---
@@ -16,7 +16,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: colibris-mongodb-sset
-  namespace: colibris
+#  namespace: colibris
 spec:
   serviceName: colibris-mongodb-svc
   replicas: 1
@@ -35,7 +35,7 @@ spec:
           image: mongo
           ports:
           - containerPort: 27017
-            name: colibris-mongodb-port
+            name: mongo
           volumeMounts:
             - name: colibris-mongodb-pvc
               mountPath: /data/db

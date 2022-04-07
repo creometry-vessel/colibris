@@ -1,17 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: colibris
-  name: index
+  #namespace: colibris
+  name: colibris-index-deploy
 spec:
   selector:
     matchLabels:
-      run: index
+      app: colibris-index
   replicas: 1
   template:
     metadata:
       labels:
-        run: index
+        app: colibris-index
+        project: colibris
     spec:
       containers:
       - name: customerui
@@ -21,8 +22,7 @@ spec:
         volumeMounts:
           - name: config
             mountPath: /usr/share/nginx/html/config.js
-            readOnly: true
-            subPath: config.js
+            
       volumes:
       - name: config
         configMap:
@@ -32,13 +32,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: colibris
-  name: index
+  # namespace: colibris
+  name: colibris-index-svc
   labels:
-    run: index
+    project: colibris
 spec:
   ports:
   - port: 80
     protocol: TCP
   selector:
-    run: index
+    app: colibris-index

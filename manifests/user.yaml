@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: colibris-user-deploy
-  namespace: colibris
+ # namespace: colibris
   labels:
     project: colibris
 spec:
@@ -32,6 +32,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: colibris-user-svc
+ # namespace: colibris
   labels:
     project: colibris
 spec:

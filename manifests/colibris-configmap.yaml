@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: colibris-configmap
 data:
-  ATLAS_URI: mongodb://mongodb:27017/Colibris?retryWrites=true&w=majority
-  USER_SERVICE: http://user:5001
+  ATLAS_URI: mongodb://colibris-mongodb-svc.colibris-staging.svc.cluster.local:27017/Colibris?retryWrites=true&w=majority
+  USER_SERVICE: colibris-user-svc.colibris-staging.svc.cluster.local
   MAX_APPS: "25"
-  config.js: "window.ENV = {\r \"USER_SERVICE_URI\": \"http://localhost:5001\",\r \"APPOINT_SERVICE_URI\": \"http://localhost:5000\"\r }"
+  config.js: "window.ENV = {\r \"USER_SERVICE_URI\": \"colibris-user-svc.colibris-staging.svc.cluster.local\",\r \"APPOINT_SERVICE_URI\": \"colibris-schedule-svc.colibris-staging.svc.cluster.local\"\r }"
 

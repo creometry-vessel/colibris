@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+   # nginx.ingress.kubernetes.io/server-alias: "colibristunisie.com,www.colibristunisie.com,colibris.tn,www.colibris.tn"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+  name: colibris-front-ingress
+ # namespace: colibris
+spec:
+  rules:
+  - host: test-colibris.creometry.dev
+    http:
+      paths:
+      - backend:
+          service:
+            name: colibris-index-svc
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+    
+  tls: 
+  - hosts:
+    - test-colibris.creometry.dev
+    # - colibris.tn
+    # - www.colibris.tn
+    # - colibristunisie.com
+    # - www.colibristunisie.com
+
+    secretName: colibris-ingress-secret
