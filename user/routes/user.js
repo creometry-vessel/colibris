@@ -2,26 +2,15 @@ const router = require("express").Router();
 let Client = require("../models/client.model");
 let Location = require("../models/location.model")
 const axios = require("axios")
+
+
 router.route('/map').get(async (req, res)=>{
   let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.address}&key=${process.env.MAPS_API_KEY}`)
   res.json({
     location: response.data.results[0].geometry.location
   });
-
-})
-router.route('/location/:id').delete(async (req, res)=>{
-  await Location.findByIdAndDelete(req.params.id);
-  res.json("location deleted")
-})
-router.route('/location/:id').get(async (req, res)=>{
-  let location = await Location.findById(req.params.id);
-  res.json(location)
 })
 
-router.route('/location').get(async (req, res)=>{
-  let locations = await Location.find({managers: req.query.userID});
-  res.json(locations)
-})
 
 router.route("/username").get(async (req, res)=>{
   let clients = await Client.find();
@@ -59,6 +48,7 @@ router.route('/').get(async (req, res) => {
   router.route('/:id').get(async (req, res) => {
     try{
       let client = await Client.findById(req.params.id);
+      console.log(client)
       let location = await Location.find({managers: client._id})
       res.json({...client._doc, locations: location})
     }

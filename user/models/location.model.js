@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
+
 const addressSchema = new Schema({
     lng:{
         type: Number,
@@ -39,12 +39,14 @@ const addressSchema = new Schema({
 })
 const locationSchema = new Schema({
     userID:{
-        type: String,
-        trim: true,
-        required: true
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "client"
     },
     managers: {
-        type: [String],
+        type: [{
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: "client"
+        }],
     },
     address:{
         type: addressSchema

@@ -16,7 +16,9 @@ app.use(express.json());
 app.use(cookieParser())
 
 const userRouter = require('./routes/user')
+const locationRouter = require('./routes/location')
 
+app.use("/location", locationRouter)
 app.use("/", userRouter)
 
 const uri = process.env.ATLAS_URI;
