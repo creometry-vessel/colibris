@@ -5,7 +5,7 @@ const axios = require("axios")
 
 
 router.route('/map').get(async (req, res)=>{
-  let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.address}&key=${process.env.MAPS_API_KEY}`)
+  let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.address}&key=${process.env.GOOGLE_API_KEY}`)
   res.json({
     location: response.data.results[0].geometry.location
   });

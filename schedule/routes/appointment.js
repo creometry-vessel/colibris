@@ -16,7 +16,7 @@ router.route('/').post(async(req, res) => {
                 createdBy: req.body.createdBy,
                 status: "pending",
                 reason: "",
-                dueDate: new Date(new Date(req.body.dueDate).getTime() + 60 * 60 * 1000),
+                dueDate: req.body.dueDate,
                 location: req.body.location,
                 shift: req.body.shift,
                 waypointRank: -1,
@@ -52,7 +52,7 @@ router.route("/sort").put(async (req,res)=>{
     }
     for (let appointment of appointments) {
         let location = await axios.get(`${process.env.USER_SERVICE_URL}/location/${appointment.location}`);
-        destinations = `${destinations}|${location.data.address.lng},${location.data.address.lat}`
+        destinations = `${destinations}|${location.data.address.lat},${location.data.address.lng}`
         locations.push(location.data )
     }
 
@@ -122,27 +122,34 @@ router.route("/").delete(async(req, res) => {
 })
 
 router.route('/markers').put(async(req, res) => {
-    let newAppointment = await Appointment.findOne({ date: req.body.today, userID: req.body.userID });
+    let search = { dueDate: new Date(new Date().setHours(0, 0 , 0, 0)), status: "pending", shift: new Date().getHours() >= 14 ?  "afternoon" : "morning" };
+    let newAppointment = await Appointment.findById(req.body.appointment?._id);
     if (newAppointment) {
+        newAppointment.attempts = newAppointment.attempts + 1
         newAppointment.status = req.body.status;
-        newAppointment.description = req.body.description;
+        newAppointment.reason = req.body.reason;
+        search.waypointRank = newAppointment.waypointRank + 1;
         await newAppointment.save();
     }
-    let nextApp = await Appointment.findOne({ date: req.body.today, status: "waiting" });
+    let nextApp = await Appointment.findOne(search);
     if (nextApp) {
-        let user = (await axios.get(process.env.USER_SERVICE_URL + '/' + nextApp.userID)).data
-
+        let location = (await axios.get(process.env.USER_SERVICE_URL + '/location/' + nextApp.location)).data
         res.json({
             data: {
+                _id: nextApp._id,
                 userID: nextApp.userID,
-                lat: nextApp.address.lat,
-                lng: nextApp.address.lng,
-                name: user.Name,
-                phone1: user.phone1,
-                phone2: user.phone2,
-                street: nextApp.address.street,
-                city: nextApp.address.city,
-                governorate: nextApp.address.governorate
+                lat: location.address.lat,
+                lng: location.address.lng,
+                name: location.userID.name,
+                phone1: location.userID.phone1,
+                phone2: location.userID.phone2,
+                streetName: location.address.streetName,
+                city: location.address.city,
+                state: location.address.state,
+                addressType: location.address.addressType,
+                locationType: location.address.locationType,
+                streetNumber: location.address.streetNumber,
+                zipCode: location.address.zipCode
             }
         })
     } else res.json("finished!!")
@@ -157,7 +164,7 @@ router.route('/:id').put(async(req, res) => {
     }
     let appointment = await Appointment.findOne({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift, createdBy: req.body.createdBy});
     if (!appointment) {
-        await Appointment.findByIdAndUpdate(req.params.id, req.body);
+        await Appointment.findByIdAndUpdate(req.params.id,req.body);
         res.json("Changed Successfully !")
     } else res.json("already booked")
 })

@@ -29,7 +29,12 @@ export default function Address(props) {
     locs[index] = loc
     setLocations(locs)  
   }
-
+  const updateLatLng = (location)=>{
+    let locs = [...locations]
+    let loc = {...locations[index], address: {...locations[index].address, lat: location.lat, lng: location.lng}}
+    locs[index] = loc
+    setLocations(locs)  
+  }
   const deleteLoc = async ()=>{
     if(locations[index]._id){
       await axios.delete(`${window.ENV.USER_SERVICE_URI}/location/${locations[index]._id}`)
@@ -148,7 +153,7 @@ export default function Address(props) {
                     <div className="col-lg-2">
                     
                     
-                    <Dialog address={`${locations[index].streetName},${locations[index].city},${locations[index].state}`} setLat={(val)=>updateLoc("lat", val)} setLng={(val)=>updateLoc("lng", val)} />
+                    <Dialog address={`${locations[index].address.streetName},${locations[index].address.city},${locations[index].address.state}`} setLatLng={updateLatLng} />
                 </div>
                     <button onClick={deleteLoc}>delete location</button>
                   </div>

@@ -26,6 +26,11 @@ function App() {
                   path="/users"
                   component={Users}
                 />
+                <Route
+                  exact
+                  path="/markers"
+                  component={Markers}
+                />
                 <Route exact path="/markers" component={Markers} />
               </Switch>
             </Router>
