@@ -11,15 +11,6 @@ router.route('/map').get(async (req, res)=>{
   });
 })
 
-
-router.route("/username").get(async (req, res)=>{
-  let clients = await Client.find();
-  let result = []
-  for(let client of clients){
-    result.push({id :client._id, username: client.username })
-  }
-  res.json(result)
-})
 //get All clients
 router.route('/').get(async (req, res) => {
   let filter = {}
@@ -45,11 +36,10 @@ router.route('/').get(async (req, res) => {
   })
   //get a client by id
   
-  router.route('/:id').get(async (req, res) => {
+router.route('/:id').get(async (req, res) => {
     try{
       let client = await Client.findById(req.params.id);
-      console.log(client)
-      let location = await Location.find({managers: client._id})
+      let location = await Location.find({userID: client._id})
       res.json({...client._doc, locations: location})
     }
     catch (e){
@@ -72,7 +62,6 @@ router.route('/').get(async (req, res) => {
         else {
           location = new Location({
             userID: req.params.id,
-            managers: [req.params.id],
             address: location.address
           })
           await location.save()

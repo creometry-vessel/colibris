@@ -42,12 +42,7 @@ const locationSchema = new Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: "client"
     },
-    managers: {
-        type: [{
-            type: mongoose.SchemaTypes.ObjectId,
-            ref: "client"
-        }],
-    },
+    
     address:{
         type: addressSchema
     }

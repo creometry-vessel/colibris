@@ -13,7 +13,6 @@ export default function Search(props){
     }
     const excelExport = () => {
       if (_export.current) {
-        console.log(props.data)
         _export.current.save();
       }
     };
@@ -86,21 +85,13 @@ export default function Search(props){
           <ExcelExportColumn field="location.address.lat" title="latitude" />
           <ExcelExportColumn field="location.address.lng" title="longitude" />
           {
-            //first manager info
+            //first client info
           }
-          <ExcelExportColumn field="location.managers[0].name" title="1 manager name" />
-          <ExcelExportColumn field="location.managers[0].username" title="1 manager username" />
-          <ExcelExportColumn field="location.managers[0].email" title="1 manager email" />
-          <ExcelExportColumn field="location.managers[0].phone1" title="1 manager phone 1" />
-          <ExcelExportColumn field="location.managers[0].phone2" title="1 manager phone 2" />
-          {
-            //second manager info
-          }
-          <ExcelExportColumn field="location.managers[1].name" title="2 manager name" />
-          <ExcelExportColumn field="location.managers[1].username" title="2 manager username" />
-          <ExcelExportColumn field="location.managers[1].email" title="2 manager user email" />
-          <ExcelExportColumn field="location.managers[1].phone1" title="2 manager user phone 1" />
-          <ExcelExportColumn field="location.managers[1].phone2" title="2 manager user phone 2" />
+          <ExcelExportColumn field="location.userID.name" title="client name" />
+          <ExcelExportColumn field="location.userID.username" title="client username" />
+          <ExcelExportColumn field="location.userID.email" title="client email" />
+          <ExcelExportColumn field="location.userID.phone1" title="client phone 1" />
+          <ExcelExportColumn field="location.userID.phone2" title="client phone 2" />
           </ExcelExport>
         </span>
       </div>

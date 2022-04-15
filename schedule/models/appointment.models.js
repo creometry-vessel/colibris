@@ -20,10 +20,6 @@ const appointmentSchema = new Schema({
         type: String,
         required: true
     },
-    contact: {
-        type: String,
-        required: true
-    },
     waypointRank: {
         type: Number
     },

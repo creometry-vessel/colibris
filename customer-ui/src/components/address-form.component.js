@@ -23,18 +23,6 @@ let coord = [
 ]
 export default function Address(props) {
   const {locations, index, setLocations ,colibrisID, ...others} = props;
-  const [usernames, setUsernames] = useState([]);
-  useEffect(()=>{
-    axios.get(`${window.ENV.USER_SERVICE_URI}/username`).then((res)=>{
-      let data = [];
-      for(let username of res.data){
-        if(colibrisID != username.id)
-        data.push({label: username.username, value: username.id})
-      }
-      data.push({label: "hadhemi", value: "54794155"})
-      setUsernames(data)
-    })
-  }, [])
   const updateLoc = (champ, value)=>{
     let locs = [...locations]
     let loc = {...locations[index], address: {...locations[index].address, [champ]: value}}
@@ -77,28 +65,6 @@ export default function Address(props) {
                   
                   
             </div>
-      <Select options={usernames} 
-      inputId="54794155"
-      defaultValue={()=> {
-       /* let loc = locations[index];
-        let id = ""
-        if(loc.managers[0] == colibrisID) id= loc.managers[1]
-        id= loc.managers[0]
-        console.log(usernames)
-        for(let user of usernames){
-          console.log(usernames)
-          if (user.value == id) {console.log(user)}
-        }*/
-      }}
-       onChange={e=> {
-        let locs = [...locations]
-        let loc = locations[index];
-        if(loc.managers[0] == colibrisID) loc.managers[1] = e.value;
-        else loc.managers[0] = e.value
-        locs[index] = loc
-        setLocations(locs)  
-      }}/>
-
                     <div className="col-lg-12 mb-3">
                       <select className="col-lg-12 mb-3" onChange={(e)=> updateLoc("state", e.target.value)} value={locations[index].address.state}>
                         <option>--State--</option>

@@ -10,7 +10,7 @@ router.route('/').post(async(req, res) => {
             res.json("full for today")
             return;
         }
-        let appointment = await Appointment.findOne({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift, contact: req.body.contact });
+        let appointment = await Appointment.findOne({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift });
         if (!appointment) {
             appointment = new Appointment({
                 createdBy: req.body.createdBy,
@@ -19,7 +19,6 @@ router.route('/').post(async(req, res) => {
                 dueDate: new Date(new Date(req.body.dueDate).getTime() + 60 * 60 * 1000),
                 location: req.body.location,
                 shift: req.body.shift,
-                contact: req.body.contact,
                 waypointRank: -1,
                 attempts: 0
             });
@@ -102,7 +101,7 @@ router.route("/").get(async(req, res) => {
 router.route("/:userID").get(async(req, res) => {
     try {
         let result = []
-        let appointments = await Appointment.find({ $or: [{ createdBy: req.params.userID }, { contact: req.params.userID }] });
+        let appointments = await Appointment.find({ createdBy: req.params.userID });
         for (let appointment of appointments) {
             let location = await axios.get(`${process.env.USER_SERVICE_URL}/location/${appointment.location}`);
             result.push({...appointment._doc, location: location.data })
@@ -152,7 +151,7 @@ router.route('/:id').put(async(req, res) => {
         res.json("full for today")
         return;
     }
-    let appointment = await Appointment.findOne({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift, contact: req.body.contact });
+    let appointment = await Appointment.findOne({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift, createdBy: req.body.createdBy});
     if (!appointment) {
         await Appointment.findByIdAndUpdate(req.params.id, req.body);
         res.json("Changed Successfully !")
