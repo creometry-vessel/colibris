@@ -36,6 +36,10 @@ router.route('/').post(async(req, res) => {
 })
 
 router.route("/sort").put(async (req,res)=>{
+    if(!req.body.shift || !req.body.dueDate){
+        res.json({data: "need shift and dueDate"});
+        return;
+    }
     let locations = []
     let destinations = ""
     let indexes = [0];

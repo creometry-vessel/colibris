@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { ExcelExport ,   ExcelExportColumn} from "@progress/kendo-react-excel-export";
-
+import axios from 'axios'
 export default function Search(props){
     const [date, setDate] = useState(new Date().toDateString());
     const [shift, setShift] = useState("morning");
@@ -16,6 +16,15 @@ export default function Search(props){
         _export.current.save();
       }
     };
+    const Sort = ()=>{
+      if(!date || !shift) return;
+      axios.put(`${window.ENV.APPOINT_SERVICE_URI}/sort`, {
+        shift: shift,
+        dueDate: date
+      }).then(res=>{
+        window.alert(res.data.data)
+      })
+    }
     return(
     <div className="row panel">
     <div className="col-md-2">
@@ -97,6 +106,9 @@ export default function Search(props){
       </div>
       </div>
     </div>
+    <button className="btn btn-primary" type="button" onClick={Sort}>
+      <i class="far fa-sort-amount-down"></i>          
+    </button>
   </div>
   )
 }
