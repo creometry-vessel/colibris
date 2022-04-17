@@ -54,8 +54,7 @@ exports.findByCity = async (req, res, next ) => {
      });
     }
  };
- //does weekday have to be unique
- //the model we have is functional for just one week
+ 
  exports.updateZone= async (req,res, next) => {
      try { 
         const newZone = await Zone.findOneAndUpdate({weekday: req.params.weekday},req.body, {
@@ -64,7 +63,7 @@ exports.findByCity = async (req, res, next ) => {
         }
         );
         res.status(200).json({
-            status: "successefully updated",
+            status: "Successefully updated",
             data: {
                 newZone,
             }

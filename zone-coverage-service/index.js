@@ -9,7 +9,6 @@ const eligibilityRouter = require("./routes/eligibilityRoutes")
 
 const app = express()
 
-
 mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}`,
                 {useNewUrlParser: true,
                 useUnifiedTopology: true,
@@ -20,11 +19,7 @@ mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_
                    
 
 app.use(express.json());
-app.get("/", (req, res) => {
-    res.send("<h2>Hi there</h2>")
-})
 
-//localhost:3000/zone
 app.use("/zone", zoneRouter)
 app.use("/eligibility", eligibilityRouter)
 

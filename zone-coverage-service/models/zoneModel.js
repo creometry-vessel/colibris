@@ -10,7 +10,6 @@ const zoneSchema = new mongoose.Schema({
     },
     cities: {
         type: [String],
-        default: undefined,
         required: [true, "Zone must have cities"]
     }
 });
