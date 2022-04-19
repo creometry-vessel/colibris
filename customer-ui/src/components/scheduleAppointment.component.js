@@ -28,7 +28,7 @@ export default function HorizontalLinearStepper(props) {
         let response = null
        if(id){
         response = await axios.put(`${window.ENV.APPOINT_SERVICE_URI}/${id}`, {
-            dueDate: myDate, location: chosenAddr._id, shift: shift, contact: cookies.colibrisID
+            dueDate: myDate, location: chosenAddr._id, shift: shift, createdBy: cookies.colibrisID
           })
         close(response.data);
         setActiveStep(0)
@@ -36,7 +36,7 @@ export default function HorizontalLinearStepper(props) {
        }else{
          response = await axios.post(
             `${window.ENV.APPOINT_SERVICE_URI}`,
-            { createdBy: cookies.colibrisID, dueDate: myDate, location: chosenAddr._id, shift: shift, contact: cookies.colibrisID }
+            { createdBy: cookies.colibrisID, dueDate: myDate, location: chosenAddr._id, shift: shift }
           );
             console.log(response.data)
        }

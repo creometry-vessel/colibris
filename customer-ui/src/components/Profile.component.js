@@ -160,7 +160,7 @@ export default function Profile() {
                       onClick={() => {
                         //setEnableAddr(true);
                         
-                        setLocations([...locations, { managers:[], address: {lng: 0, lat: 0, addressType: "appartment", locationType: "professional", streetNumber: 0,streetName:"", state: "", city: "", zipCode: 0}}]);
+                        setLocations([...locations, {address: {lng: 0, lat: 0, addressType: "appartment", locationType: "professional", streetNumber: 0,streetName:"", state: "", city: "", zipCode: 0}}]);
                       }}
                     >
                       <i className="fas fa-plus green mr-3"></i>

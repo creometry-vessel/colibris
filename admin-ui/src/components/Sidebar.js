@@ -17,6 +17,16 @@ class Sidebar extends Component {
               <i className="fas fa-users"></i><span>Users</span>
               </a>
             </li>
+            <li>
+              <a href="/#markers" className="">
+              <i className="fas fa-users"></i><span>markers</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#marker2" className="">
+              <i className="fas fa-users"></i><span>markers2</span>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
