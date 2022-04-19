@@ -17,7 +17,7 @@ export default function Markers() {
       .geocode({ location: latlng })
       .then((response) => {
         if (response.results[0]) {
-          map.setZoom(11);
+          map.setZoom(18);
           if (marker) {
             marker.setMap(null);
           }
@@ -75,10 +75,10 @@ export default function Markers() {
     }
     setTimeout(() => {
       map = new window.google.maps.Map(document.getElementById("map"), {
-        zoom: 11,
+        zoom: 18,
         center: { lat: 36.80278, lng: 10.17972 },
       });
-      getMarker(undefined);
+      getMarker("pending");
       geocoder = new window.google.maps.Geocoder();
       infowindow = new window.google.maps.InfoWindow();
     }, 1000);

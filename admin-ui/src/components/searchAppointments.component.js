@@ -67,7 +67,7 @@ export default function Search(props){
       <div className="input-group">
       <select className="form-control" onChange={(e)=>setShift(e.target.value)}>
                 <option>morning</option>
-                <option>evening</option>
+                <option>afternoon</option>
       </select>        
         <span className="input-group-btn">
         <button className="btn btn-primary" type="button" onClick={excelExport}>

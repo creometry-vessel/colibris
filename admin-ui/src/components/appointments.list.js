@@ -24,6 +24,7 @@ export default function ListAppointments(props){
                 <th scope="col">#</th>
                 <th scope="col">Date</th>
                 <th scope="col">shift</th>
+                <th scope="col">Order</th>
                 <th scope="col">Address</th>
                 <th scope="col">Status</th>
                 <th scope="col">Attempts</th>
@@ -36,6 +37,7 @@ export default function ListAppointments(props){
               <th scope="row">{index + 1}</th>
               <td>{element.dueDate.substring(0,10)}</td>
               <td>{element.shift}</td>
+              <td>{element.waypointRank}</td>
               <td>{element.location?.address.streetNumber} {element.location?.address.streetName}, {element.location?.address.city}, {element.location?.address.state}</td>
               <td>{element.status}</td>
               <td>{element.attempts}</td>
