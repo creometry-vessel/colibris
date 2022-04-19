@@ -93,10 +93,11 @@ router.route("/").get(async(req, res) => {
     if (req.query.shift) filter.shift = req.query.shift;
     if (req.query.dueDate) filter.dueDate = req.query.dueDate;
     if (req.query.status) filter.status = req.query.status;
-    let appointments = await Appointment.find(filter);
+    let appointments = await Appointment.find(filter).sort({dueDate: 1, waypointRank: 1});
     let result = [];
     for (let appointment of appointments) {
         let location = await axios.get(`${process.env.USER_SERVICE_URL}/location/${appointment.location}`);
+        if(location)
         result.push({...appointment._doc, location: location.data })
     }
     res.json(result);
@@ -122,16 +123,16 @@ router.route("/").delete(async(req, res) => {
 })
 
 router.route('/markers').put(async(req, res) => {
-    let search = { dueDate: new Date(new Date().setHours(0, 0 , 0, 0)), status: "pending", shift: new Date().getHours() >= 14 ?  "afternoon" : "morning" };
+    let search = { dueDate: new Date(new Date().setHours(0, 0 , 0, 0)), status: "pending", shift: new Date().getHours() >= 14 ?  "afternoon" : "morning",  waypointRank: { $gte: 1 } };
     let newAppointment = await Appointment.findById(req.body.appointment?._id);
     if (newAppointment) {
         newAppointment.attempts = newAppointment.attempts + 1
         newAppointment.status = req.body.status;
         newAppointment.reason = req.body.reason;
-        search.waypointRank = newAppointment.waypointRank + 1;
         await newAppointment.save();
     }
-    let nextApp = await Appointment.findOne(search);
+    let apps = await Appointment.find(search).sort({waypointRank: 1});
+    nextApp = apps[0];
     if (nextApp) {
         let location = (await axios.get(process.env.USER_SERVICE_URL + '/location/' + nextApp.location)).data
         res.json({
