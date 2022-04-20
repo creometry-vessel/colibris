@@ -1958,7 +1958,7 @@ a:focus {
 }
 
 .btn-circle {
-  padding: 7px 12px;
+  padding: 5px 13px;
   font-family: "Nunito", sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -1968,6 +1968,11 @@ a:focus {
   border-radius: 50px;
   transition: 0.5s;
   cursor: pointer;
+}
+.btn-circle:disabled{
+  color: #8f8f8f;
+  border: 2px solid #8f8f8f;
+  cursor:no-drop;
 }
 .green {
   color: #39b54a;
@@ -2016,4 +2021,26 @@ a:focus {
 .form-control:focus,
 .custom-select:focus {
   box-shadow: none;
+}
+.simple-btn{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  background: #39b54a;
+  border: 2px solid #39b54a;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+.outlined-btn{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #39b54a;
+  background: #ffffff;
+  border: 2px solid #39b54a;
+  border-radius: 5px;
+  transition: 0.5s;
 }

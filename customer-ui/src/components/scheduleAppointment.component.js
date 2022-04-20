@@ -11,6 +11,8 @@ import Shift from './shift.component'
 import axios from 'axios';
 import { useCookies } from "react-cookie";
 import Confirm from './confirAppointment.component';
+import { makeStyles  } from '@mui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const steps = ['Select address', 'select Date', 'select shift', 'confirm appointment'];
 
@@ -69,17 +71,47 @@ export default function HorizontalLinearStepper(props) {
 
     }
 }
+/*
+const useStyles = makeStyles(() => ({
+  root: {
+    "& .MuiStepIcon-active": { color: '#39b54a' },
+    "& .MuiStepIcon-completed": { color: "cyan" },
+    "& .Mui-disabled .MuiStepIcon-root": { color: "grey" },
+    '&$active': {
+      color: '#1e88e5',
+    },
+  }
+}));
+
+const c = useStyles();
+const muiTheme = createMuiTheme({
+  overrides: {
+      MuiStepIcon: {
+          root: {
+              color: '#000000', 
+              '&$active': {
+                  color: '#f2f2',
+              },
+              '&$completed': {
+                  color: '#000000',
+              },
+          },
+      },
+  }
+});*/
+
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {          
-          return (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
+        <Stepper activeStep={activeStep}>
+          {steps.map((label, index) => {          
+            return (
+              <Step key={label}>
+                <StepLabel >{label}</StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper> 
+      
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
@@ -95,16 +127,16 @@ export default function HorizontalLinearStepper(props) {
           <Typography sx={{ mt: 2, mb: 1 }}></Typography>
           {generate(activeStep)}
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Button
-              color="inherit"
+            <button
+              className='btn-circle'
               disabled={activeStep === 0}
               onClick={handleBack}
               sx={{ mr: 1 }}
             >
-              Back
-            </Button>
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
             {activeStep == steps.length - 1 ? 
-                        <Button onClick={handleReset}>Reset</Button>
+                <button onClick={handleReset} className="outlined-btn">Reset</button>
               :
               <div></div>
             }
@@ -112,10 +144,13 @@ export default function HorizontalLinearStepper(props) {
             <Box sx={{ flex: '1 1 auto' }} />
             
             {activeStep == 0? <div></div>:
-            <Button onClick={handleNext}>
-                
-            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-          </Button>
+
+            <button onClick={handleNext} className="btn-circle">
+
+            {activeStep === steps.length - 1 ? 
+            <button className="simple-btn">Finish</button> : 
+            <i class="fa-solid fa-angle-right"></i>}
+          </button>
 
           }
             
