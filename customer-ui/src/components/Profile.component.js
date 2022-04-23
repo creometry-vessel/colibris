@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import Address from "./address-form.component";
+import Avatar from "@mui/material/Avatar";
 
 export default function Profile() {
-
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ export default function Profile() {
         setLocations(res.data.locations);
         setPhone1(res.data.phone1);
         setUsername(res.data.username);
-        setAvatar(res.data.avatar)
+        setAvatar(res.data.avatar);
         if (res.data.phone2) {
           setEnablePhone(true);
           setPhone2(res.data.phone2);
@@ -32,11 +32,8 @@ export default function Profile() {
       });
   }, [cookies.colibrisID]);
 
-
-
-
   const Submit = () => {
-   //verif
+    //verif
     axios
       .put(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`, {
         name: name,
@@ -45,7 +42,7 @@ export default function Profile() {
         phone2: phone2,
         locations: locations,
         avatar: avatar,
-        username: username
+        username: username,
       })
       .then((res) => {
         if (res.data === "client updated successfully!!") {
@@ -67,11 +64,29 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      
+
       <div className="container-fluid mt-3 contact">
         <div className="row ">
           <div className="col-lg-12 mb-3 padding  contact-form">
-              <div className="row container-fluid">
+            <div className="row container-fluid ">
+              <div className="col-lg-12 mb-3">
+                <div className="row">
+                  <div className="col-lg-1 mb-2 ml-5">
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={avatar}
+                      sx={{ width: 56, height: 56 }}
+                    />
+                  </div>
+                  <div className="col-lg-10">
+                    <input
+                      placeholder="lien image"
+                      className="form-control mt-2"
+                      value={avatar}
+                      onChange={(e) => setAvatar(e.target.value)}
+                    />
+                  </div>
+                </div>
                 <div className="col-lg-12 mb-3">
                   <input
                     placeholder="nom et prénom"
@@ -86,15 +101,6 @@ export default function Profile() {
                     className="form-control"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-                <img src={avatar}></img>
-                <div className="col-lg-12 mb-3">
-                  <input
-                    placeholder="lien image"
-                    className="form-control"
-                    value={avatar}
-                    onChange={(e) => setAvatar(e.target.value)}
                   />
                 </div>
                 <div className="col-lg-12 mb-3">
@@ -145,43 +151,60 @@ export default function Profile() {
                     </a>
                   </div>
                 )}
-                <div className="col-lg-12 mb-3">
-                      {
-                        locations.map((location, index)=>(
-                          <Address key={index} id="ad1" locations={locations} index={index} setLocations={setLocations} colibrisID={cookies.colibrisID}/>
-                        ))
-
-                      }
-                </div>
-              
-                  <div className="col-lg-12 mb-4">
-                    <a
-                      className="btn-circle"
-                      onClick={() => {
-                        //setEnableAddr(true);
-                        
-                        setLocations([...locations, {address: {lng: 0, lat: 0, addressType: "appartment", locationType: "professional", streetNumber: 0,streetName:"", state: "", city: "", zipCode: 0}}]);
-                      }}
-                    >
-                      <i className="fas fa-plus green mr-3"></i>
-                      Add an address
-                    </a>
-                  </div>
-                
-
-                <div className="col-lg-3 mt-2" />
-
-                <div className="col-lg-3">
-                  
-                </div>
-                <div className="col-lg-2">
-                  <button onClick={Submit} className="btn custom-btn">
-                    Submit
-                  </button>
-                </div>
+              </div>
+            </div>
+            <div className="row container-fluid ">
+              <div className="col-lg-12 mb-3">
+                {locations.map((location, index) => (
+                  <Address
+                    key={index}
+                    id="ad1"
+                    locations={locations}
+                    index={index}
+                    setLocations={setLocations}
+                    colibrisID={cookies.colibrisID}
+                  />
+                ))}
               </div>
 
-            
+              <div className="col-lg-12 mb-4">
+                <button
+                  className="btn-circle"
+                  onClick={() => {
+                    //setEnableAddr(true);
+
+                    setLocations([
+                      ...locations,
+                      {
+                        address: {
+                          lng: 0,
+                          lat: 0,
+                          addressType: "appartment",
+                          locationType: "professional",
+                          streetNumber: 0,
+                          streetName: "",
+                          state: "",
+                          city: "",
+                          zipCode: 0,
+                        },
+                      },
+                    ]);
+                  }}
+                >
+                  <i className="fas fa-plus green mr-3"></i>
+                  Add an address
+                </button>
+              </div>
+
+              <div className="col-lg-3 mt-2" />
+
+              <div className="col-lg-3"></div>
+              <div className="col-lg-2">
+                <button onClick={Submit} className="btn custom-btn">
+                  Submit
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
