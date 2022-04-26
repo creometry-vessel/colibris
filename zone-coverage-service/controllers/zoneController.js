@@ -43,9 +43,13 @@ exports.findByCity = async (req, res, next ) => {
          })
      }
      else {
+         let result = [];
+         for(let zone of citySearch){
+             result.push(zone.weekday);
+         }
         res.status(200).send({
             results: "City existe",
-            data: city })
+            data: result })
      }
     } 
     catch(e){
