@@ -34,6 +34,11 @@ spec:
               configMapKeyRef:
                 name: colibris-configmap
                 key: MAX_APPS
+          - name: GOOGLE_API_KEY
+            valueFrom:
+              configMapKeyRef:
+                name:  colibris-configmap
+                key: GOOGLE_API_KEY
           
 ---
 apiVersion: v1

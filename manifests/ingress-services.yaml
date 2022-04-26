@@ -37,3 +37,10 @@ spec:
                 name: ratings
                 port:
                   number: 3000
+          - path: /zone(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: zone
+                port:
+                  number: 5002
