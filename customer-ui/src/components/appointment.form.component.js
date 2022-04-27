@@ -105,12 +105,12 @@ export default function Form(props) {
       let response ;
       if(props.id){
         response = await axios.put(`${window.ENV.APPOINT_SERVICE_URI}`, {
-          dueDate: chosen, location: currentAddr._id, shift: shift, contact: cookies.colibrisID, id: props.id
+          dueDate: chosen, location: currentAddr._id, shift: shift, createdBy: cookies.colibrisID, id: props.id
         })
       }
       else  response = await axios.post(
         `${window.ENV.APPOINT_SERVICE_URI}`,
-        { createdBy: cookies.colibrisID, dueDate: chosen, location: currentAddr._id, shift: shift, contact: cookies.colibrisID }
+        { createdBy: cookies.colibrisID, dueDate: chosen, location: currentAddr._id, shift: shift}
       );
       if (response.data.error) {
         window.alert("Server error !!");

@@ -29,7 +29,7 @@ function ConfirmationDialogRaw(props) {
               aria-controls="ringtone-menu"
               aria-label="phone ringtone"
               onClick={() => {
-                getMarker("error", opt);
+                getMarker("attempted", opt);
                 onClose();
               }}
             >

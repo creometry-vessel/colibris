@@ -4,16 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 function ConfirmationDialogRaw(props) {
-  const { onClose, open, location, setLocation,setOpen, refused, setRefused, setLat, setLng,  ...other } = props;
+  const { onClose, open, location, setLocation,setOpen, refused, setRefused, setLatLng,  ...other } = props;
   const _map = useRef(null);
   const _marker = useRef(null);
   const _geocode = useRef(null);
   const _infowindow = useRef(null);
   const accept = ()=>{
     setOpen(false);
-    
-    setLat(location.lat);
-    setLng(location.lng);
+    setLatLng(location);
     setRefused(false);
   }
   const refuse = ()=>{
@@ -22,9 +20,10 @@ function ConfirmationDialogRaw(props) {
     try {
       if (!window.google) {
         const script = document.createElement("script");
+        window.initMap = ()=> console.log("initilizing map")
         script.src =
           "https://maps.googleapis.com/maps/api/js?key=" +
-          window.ENV.API_KEY +
+          window.ENV.GOOGLE_API_KEY +
           "&callback=initMap&v=weekly";
         script.async = true;
         document.body.appendChild(script);
@@ -93,7 +92,7 @@ function ConfirmationDialogRaw(props) {
         ):(
           <div>
              <h5>Confirmez votre localisation: </h5>
-            <iframe src={`https://www.google.com/maps/embed/v1/view?key=${window.ENV.API_KEY}&center=${location.lat},${location.lng}&zoom=18`} width="500" height="400"></iframe>
+            <iframe src={`https://www.google.com/maps/embed/v1/view?key=${window.ENV.GOOGLE_API_KEY}&center=${location.lat},${location.lng}&zoom=18`} width="500" height="400"></iframe>
             <button onClick={accept} className="btn custom-btn" >confirmer addresse</button>
             <button onClick={refuse} className="btn red-btn" >ce n'est pas ma localisation</button>
           </div>
@@ -110,7 +109,7 @@ export default function ConfirmationDialog(props) {
   const [refused, setRefused] = useState(false);
 
   const handleOpen = () => {
-    /*axios.get(`${window.ENV.USER_SERVICE_URI}/map?address=${props.address}`).then(res=>{
+    axios.get(`${window.ENV.USER_SERVICE_URI}/map?address=${props.address}`).then(res=>{
       if(res.data.location){
         setOpen(true);
         setLocation(res.data.location)
@@ -118,7 +117,7 @@ export default function ConfirmationDialog(props) {
       }else{
         window.alert("une erreur s'est produite, svp reesayer plus tard")
       }
-    })*/
+    })
     setOpen(true);
     setLocation({lat: 35.0, lng: 35.0})
   };
@@ -141,8 +140,7 @@ export default function ConfirmationDialog(props) {
         setOpen={setOpen}
         refused={refused}
         setRefused={setRefused}
-        setLng={props.setLng}
-        setLat={props.setLat}
+        setLatLng={props.setLatLng}
       />
     </div>
   );

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const customerSchema = new Schema({
+const clientSchema = new Schema({
     providerID:{
         type: String,
         trim: true,
@@ -40,6 +40,6 @@ const customerSchema = new Schema({
         trim: true,
     }
     });
-const app = mongoose.model('customer',  customerSchema);
+const app = mongoose.model('client',  clientSchema);
 
 module.exports = app;

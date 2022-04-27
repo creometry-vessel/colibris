@@ -17,7 +17,7 @@ export default function Markers() {
       .geocode({ location: latlng })
       .then((response) => {
         if (response.results[0]) {
-          map.setZoom(11);
+          map.setZoom(18);
           if (marker) {
             marker.setMap(null);
           }
@@ -29,7 +29,8 @@ export default function Markers() {
           infowindow.setContent(
             `<p>nom: ${data.name}</p>
             <p>numero tel: ${data.phone1} / ${data.phone2}</p>
-            <p>addresse: ${data.street} , ${data.city} , ${data.governorate}</p>
+            <p>addresse: ${data.streetNumber} ${data.streetName} , ${data.city} , ${data.state}</p>
+            <p>type addresse: ${data.addressType}/${data.locationType}</p>
             <p>formatted address: ${response.results[0].formatted_address}</p>
             `
           );
@@ -46,20 +47,25 @@ export default function Markers() {
     }
     axios
       .put(`${window.ENV.APPOINT_SERVICE_URI}/markers`, {
-        today: (new Date()+"").substring(4,15),
         userID: Gdata.userID,
         status: status,
-        description: args[0] ? args[0] : "",
+        reason: args[0] ? args[0] : "",
+        appointment: Gdata
       })
       .then((res) => {
         if (res.data.data) geocodeLatLng(res.data.data);
         else window.alert("you have no more markers");
+      }).catch(err=>{
+        console.log(err)
       });
   };
 
   useEffect(() => {
     if (!window.google) {
       const script = document.createElement("script");
+      window.initMap = ()=>{
+        console.log("map")
+      }
       script.src =
         "https://maps.googleapis.com/maps/api/js?key=" +
         window.ENV.GOOGLE_API_KEY +
@@ -69,10 +75,10 @@ export default function Markers() {
     }
     setTimeout(() => {
       map = new window.google.maps.Map(document.getElementById("map"), {
-        zoom: 11,
+        zoom: 18,
         center: { lat: 36.80278, lng: 10.17972 },
       });
-      getMarker(undefined);
+      getMarker("pending");
       geocoder = new window.google.maps.Geocoder();
       infowindow = new window.google.maps.InfoWindow();
     }, 1000);
@@ -99,7 +105,7 @@ export default function Markers() {
               id="submit"
               type="button"
               value="next →"
-              onClick={() => getMarker("success")}
+              onClick={() => getMarker("completed")}
             />
           </div>
           <div className="ml-3 mt-2">

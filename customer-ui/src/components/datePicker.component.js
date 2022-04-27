@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
-let arr = ['2022-02-20', '2022-02-02']
+let arr = ['2022-02-20', '2022-04-15', '2022-04-16', '2022-04-17']
 
 export default function StaticDatePickerLandscape(props) {
     let {myDate, setMyDate} = props;
