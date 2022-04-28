@@ -4,7 +4,6 @@ import { Route, HashRouter as Router, Switch } from "react-router-dom";
 import TopBar from "./components/TopBar";
 import Sidebar from "./components/Sidebar"
 import Users from "./components/Users";
-import Markers2 from "./components/markers2.component";
 function App() {
   return (
     <div id="wrapper">
@@ -32,7 +31,6 @@ function App() {
                   path="/markers"
                   component={Markers}
                 />
-                <Route exact path="/marker2" component={Markers2} />
               </Switch>
             </Router>
           </div>
