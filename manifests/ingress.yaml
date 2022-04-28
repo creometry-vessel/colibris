@@ -11,7 +11,7 @@ spec:
   tls:
   - hosts:
     - colibris.creometry.dev
-    - dashboard.colibris.creometry.dev
+    - colibristunisie.com
     secretName: test
   rules:
   - host: colibris.creometry.dev
