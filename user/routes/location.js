@@ -34,4 +34,14 @@ router.route('/:id').delete(async (req, res)=>{
     });
   })
 
+  router.route('/').post(async (req, res)=>{
+    try{
+      let location = new Location(req.body);
+      await location.save();
+      res.json("location created!!!")
+    }catch(err){
+      res.json(err)
+    }
+  })
+
 module.exports = router;
