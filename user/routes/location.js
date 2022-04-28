@@ -16,7 +16,9 @@ router.route('/:id').delete(async (req, res)=>{
   })
   
   router.route('/').get(async (req, res)=>{
-    await Location.find()
+    let search ={}
+    if(req.query.userID) search.userID = req.query.userID;
+    await Location.find(search)
     .populate("userID", ["username", "name", "phone1", "phone2", "email"])
     .exec(function (err, location) {
       if (err) return err;
