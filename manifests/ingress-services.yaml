@@ -10,6 +10,7 @@ metadata:
 spec:
   tls:
     - hosts:
+        - colibristunisie.com
         - colibris.creometry.dev
       secretName: test
   rules:
@@ -37,3 +38,10 @@ spec:
                 name: ratings
                 port:
                   number: 3000
+          - path: /zone(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: zone
+                port:
+                  number: 5002

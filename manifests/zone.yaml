@@ -1,45 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user
+  name: zone
   namespace: colibris
 spec:
   selector:
     matchLabels:
-      run: user
+      app: colibris
   replicas: 1
   template:
     metadata:
       labels:
-        run: user
+        app: colibris
     spec:
       containers:
-      - name: user
-        image: colibristn/user:v0.2.2
+      - name: zone
+        image: colibristn/zone:v0.2.2
         ports:
-        - containerPort: 5001
+        - containerPort: 5002
         env:
-          - name: ATLAS_URI
+          - name: MONGO_IP
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
-                key: ATLAS_URI 
-          - name: GOOGLE_API_KEY
+                key: MONGO_IP 
+          - name: MONGO_PORT
             valueFrom:
               configMapKeyRef:
-                name:  colibris-configmap
-                key: GOOGLE_API_KEY
+                name: colibris-configmap
+                key: MONGO_PORT 
+          
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: user
+  name: zone
   labels:
-    run: user
+    app: colibris
+  namespace: colibris
 spec:
   ports:
-  - port: 5001
+  - port: 5002
     protocol: TCP
   selector:
-    run: user
-  
+    app: colibris

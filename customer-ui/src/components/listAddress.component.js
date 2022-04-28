@@ -12,9 +12,7 @@ export default function List(props){
           .then((res) => {
             let final = []
             for(let addr of res.data){
-              //if(addr.address.streetName && addr.address.city && addr.address.state && addr.address.lat && addr.address.lng){
                 final.push(addr)
-              //}
             }
             setAddress(final);
           });

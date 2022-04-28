@@ -53,7 +53,7 @@ class Home extends React.Component {
                           <div /> : 
                           <div className="row">
                             <FacebookLogin
-                              appId="201651958770779"
+                              appId={window.ENV.FACEBOOK_APP_ID}
                               autoLoad={true}
                               fields="name,email,picture"
                               callback={this.Login} />
