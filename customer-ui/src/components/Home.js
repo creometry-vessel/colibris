@@ -56,7 +56,12 @@ class Home extends React.Component {
                               appId="201651958770779"
                               autoLoad={true}
                               fields="name,email,picture"
-                              callback={this.Login} />
+                              callback={this.Login}
+                              icon="fa-facebook"
+                              render={renderProps => (
+                                <button onClick={renderProps.onClick}>This is my custom FB button</button>
+                              )}
+                            />
                             </div>  
                               }
 

@@ -42,25 +42,22 @@ class Header extends React.Component {
                   <a href="/" className="nav-item nav-link ">
                     Home
                   </a>
-                  <a href="/#/profile" className="nav-item nav-link ">
-                    Profile
-                  </a>
-                  <a href="/#/profile">
-                    <Avatar alt="Remy Sharp" src="" />
-                  </a>
+                  
+                  
                   <a href="/#/appointment" className="nav-item nav-link ">
                     Take an appointment
                   </a>
-                  <a href="/#/history" className="nav-item nav-link ">
-                    History
-                  </a>
+                  
 
                   <a
-                    className="btn custom-btn"
+                    className="btn custom-btn mr-4"
                     onClick={this.removeCookies}
                     href="/"
                   >
                     Disconnect
+                  </a>
+                  <a href="/#/profile">
+                    <Avatar alt="" src="" />
                   </a>
                 </div>
               </div>
