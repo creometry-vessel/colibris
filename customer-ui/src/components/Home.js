@@ -57,10 +57,9 @@ class Home extends React.Component {
                               autoLoad={true}
                               fields="name,email,picture"
                               callback={this.Login}
-                              icon="fa-facebook"
-                              render={renderProps => (
-                                <button onClick={renderProps.onClick}>This is my custom FB button</button>
-                              )}
+                              cssClass="facebook-button"
+                              textButton={<span><i class="fa-brands fa-facebook mr-3"></i> Sing up with Facebook</span>}
+                            
                             />
                             </div>  
                               }

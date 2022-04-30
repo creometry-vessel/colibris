@@ -2161,3 +2161,16 @@ a:focus {
   color: #20a69b;
   cursor: pointer;
 }
+.facebook-button{
+  padding: 10px 25px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  background: #1877f2;
+  border: 2px solid #1877f2;
+  border-radius: 5px;
+  transition: 0.5s;
+  width:max-content;
+  
+}
