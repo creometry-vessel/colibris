@@ -68,7 +68,9 @@ export default function Profile() {
                         
                       </div>
         </div>
+        <div className="col-lg-9 mt-3">
         {render()}
+        </div>
       </div>
     </div>
   );

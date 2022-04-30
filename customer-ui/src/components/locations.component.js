@@ -28,8 +28,8 @@ export default function Locations(props) {
           .catch((err) => window.alert(err));
       };
     return(
-        <div>
-        <div className="row container-fluid ">
+        <div className="contact">
+        <div className="row container-fluid contact-form">
                 <div className="col-lg-12 mb-3">
                   {locations.map((location, index) => (
                     <Address

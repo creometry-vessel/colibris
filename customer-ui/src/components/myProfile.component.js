@@ -44,7 +44,7 @@ export default function Profile() {
           .catch((err) => window.alert(err));
       };
     return(
-        <div className="container-fluid mt-3 contact col-lg-9">
+        <div className="container-fluid mt-3 contact">
           <div className="row ">
             <div className="col-lg-12 mb-3 padding  contact-form">
               <div className="row container-fluid ">
@@ -112,7 +112,7 @@ export default function Profile() {
               </div>
               
                 <div className="col-lg-2">
-                  <button onClick={Submit} className="btn custom-btn">
+                  <button onClick={Submit} className="btn custom-btn ml-4">
                     Submit
                   </button>
                 </div>
