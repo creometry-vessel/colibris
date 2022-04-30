@@ -33,15 +33,7 @@ export default function History(props) {
   
   return (
     <div>
-      <div className="page-header mb-3">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <h2>History</h2>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <div className="container-fluid">
       
         <div>
@@ -62,7 +54,7 @@ export default function History(props) {
             {appointments.map((element, index) => (
               <tr key={index}>
               <th scope="row">{index + 1}</th>
-              <td>{element.dueDate}</td>
+              <td>{element.dueDate.substring(0,10)}</td>
               <td>{element.location.address.streetNumber} {element.location.address.streetName},{element.location.address.city},{element.location.address.state} {element.location.address.zipCode}</td>
               <td>{element.shift}</td>
               <td>{element.status}</td>
