@@ -11,14 +11,16 @@ export default function List(props){
             name="shift"
             onChange={()=>{setShift("morning")}}
             checked={shift == "morning"}
-            /> <label> morning</label>
+            /> <label className="green-box"
+            > morning</label>
             <br></br>
             <input 
             type='radio' 
             name="shift"
             onChange={()=>{setShift("afternoon")}}
             checked={shift == "afternoon"}
-            />  <label>afternoon</label>
+            />  <label             className="green-box"
+            >afternoon</label>
         </div>
         
     )

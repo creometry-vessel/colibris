@@ -64,145 +64,167 @@ export default function Profile() {
           </div>
         </div>
       </div>
-
-      <div className="container-fluid mt-3 contact">
-        <div className="row ">
-          <div className="col-lg-12 mb-3 padding  contact-form">
-            <div className="row container-fluid ">
-              <div className="col-lg-12 mb-3">
-                <div className="row">
-                  <div className="col-lg-1 mb-2 ml-5">
-                    <Avatar
-                      alt="Remy Sharp"
-                      src={avatar}
-                      sx={{ width: 56, height: 56 }}
-                    />
+    
+      <div className="row">
+        <div className="col-lg-3 side-bar-grey align-center">
+        <Avatar
+                        src={avatar}
+                        sx={{ width: 65, height: 65 }}
+                        className="mt-4 ml-50 mb-4"
+                      />
+                      <h5>{name} </h5>
+                      <h6>{username} </h6>
+                      <div className="mt-5">
+                        <span className="component row active">
+                          <i class="fa-solid fa-circle-user mr-3"></i> My Profile
+                        </span>
+                        <span className="component row">
+                        <i class="fa-solid fa-location-dot mr-3"></i> My locations
+                        </span>
+                        <span className="component row">
+                        <i class="fa-solid fa-clock-rotate-left mr-2"></i> History
+                        </span>
+                        
+                      </div>
+        </div>
+        <div className="container-fluid mt-3 contact col-lg-9">
+          <div className="row ">
+            <div className="col-lg-12 mb-3 padding  contact-form">
+              <div className="row container-fluid ">
+                <div className="col-lg-12 mb-3">
+                  <div className="row">
+                    <div className="col-lg-1 mb-2 ml-5">
+                      <Avatar
+                        src={avatar}
+                        sx={{ width: 56, height: 56 }}
+                      />
+                    </div>
+                    <div className="col-lg-10">
+                      <input
+                        placeholder="lien image"
+                        className="form-control mt-2"
+                        value={avatar}
+                        onChange={(e) => setAvatar(e.target.value)}
+                      />
+                    </div>
                   </div>
-                  <div className="col-lg-10">
-                    <input
-                      placeholder="lien image"
-                      className="form-control mt-2"
-                      value={avatar}
-                      onChange={(e) => setAvatar(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-12 mb-3">
-                  <input
-                    placeholder="nom et prénom"
-                    className="form-control"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div className="col-lg-12 mb-3">
-                  <input
-                    placeholder="pseudo nom"
-                    className="form-control"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-                <div className="col-lg-12 mb-3">
-                  <input
-                    placeholder="addresse email"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-
-                <div className="col-lg-12 mb-3">
-                  <input
-                    placeholder="numero de téléphone"
-                    className="form-control"
-                    type="number"
-                    value={phone1}
-                    onChange={(e) => setPhone1(e.target.value)}
-                  />
-                </div>
-                {enablePhone2 ? (
                   <div className="col-lg-12 mb-3">
                     <input
-                      placeholder="deuxiéme numero de téléphone"
-                      className="form-control mb-2"
-                      value={phone2}
-                      onChange={(e) => setPhone2(e.target.value)}
+                      placeholder="nom et prénom"
+                      className="form-control"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
-                    <a
-                      className="btn-circle"
-                      onClick={() => {
-                        setPhone2("");
-                        setEnablePhone(false);
-                      }}
-                    >
-                      <i className="fas fa-minus mt-3 green"></i>
-                    </a>
                   </div>
-                ) : (
                   <div className="col-lg-12 mb-3">
-                    <a
-                      className="btn-circle mt-2"
-                      onClick={() => {
-                        setEnablePhone(true);
-                      }}
-                    >
-                      <i className="fas fa-plus green"></i>
-                    </a>
+                    <input
+                      placeholder="pseudo nom"
+                      className="form-control"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
                   </div>
-                )}
-              </div>
-            </div>
-            <div className="row container-fluid ">
-              <div className="col-lg-12 mb-3">
-                {locations.map((location, index) => (
-                  <Address
-                    key={index}
-                    id="ad1"
-                    locations={locations}
-                    index={index}
-                    setLocations={setLocations}
-                    colibrisID={cookies.colibrisID}
-                  />
-                ))}
-              </div>
+                  <div className="col-lg-12 mb-3">
+                    <input
+                      placeholder="addresse email"
+                      className="form-control"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
 
-              <div className="col-lg-12 mb-4">
-                <button
-                  className="btn-circle"
-                  onClick={() => {
-                    //setEnableAddr(true);
+                  <div className="col-lg-12 mb-3">
+                    <input
+                      placeholder="numero de téléphone"
+                      className="form-control"
+                      type="number"
+                      value={phone1}
+                      onChange={(e) => setPhone1(e.target.value)}
+                    />
+                  </div>
+                  {enablePhone2 ? (
+                    <div className="col-lg-12 mb-3">
+                      <input
+                        placeholder="deuxiéme numero de téléphone"
+                        className="form-control mb-2"
+                        value={phone2}
+                        onChange={(e) => setPhone2(e.target.value)}
+                      />
+                      <a
+                        className="btn-circle"
+                        onClick={() => {
+                          setPhone2("");
+                          setEnablePhone(false);
+                        }}
+                      >
+                        <i className="fas fa-minus mt-3 green"></i>
+                      </a>
+                    </div>
+                  ) : (
+                    <div className="col-lg-12 mb-3">
+                      <a
+                        className="btn-circle mt-2"
+                        onClick={() => {
+                          setEnablePhone(true);
+                        }}
+                      >
+                        <i className="fas fa-plus green"></i>
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="row container-fluid ">
+                <div className="col-lg-12 mb-3">
+                  {locations.map((location, index) => (
+                    <Address
+                      key={index}
+                      id="ad1"
+                      locations={locations}
+                      index={index}
+                      setLocations={setLocations}
+                      colibrisID={cookies.colibrisID}
+                    />
+                  ))}
+                </div>
 
-                    setLocations([
-                      ...locations,
-                      {
-                        address: {
-                          lng: 0,
-                          lat: 0,
-                          addressType: "appartment",
-                          locationType: "professional",
-                          streetNumber: 0,
-                          streetName: "",
-                          state: "",
-                          city: "",
-                          zipCode: 0,
+                <div className="col-lg-12 mb-4">
+                  <button
+                    className="btn-circle"
+                    onClick={() => {
+                      //setEnableAddr(true);
+
+                      setLocations([
+                        ...locations,
+                        {
+                          address: {
+                            lng: 0,
+                            lat: 0,
+                            addressType: "appartment",
+                            locationType: "professional",
+                            streetNumber: 0,
+                            streetName: "",
+                            state: "",
+                            city: "",
+                            zipCode: 0,
+                          },
                         },
-                      },
-                    ]);
-                  }}
-                >
-                  <i className="fas fa-plus green mr-3"></i>
-                  Add an address
-                </button>
-              </div>
+                      ]);
+                    }}
+                  >
+                    <i className="fas fa-plus green mr-3"></i>
+                    Add an address
+                  </button>
+                </div>
 
-              <div className="col-lg-3 mt-2" />
+                <div className="col-lg-3 mt-2" />
 
-              <div className="col-lg-3"></div>
-              <div className="col-lg-2">
-                <button onClick={Submit} className="btn custom-btn">
-                  Submit
-                </button>
+                <div className="col-lg-3"></div>
+                <div className="col-lg-2">
+                  <button onClick={Submit} className="btn custom-btn">
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
           </div>

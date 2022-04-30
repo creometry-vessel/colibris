@@ -25,9 +25,9 @@ export default function List(props){
         handleNext()
       }
     return(
-        <div>
+        <div className="col-l">
             {address.map((element, index)=>(
-                <div key={index} onClick={()=>chooseAddr(element)}>
+                <div className="green-box mb-3" key={index} onClick={()=>chooseAddr(element)}>
                     {element.address.streetNumber} {element.address.streetName}, {element.address.city}, {element.address.state}
                 </div>
             ))}

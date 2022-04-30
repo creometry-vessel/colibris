@@ -2047,6 +2047,7 @@ a:focus {
   border: 2px solid #39b54a;
   border-radius: 5px;
   transition: 0.5s;
+  cursor: pointer;
 }
 .outlined-btn{
   padding: 5px 20px;
@@ -2058,6 +2059,7 @@ a:focus {
   border: 2px solid #39b54a;
   border-radius: 5px;
   transition: 0.5s;
+  cursor: pointer;
 }
 .outlined-btn-red{
   padding: 5px 20px;
@@ -2083,6 +2085,9 @@ a:focus {
 .ml-much{
   margin-left: 80%;
 }
+.ml-50{
+  margin-left: 42%;
+}
 .custom-btn-red{
   padding: 5px 20px;
   font-family: "Nunito", sans-serif;
@@ -2098,4 +2103,53 @@ a:focus {
 .custom-btn-red:hover{
   background: #ffffff;
   color: #e6203b;
+}
+.green-box{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  width:100%;
+  color: #181918;
+  background: #fff;
+  border: 1px dashed #858685;
+  border-radius: 15px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.green-box:hover{
+  border: 2px solid #39b54a;
+}
+.green-box-nohover{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  width:100%;
+  color: #181918;
+  background: #fff;
+  border: 1px solid #39b54a;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+.full-green{
+  background-color: #39b54a;
+  color: #fff;
+}
+.side-bar-grey{
+  background-color: #E5E5E5;
+  text-align: center !important;
+  align-items: center !important;
+}
+.component{
+  padding: 6px 30%;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #454545;
+  cursor: pointer;
+}
+.active{
+  background-color: rgba(57, 181, 74, 0.67);
+  color: #fff;
 }

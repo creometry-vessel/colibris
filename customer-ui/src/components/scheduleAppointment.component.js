@@ -11,8 +11,7 @@ import Shift from './shift.component'
 import axios from 'axios';
 import { useCookies } from "react-cookie";
 import Confirm from './confirAppointment.component';
-import { makeStyles  } from '@mui/styles';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 
 const steps = ['Select address', 'select Date', 'select shift', 'confirm appointment'];
 
@@ -115,11 +114,11 @@ const muiTheme = createMuiTheme({
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
+           <h2 className='text-center mt-3'> All steps completed - you&apos;re finished</h2>
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
+            <button className="outlined-btn" onClick={handleReset}>Reset</button>
           </Box>
         </React.Fragment>
       ) : (
@@ -136,7 +135,7 @@ const muiTheme = createMuiTheme({
               <i class="fa-solid fa-angle-left"></i>
             </button>
             {activeStep == steps.length - 1 ? 
-                <button onClick={handleReset} className="outlined-btn">Reset</button>
+                <span onClick={handleReset} className="outlined-btn ml-much">Reset</span>
               :
               <div></div>
             }
@@ -145,14 +144,17 @@ const muiTheme = createMuiTheme({
             
             {activeStep == 0? <div></div>:
 
-            <button onClick={handleNext} className="btn-circle">
+            <div onClick={handleNext} >
 
             {activeStep === steps.length - 1 ? 
-            <button className="simple-btn">Finish</button> : 
-            <i class="fa-solid fa-angle-right"></i>}
-          </button>
+            <span className="simple-btn mt-2">Finish</span> : 
 
-          }
+              <a className="btn-circle">
+            <i class="fa-solid fa-angle-right"></i>
+            </a>}
+            </div>
+
+            }
             
           </Box>
         </React.Fragment>

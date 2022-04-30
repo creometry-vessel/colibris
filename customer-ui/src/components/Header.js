@@ -1,5 +1,6 @@
 import React from "react";
 import { withCookies } from "react-cookie";
+import Avatar from '@mui/material/Avatar';
 
 class Header extends React.Component {
   constructor(props) {
@@ -43,6 +44,9 @@ class Header extends React.Component {
                   </a>
                   <a href="/#/profile" className="nav-item nav-link ">
                     Profile
+                  </a>
+                  <a href="/#/profile">
+                    <Avatar alt="Remy Sharp" src="" />
                   </a>
                   <a href="/#/appointment" className="nav-item nav-link ">
                     Take an appointment
