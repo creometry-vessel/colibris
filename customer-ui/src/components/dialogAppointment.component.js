@@ -10,7 +10,8 @@ function ConfirmationDialogRaw(props) {
     <Dialog
       onClose={onClose}
       sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: 435 } }}
-      maxWidth="xs"
+      maxWidth="xl"
+      fullWidth={true}
       open={open}
       {...other}
     >
@@ -40,7 +41,7 @@ export default function ConfirmationDialog(props) {
 
   return (
     <div>
-      <a className="red-btn" onClick={handleClickListItem}><i className="fas fa-pen"></i></a>
+      <a onClick={handleClickListItem}><i className="green-icon fas fa-pen"></i></a>
       <ConfirmationDialogRaw
         id="ringtone-menu"
         keepMounted

@@ -2153,3 +2153,11 @@ a:focus {
   background-color: rgba(57, 181, 74, 0.67);
   color: #fff;
 }
+.red-icon{
+  color: #e6203b;
+  cursor: pointer;
+}
+.green-icon{
+  color: #20a69b;
+  cursor: pointer;
+}
