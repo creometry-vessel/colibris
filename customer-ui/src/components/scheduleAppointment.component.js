@@ -64,7 +64,7 @@ export default function HorizontalLinearStepper(props) {
     switch(step){
         case 0: return(<Adresses handleNext={handleNext} setChosenAddr={setChosenAddr}   />)
         case 1: return(<DatePicker myDate={myDate} setMyDate={setMyDate}   />)
-        case 2: return(<Shift shift={shift} setShift={setShift}  />)
+        case 2: return(<Shift shift={shift} setShift={setShift} handleNext={handleNext}  />)
         case 3: return(<Confirm myDate={myDate} shift={shift} chosenAddr={chosenAddr} />)
 
 
