@@ -42,6 +42,7 @@ a:focus {
   border: 2px solid #39b54a;
   border-radius: 5px;
   transition: 0.5s;
+  width:max-content;
 }
 
 .btn.custom-btn:hover {
@@ -1958,13 +1959,32 @@ a:focus {
 }
 
 .btn-circle {
-  padding: 7px 12px;
+  padding: 5px 13px;
   font-family: "Nunito", sans-serif;
   font-size: 16px;
   font-weight: 600;
   color: #39b54a;
   background: transparent;
   border: 2px solid #39b54a;
+  border-radius: 50px;
+  transition: 0.5s;
+  cursor: pointer;
+  width: max-content;
+}
+.btn-circle:disabled{
+  color: #8f8f8f;
+  border: 2px solid #8f8f8f;
+  cursor:no-drop;
+}
+.btn-circle-red {
+  padding: 5px 13px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  width: max-content;
+  color: #e6203b;
+  background: transparent;
+  border: 2px solid #e6203b;
   border-radius: 50px;
   transition: 0.5s;
   cursor: pointer;
@@ -2016,4 +2036,141 @@ a:focus {
 .form-control:focus,
 .custom-select:focus {
   box-shadow: none;
+}
+.simple-btn{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  background: #39b54a;
+  border: 2px solid #39b54a;
+  border-radius: 5px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.outlined-btn{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #39b54a;
+  background: #ffffff;
+  border: 2px solid #39b54a;
+  border-radius: 5px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.outlined-btn-red{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #b43232;
+  background: #ffffff;
+  border: 2px solid #b43232;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+.box-shadowly{
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+  padding: 50px 30px 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(18, 17, 17, 0.08);
+  transition: 0.3s;
+}
+.ml-much{
+  margin-left: 80%;
+}
+.ml-50{
+  margin-left: 42%;
+}
+.custom-btn-red{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  background: #e6203b;
+  border: 2px solid #e6203b;
+  border-radius: 5px;
+  transition: 0.5s;
+  width:max-content;
+}
+.custom-btn-red:hover{
+  background: #ffffff;
+  color: #e6203b;
+}
+.green-box{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  width:100%;
+  color: #181918;
+  background: #fff;
+  border: 1px dashed #858685;
+  border-radius: 15px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.green-box:hover{
+  border: 2px solid #39b54a;
+}
+.green-box-nohover{
+  padding: 5px 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  width:100%;
+  color: #181918;
+  background: #fff;
+  border: 1px solid #39b54a;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+.full-green{
+  background-color: #39b54a;
+  color: #fff;
+}
+.side-bar-grey{
+  background-color: #E5E5E5;
+  text-align: center !important;
+  align-items: center !important;
+}
+.component{
+  padding: 6px 30%;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #454545;
+  cursor: pointer;
+}
+.active{
+  background-color: rgba(57, 181, 74, 0.67);
+  color: #fff;
+}
+.red-icon{
+  color: #e6203b;
+  cursor: pointer;
+}
+.green-icon{
+  color: #20a69b;
+  cursor: pointer;
+}
+.facebook-button{
+  padding: 10px 25px;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  background: #1877f2;
+  border: 2px solid #1877f2;
+  border-radius: 5px;
+  transition: 0.5s;
+  width:max-content;
+  
 }

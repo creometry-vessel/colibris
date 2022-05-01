@@ -56,7 +56,11 @@ class Home extends React.Component {
                               appId={window.ENV.FACEBOOK_APP_ID}
                               autoLoad={true}
                               fields="name,email,picture"
-                              callback={this.Login} />
+                              callback={this.Login}
+                              cssClass="facebook-button"
+                              textButton={<span><i class="fa-brands fa-facebook mr-3"></i> Sing up with Facebook</span>}
+                            
+                            />
                             </div>  
                               }
 

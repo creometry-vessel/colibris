@@ -1,0 +1,15 @@
+.table-style{
+    border-radius: 7px 7px 0px 0px;
+    border: 1.25px solid #39B54A;
+
+}
+.thead{
+    text-align:center;
+    background-color: rgba(57, 181, 74, 0.67);
+    border-radius: 7px 7px 0px 0px;
+}
+.tbody{
+    text-align:center;
+    background-color: #fff;
+    color: #454545;
+}

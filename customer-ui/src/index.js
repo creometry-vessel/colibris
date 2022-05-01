@@ -2,13 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { CookiesProvider } from 'react-cookie';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+const theme = createTheme({
+  palette: {
+		primary: {
+			main: 'rgb(7, 110, 0)',
+		},
+}});
 ReactDOM.render(
+  
   <React.StrictMode>
+          <ThemeProvider theme={theme}>
     <CookiesProvider>
       <App />
     </CookiesProvider>
-
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
