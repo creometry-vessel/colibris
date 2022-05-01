@@ -3,8 +3,6 @@ name: User Service CI
 on:
   pull_request:
     branches: [ dev ]
-  push:
-    branches: [ update-manifest, dev]
 
 jobs:
   build:

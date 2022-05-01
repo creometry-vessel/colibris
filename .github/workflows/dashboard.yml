@@ -1,8 +1,6 @@
 name: admin-ui CI
 
 on:
-  push:
-    branches: [ dev, feature-dashboard-appointments ]
   pull_request:
     branches: [ dev ]
 
