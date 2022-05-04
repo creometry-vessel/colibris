@@ -11,7 +11,7 @@ const eligibilityRouter = require("./routes/eligibilityRoutes")
 
 const app = express()
 
-mongoose.connect(`mongodb://localhost:27017/Colibris`,
+mongoose.connect(process.env.MONGO_URI,
                 {useNewUrlParser: true,
                 useUnifiedTopology: true,
                 })
