@@ -25,6 +25,7 @@ function ConfirmationDialogRaw(props) {
 export default function ConfirmationDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [cities, setCities] = React.useState([]);
+  
   const handleOpen = () => {
     axios.get(`${window.ENV.ZONE_SERVICE_URI}/${props.weekday}`).then(res=>{
       setCities(res.data.data.zone.cities)
@@ -33,6 +34,7 @@ export default function ConfirmationDialog(props) {
   };
 
   const handleClose = (newValue) => {
+    props.refresh();
     setOpen(false);
   };
 
@@ -42,6 +44,9 @@ export default function ConfirmationDialog(props) {
       onClick={handleOpen}
       className="mx-2 my-2" style={{width: "200px", height: "200px", borderColor: "black", borderWidth: "1px", borderStyle: "solid"}}>
         {props.weekday}
+        {props.zoneData?.cities.map((city, index)=>(
+          <p>{city}</p>
+        ))}
       </div>
       <ConfirmationDialogRaw
         id="ringtone-menu"

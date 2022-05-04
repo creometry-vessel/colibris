@@ -24,8 +24,17 @@ export default function App(props) {
     setTags(tags.filter((tag, index) => index !== i));
     setCities(cities.filter((city, index)=> index != i));
   };
-
+  function capitalizeTheFirstLetterOfEachWord(words) {
+    var separateWord = words.toLowerCase().split(' ');
+    for (var i = 0; i < separateWord.length; i++) {
+       separateWord[i] = separateWord[i].charAt(0).toUpperCase() +
+       separateWord[i].substring(1);
+    }
+    return separateWord.join(' ');
+ }
   const handleAddition = tag => {
+    tag.id = capitalizeTheFirstLetterOfEachWord(tag.id);
+    tag.text = capitalizeTheFirstLetterOfEachWord(tag.text)
     setTags([...tags, tag]);
     setCities([...cities, tag.id])
   };
