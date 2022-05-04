@@ -1,8 +1,6 @@
 name: customer-ui CI
 
 on:
-  push:
-    branches: [update-manifest]
   pull_request:
     branches: [ dev ]
 

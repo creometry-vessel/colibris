@@ -18,17 +18,17 @@ export default function Form() {
         </div>
         <div className="booking">
           <div className="container">
-            <div className="row align-items-center">
-              <div className="col-lg-4">
+            <div className="align-items-center">
+              <div className="">
                 <div className="booking-content">
                   <div className="section-header">
-                    <h2>
-                      Book Your appointment & wait for our agent to call you{" "}
-                    </h2>
+                    <h3 className="align-items-center">
+                      Book Your appointment & wait for our agent to call you :
+                    </h3>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-8">
+              <div className="">
                 <Schedule />
                 {/*<AppointmentForm close={(message)=>{
                   window.alert(message);

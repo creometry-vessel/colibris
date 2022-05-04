@@ -1,8 +1,6 @@
 name: Ratings Service CI
 
 on:
-  push:
-    branches: [ratings]
   pull_request:
     branches: [ratings]
 

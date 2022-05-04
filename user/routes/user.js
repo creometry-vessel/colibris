@@ -54,19 +54,21 @@ router.route('/:id').get(async (req, res) => {
   router.route('/:id').put(async (req, res) => {
     try{
       await Client.findByIdAndUpdate(req.params.id, req.body);
-
-      for(let location of req.body.locations){
-        if(location._id){
-          await Location.findByIdAndUpdate(location._id, location);
-        }
-        else {
-          location = new Location({
-            userID: req.params.id,
-            address: location.address
-          })
-          await location.save()
+      if(req.body.locations){
+        for(let location of req.body.locations){
+          if(location._id){
+            await Location.findByIdAndUpdate(location._id, location);
+          }
+          else {
+            location = new Location({
+              userID: req.params.id,
+              address: location.address
+            })
+            await location.save()
+          }
         }
       }
+      
       res.json("client updated successfully!!")
     }
     catch (e){

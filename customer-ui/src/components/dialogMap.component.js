@@ -94,7 +94,7 @@ function ConfirmationDialogRaw(props) {
              <h5>Confirmez votre localisation: </h5>
             <iframe src={`https://www.google.com/maps/embed/v1/view?key=${window.ENV.GOOGLE_API_KEY}&center=${location.lat},${location.lng}&zoom=18`} width="500" height="400"></iframe>
             <button onClick={accept} className="btn custom-btn" >confirmer addresse</button>
-            <button onClick={refuse} className="btn red-btn" >ce n'est pas ma localisation</button>
+            <button onClick={refuse} className="btn custom-btn-red ml-3" >ce n'est pas ma localisation</button>
           </div>
         )}
         
@@ -129,7 +129,7 @@ export default function ConfirmationDialog(props) {
 
   return (
     <div>
-       <button onClick={handleOpen} className="btn custom-btn" >confirmer addresse</button>
+      <button onClick={handleOpen} className="btn custom-btn" >Vérifier addresse</button>
       <ConfirmationDialogRaw
         id="ringtone-menu"
         keepMounted

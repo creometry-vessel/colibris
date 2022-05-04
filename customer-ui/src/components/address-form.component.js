@@ -44,34 +44,42 @@ export default function Address(props) {
 
 
     return(
-        <div >
+        <div className="box-shadowly ml-4" >
+          <div className="ml-much col-lg-4">
+            <button className="btn-circle-red" onClick={deleteLoc}>
+              <i class="fa-solid fa-trash-can mr-3"></i> delete Address
+            </button>
+          </div>
+          
+          <h6>Type :</h6>
             <div className="col-lg-12 mb-3">
                   <input type="radio" id="appartment" checked={locations[index].address.addressType === "appartment"}
                   name="addressType" value="appartment" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label >appartment</label>
+                  <label className="mr-3 ml-1">Appartment</label>
                   
                   <input type="radio" id="building" checked={locations[index].address.addressType === "building"}
                   name="addressType" value="building" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label >buildling</label>
+                  <label className="mr-3 ml-1">Buildling</label>
                   
                   <input type="radio" id="house" checked={locations[index].address.addressType === "house"}
                   name="addressType" value="house" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label >house</label>
+                  <label className="mr-3 ml-1">House</label>
             </div>
 
             <div className="col-lg-12 mb-3">
                   <input type="radio" id="professional" checked={locations[index].address.locationType === "professional"}
                   name="locationType" value="professional" onChange={(e)=>updateLoc("locationType", e.target.value)}/>
-                  <label >professional</label>
+                  <label className="mr-3 ml-1">Professional</label>
                   
                   <input type="radio" id="residental" checked={locations[index].address.locationType === "residental"}
                   name="locationType" value="residental" onChange={(e)=>updateLoc("locationType", e.target.value)}/>
-                  <label >residental</label>
+                  <label className="mr-3 ml-1">Residental</label>
                   
                   
             </div>
                     <div className="col-lg-12 mb-3">
-                      <select className="col-lg-12 mb-3" onChange={(e)=> updateLoc("state", e.target.value)} value={locations[index].address.state}>
+                      <h6>Gouvernorat :</h6>
+                      <select className="col-lg-12" onChange={(e)=> updateLoc("state", e.target.value)} value={locations[index].address.state}>
                         <option>--State--</option>
                         {coord.map((element, index)=>(
                           <option index={index} key={index}>{element.gov}</option>
@@ -79,7 +87,8 @@ export default function Address(props) {
                       </select>
                     </div>
                     <div className="col-lg-12 mb-3">
-                    <select className="col-lg-12 mb-3" onChange={(e)=> updateLoc("city", e.target.value)} value={locations[index].address.city}>
+                      <h6>Ville :</h6>
+                    <select className="col-lg-12" onChange={(e)=> updateLoc("city", e.target.value)} value={locations[index].address.city}>
                         <option>--Ville--</option>
                         {coord.map((element, ind)=>{
                           if(element.gov == locations[index].address.state){
@@ -94,6 +103,7 @@ export default function Address(props) {
                       </select>
                     </div>
                     <div className="col-lg-12 mb-3">
+                      <h6>Rue :</h6>
                       <input
                         placeholder="rue"
                         className="form-control"
@@ -104,6 +114,7 @@ export default function Address(props) {
                       />
                     </div>
                     <div className="col-lg-12 mb-3">
+                      <h6>Numéro :</h6>
                       <input
                         placeholder="street number"
                         className="form-control"
@@ -115,6 +126,7 @@ export default function Address(props) {
                       />
                     </div>
                     <div className="col-lg-12 mb-3">
+                      <h6>Code Postal :</h6>
                       <input
                         placeholder="zipCode"
                         className="form-control"
@@ -155,7 +167,7 @@ export default function Address(props) {
                     
                     <Dialog address={`${locations[index].address.streetName},${locations[index].address.city},${locations[index].address.state}`} setLatLng={updateLatLng} />
                 </div>
-                    <button onClick={deleteLoc}>delete location</button>
+                    
                   </div>
     )
 }
