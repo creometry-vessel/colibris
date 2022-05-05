@@ -4,6 +4,7 @@ import { Route, HashRouter as Router, Switch } from "react-router-dom";
 import TopBar from "./components/TopBar";
 import Sidebar from "./components/Sidebar"
 import Users from "./components/Users";
+import Zone from "./components/zone.component";
 function App() {
   return (
     <div id="wrapper">
@@ -30,6 +31,11 @@ function App() {
                   exact
                   path="/markers"
                   component={Markers}
+                />
+                <Route
+                  exact
+                  path="/zone"
+                  component={Zone}
                 />
               </Switch>
             </Router>

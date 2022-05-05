@@ -19,16 +19,11 @@ spec:
         ports:
         - containerPort: 5002
         env:
-          - name: MONGO_IP
+          - name: MONGO_URI
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
-                key: MONGO_IP 
-          - name: MONGO_PORT
-            valueFrom:
-              configMapKeyRef:
-                name: colibris-configmap
-                key: MONGO_PORT 
+                key: ATLAS_URI 
           
 ---
 apiVersion: v1

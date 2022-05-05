@@ -23,8 +23,8 @@ class Sidebar extends Component {
               </a>
             </li>
             <li>
-              <a href="/#marker2" className="">
-              <i className="fas fa-users"></i><span>markers2</span>
+              <a href="/#zone" className="">
+              <i className="fas fa-users"></i><span>zone</span>
               </a>
             </li>
           </ul>
