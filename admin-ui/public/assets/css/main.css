@@ -752,6 +752,15 @@
     background-color: #d6be0f;
     border-color: #d6be0f;
   }
+  .btn-danger {
+    background-color: #9d0c18;
+    border-color: #b91e2b;
+  }
+  .btn-danger:hover,
+  .btn-danger:focus {
+    background-color: #b91e2b;
+    border-color: #b91e2b;
+  }
   
   .btn-default:hover,
   .btn-default:focus {
