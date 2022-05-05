@@ -15,6 +15,8 @@ export default function List(props){
                 final.push(addr)
             }
             setAddress(final);
+          }).catch(err=>{
+              console.log(err)
           });
       }, [cookies.colibrisID]);
 

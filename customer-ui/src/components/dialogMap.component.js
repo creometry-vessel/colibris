@@ -117,9 +117,9 @@ export default function ConfirmationDialog(props) {
       }else{
         window.alert("une erreur s'est produite, svp reesayer plus tard")
       }
+    }).catch(err=>{
+      console.log(err)
     })
-    setOpen(true);
-    setLocation({lat: 35.0, lng: 35.0})
   };
 
   const handleClose = () => {

@@ -16,6 +16,8 @@ export default function History(props) {
     .get(`${window.ENV.APPOINT_SERVICE_URI}/` + cookies.colibrisID)
     .then((res) => {
       setAppointments(res.data);
+    }).catch(err=>{
+      console.log(err)
     });
   }
 
@@ -27,7 +29,7 @@ export default function History(props) {
     //delete from database
     axios.delete(`${window.ENV.APPOINT_SERVICE_URI}`, {
       data: { id: id },
-    });
+    }).catch(err=>{console.log(err)});
   };
 
   

@@ -18,6 +18,8 @@ class Header extends React.Component {
       .then((res) => {
        
         this.setState({Avatar: res.data.avatar})
+      }).catch(err=>{
+        console.log(err)
       });
   }
   removeCookies() {

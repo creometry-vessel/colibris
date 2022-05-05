@@ -37,7 +37,12 @@ export default function Address(props) {
   }
   const deleteLoc = async ()=>{
     if(locations[index]._id){
-      await axios.delete(`${window.ENV.USER_SERVICE_URI}/location/${locations[index]._id}`)
+      try{
+        await axios.delete(`${window.ENV.USER_SERVICE_URI}/location/${locations[index]._id}`)
+      }
+      catch(e){
+        alert("server erreur!!!")
+      }
     }
     setLocations(locations.filter((tag, ind) => index !== ind));
   }

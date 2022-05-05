@@ -20,7 +20,7 @@ export default function Profile() {
         setName(res.data.name);
         setUsername(res.data.username);
         setAvatar(res.data.avatar)
-      });
+      }).catch(err=>{console.log(err)});
   }, [cookies.colibrisID]);
   const render = ()=>{
     if(page == "profile") return (<MyProfile />)

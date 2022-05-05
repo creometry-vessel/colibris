@@ -103,6 +103,7 @@ export default function Form(props) {
     const Submit = async () => {
       if (!chosen || !currentAddr) return;
       let response ;
+      try{
       if(props.id){
         response = await axios.put(`${window.ENV.APPOINT_SERVICE_URI}`, {
           dueDate: chosen, location: currentAddr._id, shift: shift, createdBy: cookies.colibrisID, id: props.id
@@ -112,6 +113,10 @@ export default function Form(props) {
         `${window.ENV.APPOINT_SERVICE_URI}`,
         { createdBy: cookies.colibrisID, dueDate: chosen, location: currentAddr._id, shift: shift}
       );
+      }
+      catch(e){
+        alert("server erreur!!!")
+      }
       if (response.data.error) {
         window.alert("Server error !!");
       } else {
