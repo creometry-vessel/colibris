@@ -22,7 +22,7 @@ export default function Profile() {
             setAvatar(res.data.avatar);
             setPhone2(res.data.phone2);
             
-          });
+          }).catch(err=>{console.log(err)});
       }, [cookies.colibrisID]);
     
       const Submit = () => {

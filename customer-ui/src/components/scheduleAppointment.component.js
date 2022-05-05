@@ -39,7 +39,6 @@ export default function HorizontalLinearStepper(props) {
             `${window.ENV.APPOINT_SERVICE_URI}`,
             { createdBy: cookies.colibrisID, dueDate: myDate, location: chosenAddr._id, shift: shift }
           );
-            console.log(response.data)
        }
         
     }
@@ -63,41 +62,13 @@ export default function HorizontalLinearStepper(props) {
   const generate = (step)=>{
     switch(step){
         case 0: return(<Adresses handleNext={handleNext} setChosenAddr={setChosenAddr}   />)
-        case 1: return(<DatePicker myDate={myDate} setMyDate={setMyDate}   />)
+        case 1: return(<DatePicker myDate={myDate} setMyDate={setMyDate} chosenAddr={chosenAddr} />)
         case 2: return(<Shift shift={shift} setShift={setShift} handleNext={handleNext}  />)
         case 3: return(<Confirm myDate={myDate} shift={shift} chosenAddr={chosenAddr} />)
 
 
     }
 }
-/*
-const useStyles = makeStyles(() => ({
-  root: {
-    "& .MuiStepIcon-active": { color: '#39b54a' },
-    "& .MuiStepIcon-completed": { color: "cyan" },
-    "& .Mui-disabled .MuiStepIcon-root": { color: "grey" },
-    '&$active': {
-      color: '#1e88e5',
-    },
-  }
-}));
-
-const c = useStyles();
-const muiTheme = createMuiTheme({
-  overrides: {
-      MuiStepIcon: {
-          root: {
-              color: '#000000', 
-              '&$active': {
-                  color: '#f2f2',
-              },
-              '&$completed': {
-                  color: '#000000',
-              },
-          },
-      },
-  }
-});*/
 
   return (
     <Box sx={{ width: '100%' }}>

@@ -11,6 +11,8 @@ export default function Locations(props) {
           .get(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`)
           .then((res) => {
             setLocations(res.data.locations);
+          }).catch(err=>{
+            console.log(err)
           });
       }, [cookies.colibrisID]);
 

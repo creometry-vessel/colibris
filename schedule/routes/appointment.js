@@ -28,8 +28,9 @@ router.route('/').post(async(req, res) => {
             res.json("already booked!!")
         }
     } catch (err) {
-        res.json({
-            error: err
+        res.status(500).json({
+            status: "error",
+            message: e.message
         })
     }
 
@@ -37,7 +38,10 @@ router.route('/').post(async(req, res) => {
 
 router.route("/sort").put(async (req,res)=>{
     if(!req.body.shift || !req.body.dueDate){
-        res.json({data: "need shift and dueDate"});
+        res.status(500).json({
+            status: "error",
+            message: "need shift and dueDate"
+          })
         return;
     }
     let locations = []
@@ -45,6 +49,7 @@ router.route("/sort").put(async (req,res)=>{
     let indexes = [0];
     let currentIndex = 0;
     //fetch info
+    try{
     let appointments = await Appointment.find({shift: req.body.shift, dueDate: req.body.dueDate});
     if(appointments.length == 0) {
         res.json({data: "no Appointments today"})
@@ -86,6 +91,13 @@ router.route("/sort").put(async (req,res)=>{
         await appointments[i].save();
     }
     res.json({data: "succeeded"})
+    }
+    catch(e){
+        res.status(500).json({
+            status: "error",
+            message: e.message
+          })
+    }
 })
 
 router.route("/").get(async(req, res) => {
@@ -93,6 +105,7 @@ router.route("/").get(async(req, res) => {
     if (req.query.shift) filter.shift = req.query.shift;
     if (req.query.dueDate) filter.dueDate = req.query.dueDate;
     if (req.query.status) filter.status = req.query.status;
+    try{
     let appointments = await Appointment.find(filter).sort({dueDate: 1, waypointRank: 1});
     let result = [];
     for (let appointment of appointments) {
@@ -101,6 +114,13 @@ router.route("/").get(async(req, res) => {
         result.push({...appointment._doc, location: location.data })
     }
     res.json(result);
+    }
+    catch(e){
+        res.status(500).json({
+            status: "error",
+            message: e.message
+        })
+    }
 })
 
 router.route("/:userID").get(async(req, res) => {
@@ -112,17 +132,30 @@ router.route("/:userID").get(async(req, res) => {
             result.push({...appointment._doc, location: location.data })
         }
         res.json(result);
-    } catch (err) {
-        res.json({ error: err })
+    }
+    catch(e){
+        res.status(500).json({
+            status: "error",
+            message: e.message
+          })
     }
 })
 
 router.route("/").delete(async(req, res) => {
+    try{
     await Appointment.findByIdAndDelete(req.body.id)
     res.json("deleted")
+    }
+    catch(e){
+        res.status(500).json({
+            status: "error",
+            message: e.message
+          })
+    }
 })
 
 router.route('/markers').put(async(req, res) => {
+    try{
     let search = { dueDate: new Date(new Date().setHours(0, 0 , 0, 0)), status: "pending", shift: new Date().getHours() >= 14 ?  "afternoon" : "morning",  waypointRank: { $gte: 1 } };
     let newAppointment = await Appointment.findById(req.body.appointment?._id);
     if (newAppointment) {
@@ -154,20 +187,34 @@ router.route('/markers').put(async(req, res) => {
             }
         })
     } else res.json("finished!!")
-
+    }
+    catch(e){
+        res.status(500).json({
+            status: "error",
+            message: e.message
+          })
+    }
 })
 
 router.route('/:id').put(async(req, res) => {
-    let appointments = await Appointment.find({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift });
-    if (appointments.length >= parseInt(process.env.MAX_APPS)) {
-        res.json("full for today")
-        return;
+    try{
+        let appointments = await Appointment.find({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift });
+        if (appointments.length >= parseInt(process.env.MAX_APPS)) {
+            res.json("full for today")
+            return;
+        }
+        let appointment = await Appointment.findOne({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift, createdBy: req.body.createdBy});
+        if (!appointment) {
+            await Appointment.findByIdAndUpdate(req.params.id,req.body);
+            res.json("Changed Successfully !")
+        } else res.json("already booked")
     }
-    let appointment = await Appointment.findOne({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift, createdBy: req.body.createdBy});
-    if (!appointment) {
-        await Appointment.findByIdAndUpdate(req.params.id,req.body);
-        res.json("Changed Successfully !")
-    } else res.json("already booked")
+    catch(e){
+        res.status(500).json({
+            status: "error",
+            message: e.message
+          })
+    }
 })
 
 
