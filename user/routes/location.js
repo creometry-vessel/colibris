@@ -6,7 +6,7 @@ router.route('/:id').delete(async (req, res)=>{
     await Location.findByIdAndDelete(req.params.id);
     res.json("location deleted")
   }
-  catch(err){
+  catch(e){
     res.status(500).json({
       status: "error",
       message: e.message
@@ -22,7 +22,7 @@ router.route('/:id').delete(async (req, res)=>{
         res.json(location)
       });
     }
-    catch(err){
+    catch(e){
       res.status(500).json({
         status: "error",
         message: e.message
@@ -40,7 +40,7 @@ router.route('/:id').delete(async (req, res)=>{
         res.json(location)
       });
     }
-    catch(err){
+    catch(e){
       res.status(500).json({
         status: "error",
         message: e.message
@@ -56,7 +56,7 @@ router.route('/:id').delete(async (req, res)=>{
         res.json(location)
       });
     }
-    catch(err){
+    catch(e){
       res.status(500).json({
         status: "error",
         message: e.message
@@ -69,7 +69,7 @@ router.route('/:id').delete(async (req, res)=>{
       await location.save();
       res.json("location created!!!")
     }
-    catch(err){
+    catch(e){
       res.status(500).json({
         status: "error",
         message: e.message

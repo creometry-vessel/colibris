@@ -11,7 +11,7 @@ router.route('/map').get(async (req, res)=>{
       location: response.data.results[0].geometry.location
     });
   }
-  catch(err){
+  catch(e){
     res.status(500).json({
       status: "error",
       message: e.message
