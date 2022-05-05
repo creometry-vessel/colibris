@@ -5,11 +5,17 @@ const axios = require("axios")
 
 
 router.route('/map').get(async (req, res)=>{
-  let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.address}&key=${process.env.GOOGLE_API_KEY}`)
-  res.json({
-    location: response.data.results[0].geometry.location
-  });
-})
+  try{
+    let response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.query.address}&key=${process.env.GOOGLE_API_KEY}`)
+    res.json({
+      location: response.data.results[0].geometry.location
+    });
+  }
+  catch(err){
+    res.status(500).json({
+      status: "error",
+      message: e.message
+    })  }})
 
 //get All clients
 router.route('/').get(async (req, res) => {
@@ -28,7 +34,7 @@ router.route('/').get(async (req, res) => {
       res.json(result)
     }
     catch (e){
-      res.json({
+      res.status(500).json({
         status: "error",
         message: e.message
       })
@@ -43,7 +49,7 @@ router.route('/:id').get(async (req, res) => {
       res.json({...client._doc, locations: location})
     }
     catch (e){
-      res.json({
+      res.status(500).json({
         status: "error",
         message: e.message
       })
@@ -72,8 +78,7 @@ router.route('/:id').get(async (req, res) => {
       res.json("client updated successfully!!")
     }
     catch (e){
-      console.log(e)
-      res.json({
+      res.status(500).json({
         status: "error",
         message: e.message
       })
@@ -91,8 +96,7 @@ router.route('/:id').get(async (req, res) => {
         res.json(client)
     }
     catch (e){
-      console.log(e)
-      res.json({
+      res.status(500).json({
         status: "error",
         message: e.message
       })
