@@ -14,8 +14,8 @@ spec:
         run: user
     spec:
       containers:
-      - name: userservice
-        image: colibristn/userservice:v0.2.2
+      - name: user
+        image: colibristn/user:v0.2.2
         ports:
         - containerPort: 5001
         env:
@@ -23,7 +23,12 @@ spec:
             valueFrom:
               configMapKeyRef:
                 name: colibris-configmap
-                key: database_url 
+                key: ATLAS_URI 
+          - name: GOOGLE_API_KEY
+            valueFrom:
+              configMapKeyRef:
+                name:  colibris-configmap
+                key: GOOGLE_API_KEY
 ---
 apiVersion: v1
 kind: Service

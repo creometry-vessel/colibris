@@ -14,8 +14,8 @@ spec:
         run: index
     spec:
       containers:
-      - name: front
-        image: colibristn/front:v0.2.4
+      - name: customerui
+        image: colibristn/customerui:v0.2.4
         ports:
         - containerPort: 80
         volumeMounts:
@@ -26,7 +26,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: testing-configmap
+          name: colibris-configmap
 
 ---
 apiVersion: v1

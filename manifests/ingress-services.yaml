@@ -9,24 +9,39 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls:
-  - hosts:
-    - colibris.creometry.dev
-    secretName: test
+    - hosts:
+        - colibristunisie.com
+        - colibris.creometry.dev
+      secretName: test
   rules:
-  - host: colibris.creometry.dev
-    http:
-      paths:
-      - path: /users(/|$)(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: user
-            port:
-              number: 5001
-      - path: /appointments(/|$)(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: appointment
-            port:
-              number: 5000
+    - host: colibris.creometry.dev
+      http:
+        paths:
+          - path: /users(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: user
+                port:
+                  number: 5001
+          - path: /appointments(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: appointment
+                port:
+                  number: 5000
+          - path: /ratings(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: ratings
+                port:
+                  number: 3000
+          - path: /zone(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: zone
+                port:
+                  number: 5002

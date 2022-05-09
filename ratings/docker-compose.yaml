@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  app:
+    image: ratings_service
+    environment:
+      - DB_URL=host=postgresdb port=5432 password=password user=postgres dbname=service sslmode=disable 
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgresdb
+    networks:
+      - test      
+
+  postgresdb:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=service
+    ports:
+      - 5432:5432
+    networks:
+        - test
+networks:
+  test:
+    driver: bridge 

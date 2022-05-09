@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zone
+  namespace: colibris
+spec:
+  selector:
+    matchLabels:
+      app: colibris
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: colibris
+    spec:
+      containers:
+      - name: zone
+        image: colibristn/zone:v0.2.2
+        ports:
+        - containerPort: 5002
+        env:
+          - name: MONGO_URI
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: ATLAS_URI 
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zone
+  labels:
+    app: colibris
+  namespace: colibris
+spec:
+  ports:
+  - port: 5002
+    protocol: TCP
+  selector:
+    app: colibris

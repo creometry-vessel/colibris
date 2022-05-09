@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schedule
+  namespace: colibris
+spec:
+  selector:
+    matchLabels:
+      app: colibris
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: colibris
+    spec:
+      containers:
+      - name: schedule
+        image: colibristn/schedule:v0.2.2
+        ports:
+        - containerPort: 5000
+        env:
+          - name: ATLAS_URI
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: ATLAS_URI 
+          - name: USER_SERVICE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: USER_SERVICE 
+          - name: MAX_APPS
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: MAX_APPS
+          - name: GOOGLE_API_KEY
+            valueFrom:
+              configMapKeyRef:
+                name:  colibris-configmap
+                key: GOOGLE_API_KEY
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: schedule
+  labels:
+    app: colibris
+  namespace: colibris
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+  selector:
+    app: colibris

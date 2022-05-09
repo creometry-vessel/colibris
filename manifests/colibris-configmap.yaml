@@ -3,5 +3,10 @@ kind: ConfigMap
 metadata:
   name: colibris-configmap
 data:
-  database_url: mongodb://db:27017/Colibris?retryWrites=true&w=majority
-  user_service: http://user:5001
+  ATLAS_URI: mongodb://mongodb:27017/Colibris?retryWrites=true&w=majority
+  USER_SERVICE: http://user:5001
+  MAX_APPS: "25"
+  config.js: "window.ENV = {\r \"USER_SERVICE_URI\": \"https://colibris.creometry.dev/users\",\r \"APPOINT_SERVICE_URI\": \"https://colibris.creometry.dev/appointments\"\r, \"ZONE_SERVICE_URI\": \"https://colibris.creometry.dev/zone\", \"GOOGLE_API_KEY\": \"YOUR_API_KEY_HERE\" , \"FACEBOOK_APP_ID\": \"201651958770779\" }"
+  MONGO_PORT: "27017"
+  MONGO_IP: mongodb
+  GOOGLE_API_KEY: YOUR_API_KEY_HERE
