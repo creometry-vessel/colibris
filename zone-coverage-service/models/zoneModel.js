@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const zoneSchema = new mongoose.Schema({
     weekday: {
         type: String,
-        enum: ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'],
+        enum: ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'],
         unique: true,
         require: [true, "Zone must have a weekday"]
         
