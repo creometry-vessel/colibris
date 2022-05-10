@@ -11,15 +11,16 @@ export default function StaticDatePickerLandscape(props) {
       axios.get(`${window.ENV.ZONE_SERVICE_URI}/findbycity?city=${props.chosenAddr.address.city}`).then(res=>{
         if(res.status != 200) {alert("server error!!!"); return;}
         let result = [];
+        console.log(res.data)
           for(let day of res.data.data){
             switch(day){
-              case "dimanche": result = [...result, 0]; break;
-              case "lundi": result = [...result, 1]; break;
-              case "mardi": result = [...result, 2]; break;
-              case "mercredi":  result = [...result, 3]; break;
-              case "jeudi": result = [...result, 4]; break;
-              case "vendredi":  result = [...result, 5]; break;
-              case "samedi":  result = [...result, 6]; break;
+              case "Dimanche": result = [...result, 0]; break;
+              case "Lundi": result = [...result, 1]; break;
+              case "Mardi": result = [...result, 2]; break;
+              case "Mercredi":  result = [...result, 3]; break;
+              case "Jeudi": result = [...result, 4]; break;
+              case "Vendredi":  result = [...result, 5]; break;
+              case "Samedi":  result = [...result, 6]; break;
             }
           }
           setDays(result)

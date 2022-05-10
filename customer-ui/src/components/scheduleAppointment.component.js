@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DatePicker from './datePicker.component'
 import Adresses from './listAddress.component'
@@ -25,7 +24,7 @@ export default function HorizontalLinearStepper(props) {
     let {id, close} = props
 
   const handleNext = async () => {
-    if(activeStep == steps.length -1){
+    if(activeStep === steps.length -1){
         let response = null
        if(id){
         response = await axios.put(`${window.ENV.APPOINT_SERVICE_URI}/${id}`, {
@@ -61,11 +60,11 @@ export default function HorizontalLinearStepper(props) {
 
   const generate = (step)=>{
     switch(step){
-        case 0: return(<Adresses handleNext={handleNext} setChosenAddr={setChosenAddr}   />)
-        case 1: return(<DatePicker myDate={myDate} setMyDate={setMyDate} chosenAddr={chosenAddr} />)
-        case 2: return(<Shift shift={shift} setShift={setShift} handleNext={handleNext}  />)
-        case 3: return(<Confirm myDate={myDate} shift={shift} chosenAddr={chosenAddr} />)
-
+        case 0:   return(<Adresses handleNext={handleNext} setChosenAddr={setChosenAddr}   />)
+        case 1:   return(<DatePicker myDate={myDate} setMyDate={setMyDate} chosenAddr={chosenAddr} />)
+        case 2:   return(<Shift shift={shift} setShift={setShift} handleNext={handleNext}  />)
+        case 3:   return(<Confirm myDate={myDate} shift={shift} chosenAddr={chosenAddr} />)
+        default:  return(<div></div>)
 
     }
 }
@@ -103,9 +102,9 @@ export default function HorizontalLinearStepper(props) {
               onClick={handleBack}
               sx={{ mr: 1 }}
             >
-              <i class="fa-solid fa-angle-left"></i>
+              <i className="fa-solid fa-angle-left"></i>
             </button>
-            {activeStep == steps.length - 1 ? 
+            {activeStep === steps.length - 1 ? 
                 <span onClick={handleReset} className="outlined-btn ml-much">Reset</span>
               :
               <div></div>
@@ -113,7 +112,7 @@ export default function HorizontalLinearStepper(props) {
 
             <Box sx={{ flex: '1 1 auto' }} />
             
-            {activeStep == 0? <div></div>:
+            {activeStep === 0? <div></div>:
 
             <div onClick={handleNext} >
 
@@ -121,7 +120,7 @@ export default function HorizontalLinearStepper(props) {
             <span className="simple-btn mt-2">Finish</span> : 
 
               <a className="btn-circle">
-            <i class="fa-solid fa-angle-right"></i>
+            <i className="fa-solid fa-angle-right"></i>
             </a>}
             </div>
 

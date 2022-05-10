@@ -62,7 +62,7 @@ export default function History(props) {
               <td>{element.status}</td>
               <td>{element.reason}</td>
               <td>
-                <a onClick={() => deleteApp(element._id, index)}><i class="red-icon fa-solid fa-ban"></i></a>
+                <a onClick={() => deleteApp(element._id, index)}><i className="red-icon fa-solid fa-ban"></i></a>
               </td>
               <td>
                 {element.status == "pending"? <DialogApp  refresh={getApp} id={element._id} />: <div></div> }
