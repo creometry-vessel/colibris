@@ -5,6 +5,7 @@ const axios = require("axios");
 
 router.route('/').post(async(req, res) => {
     try {
+        req.body.dueDate = new Date(req.body.dueDate+"Z");
         let appointments = await Appointment.find({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift });
         if (appointments.length >= parseInt(process.env.MAX_APPS)) {
             res.json("full for today")
@@ -27,7 +28,7 @@ router.route('/').post(async(req, res) => {
         } else {
             res.json("already booked!!")
         }
-    } catch (err) {
+    } catch (e) {
         res.status(500).json({
             status: "error",
             message: e.message
@@ -198,6 +199,7 @@ router.route('/markers').put(async(req, res) => {
 
 router.route('/:id').put(async(req, res) => {
     try{
+        req.body.dueDate = new Date(req.body.dueDate+"Z");
         let appointments = await Appointment.find({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift });
         if (appointments.length >= parseInt(process.env.MAX_APPS)) {
             res.json("full for today")
