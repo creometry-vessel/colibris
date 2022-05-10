@@ -48,7 +48,7 @@ exports.checkEligibility = async (req, res, next ) => {
 
         res.status(200).json({
             results: "Vous êtes éligible",
-            pickup: "Le pickup est programmé pour " + results
+            pickup: results
         })
         } 
     }

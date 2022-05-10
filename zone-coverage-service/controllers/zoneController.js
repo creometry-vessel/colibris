@@ -17,23 +17,7 @@ exports.getAllZones = async (req, res, next ) => {
         });
     }
 };
-exports.getZone = async (req, res, next ) => {
-    try{
-        const zone = await Zone.findOne({weekday: req.params.weekday})
-        res.status(200).json({
-            status: 'succes',
-            data: {
-                zone
-            }
-        })
-    }
-    catch(e){
-        res.status(400).json({
-            status: "fail",
-        });
-    }
-};
-exports.createZone = async (req, res, next ) => {
+/*exports.createZone = async (req, res, next ) => {
     try{
         const zones = await Zone.create(req.body)
         res.status(201).json({
@@ -48,11 +32,11 @@ exports.createZone = async (req, res, next ) => {
             status: "fail",
         });
     }
-};
+};*/
 exports.findByCity = async (req, res, next ) => {
     try{ 
      let city = req.query.city;
-     const citySearch = await Zone.find({cities: city})
+     const citySearch = await Zone.find({cities: new RegExp(city,'i')})
      if(citySearch.length==0) {
          res.status(200).json({
              results: "City n'existe pas",
@@ -65,7 +49,7 @@ exports.findByCity = async (req, res, next ) => {
          }
         res.status(200).send({
             results: "City existe",
-            data: result })
+            data: citySearch })
      }
     } 
     catch(e){
