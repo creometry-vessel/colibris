@@ -12,7 +12,7 @@
     "paths": {
         "/users/auth/facebook": {
             "post": {
-                "summary": "auth user",
+                "summary": "authenticate user",
                 "parameters": [
                     {
                         "in": "body",
@@ -103,7 +103,7 @@
         },
         "/users/location": {
             "get": {
-                "summary": "",
+                "summary": "get all locations or locations for a specific user ",
                 "parameters": [
                     {
                         "in": "query",
@@ -126,7 +126,7 @@
         },
         "/users/location/{id}": {
             "get": {
-                "summary": "",
+                "summary": "get location",
                 "parameters": [
                     {
                         "in": "path",
@@ -146,7 +146,7 @@
                 }
             },
             "delete": {
-                "summary": "",
+                "summary": "delete location",
                 "parameters": [
                     {
                         "in": "path",
@@ -166,7 +166,7 @@
                 }
             },
             "put": {
-                "summary": "",
+                "summary": "update location",
                 "parameters": [
                     {
                         "in": "path",
@@ -196,7 +196,7 @@
         },
         "/appointments": {
             "get": {
-                "summary": "",
+                "summary": "get appointments with filter possibilities",
                 "parameters": [
                     {
                         "in": "query",
@@ -204,14 +204,14 @@
                         "type": "string"
                     },
                     {
-                      "in": "query",
-                      "name": "dueDate",
-                      "type": "string"
+                        "in": "query",
+                        "name": "dueDate",
+                        "type": "string"
                     },
                     {
-                      "in": "query",
-                      "name": "status",
-                      "type": "string"
+                        "in": "query",
+                        "name": "status",
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -225,31 +225,31 @@
                 }
             },
             "post": {
-              "summary": "",
-              "parameters": [
-                  {
-                      "in": "body",
-                      "name": "appointment",
-                      "schema": {
-                          "$ref": "#/definitions/appointment"
-                      }
-                  }
-              ],
-              "responses": {
-                  "200": {
-                      "description": "",
-                      "schema": {
-                          "type": "string",
-                          "enum": [
-                              "booked successfully !!!",
-                              "already booked!!"
-                          ]
-                      }
-                  }
-              }
-          },
+                "summary": "create appointment",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "appointment",
+                        "schema": {
+                            "$ref": "#/definitions/appointment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "booked successfully !!!",
+                                "already booked!!"
+                            ]
+                        }
+                    }
+                }
+            },
             "delete": {
-                "summary": "",
+                "summary": "delete appointment",
                 "parameters": [
                     {
                         "in": "body",
@@ -272,7 +272,7 @@
         },
         "/appointments/{userID}": {
             "get": {
-                "summary": "",
+                "summary": "get appointments for specific user",
                 "parameters": [
                     {
                         "in": "path",
@@ -296,7 +296,7 @@
         },
         "/appointments/{id}": {
             "put": {
-                "summary": "",
+                "summary": "update appointment",
                 "parameters": [
                     {
                         "in": "path",
