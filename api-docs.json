@@ -1,0 +1,559 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "colibris",
+        "version": "1.0"
+    },
+    "host": "colibris.creometry.dev",
+    "basePath": "/",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/users/auth/facebook": {
+            "post": {
+                "summary": "authenticate user",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "providerID",
+                        "required": true,
+                        "description": "Object provided by facebook api",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "userID": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "picture": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "url": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "this is response",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "summary": "get user info",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/userDTO"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "update user info",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string",
+                            "example": "client updated successfully!!"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/location": {
+            "get": {
+                "summary": "get all locations or locations for a specific user ",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "userID",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/locationDTO"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/location/{id}": {
+            "get": {
+                "summary": "get location",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/locationDTO"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "delete location",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string",
+                            "example": "location deleted"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "update location",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "location",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/locationDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/location"
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments": {
+            "get": {
+                "summary": "get appointments with filter possibilities",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "shift",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "dueDate",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/appointmentDTO"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "create appointment",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "appointment",
+                        "schema": {
+                            "$ref": "#/definitions/appointment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "booked successfully !!!",
+                                "already booked!!"
+                            ]
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "delete appointment",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string",
+                            "example": "deleted"
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments/{userID}": {
+            "get": {
+                "summary": "get appointments for specific user",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userID",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/locationDTO"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments/{id}": {
+            "put": {
+                "summary": "update appointment",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "appointment",
+                        "schema": {
+                            "$ref": "#/definitions/appointment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "Changed Successfully !",
+                                "already booked"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "user": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "providerID": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "phone1": {
+                    "type": "string"
+                },
+                "phone2": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "customer",
+                        "collector",
+                        "admin"
+                    ]
+                },
+                "avatar": {
+                    "type": "string"
+                }
+            }
+        },
+        "address": {
+            "type": "object",
+            "properties": {
+                "lng": {
+                    "type": "number"
+                },
+                "lat": {
+                    "type": "number"
+                },
+                "addressType": {
+                    "type": "string",
+                    "enum": [
+                        "appartment",
+                        "building",
+                        "house"
+                    ]
+                },
+                "locationType": {
+                    "type": "string",
+                    "enum": [
+                        "professional",
+                        "residental"
+                    ]
+                },
+                "streetNumber": {
+                    "type": "number"
+                },
+                "streetName": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "zipCode": {
+                    "type": "number"
+                }
+            }
+        },
+        "location": {
+            "type": "object",
+            "properties": {
+                "userID": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "object",
+                    "$ref": "#/definitions/address"
+                }
+            }
+        },
+        "userDTO": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "phone1": {
+                    "type": "string"
+                },
+                "phone2": {
+                    "type": "string"
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "locations": {
+                    "type": "object",
+                    "$ref": "#/definitions/location"
+                }
+            }
+        },
+        "locationDTO": {
+            "type": "object",
+            "properties": {
+                "userID": {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "phone1": {
+                            "type": "string"
+                        },
+                        "phone2": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "address": {
+                    "type": "object",
+                    "$ref": "#/definitions/address"
+                }
+            }
+        },
+        "appointment": {
+            "type": "object",
+            "properties": {
+                "createdBy": {
+                    "type": "string"
+                },
+                "shift": {
+                    "type": "string",
+                    "enum": [
+                        "morning",
+                        "afternoon"
+                    ]
+                },
+                "dueDate": {
+                    "type": "object",
+                    "description": "type date"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "waypointRank": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "pending",
+                        "attempted",
+                        "completed",
+                        "canceled"
+                    ]
+                },
+                "attempts": {
+                    "type": "number"
+                },
+                "reason": {
+                    "type": "string"
+                }
+            }
+        },
+        "appointmentDTO": {
+            "type": "object",
+            "properties": {
+                "createdBy": {
+                    "type": "string"
+                },
+                "shift": {
+                    "type": "string",
+                    "enum": [
+                        "morning",
+                        "afternoon"
+                    ]
+                },
+                "dueDate": {
+                    "type": "string",
+                    "description": "type Date"
+                },
+                "location": {
+                    "type": "object",
+                    "$ref": "#/definitions/location"
+                },
+                "waypointRank": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "pending",
+                        "attempted",
+                        "completed",
+                        "canceled"
+                    ]
+                },
+                "attempts": {
+                    "type": "number"
+                },
+                "reason": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
