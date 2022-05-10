@@ -1,12 +1,11 @@
-const mongoose = required("mongoose")
+const mongoose = require("mongoose")
 
 const zoneSchema = new mongoose.Schema({
     weekday: {
         type: String,
         enum: ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'],
         unique: true,
-        require: [true, "Zone must have a weekday"],
-        required: true
+        required: [true, "Zone must have a weekday"],
     },
     cities: {
         type: [String],

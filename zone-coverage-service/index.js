@@ -5,20 +5,13 @@ const cors = require("cors");
 require("dotenv").config();
 const Zone = require('./models/zoneModel')
 
-const { MONGO_IP,MONGO_PASSWORD,MONGO_PORT,MONGO_USER} = require("./config")
 
 const zoneRouter = require("./routes/zoneRoutes")
 const eligibilityRouter = require("./routes/eligibilityRoutes");
 
 const app = express()
 
-mongoose.connect(process.env.MONGO_URI,
-                {useNewUrlParser: true,
-                useUnifiedTopology: true,
-                })
-        .then(()=> console.log("Succesfully connected to DB"))
-        .catch((e)=> {
-            console.log(e)});
+
                    
 
 app.use(express.json());
@@ -30,7 +23,7 @@ const port = process.env.Port || 5002;
 
 app.listen(port, ()=> console.log(`listening on port ${port}`))
 
-function createZone(Zone) {
+function createZone() {
     let weekdays = [
         { weekday: "Lundi",
             zones: []
@@ -67,4 +60,10 @@ function createZone(Zone) {
             }
         })
 };
-createZone(Zone);
+mongoose.connect(process.env.MONGO_URI,
+    {useNewUrlParser: true,
+    useUnifiedTopology: true,
+    })
+.then(()=> {console.log("Succesfully connected to DB"); createZone()})
+.catch((e)=> {
+console.log(e)});
