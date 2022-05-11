@@ -10,8 +10,9 @@ spec:
     matchLabels:
       run: colibris-front
   replicas: 1
-  strategy: RollingUpdate
-  revisionHistoryLimit: 3
+  strategy: 
+    type: RollingUpdate
+    revisionHistoryLimit: 3
   template:
     metadata:
       labels:
