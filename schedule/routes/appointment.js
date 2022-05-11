@@ -58,8 +58,11 @@ router.route("/sort").put(async (req,res)=>{
     }
     for (let appointment of appointments) {
         let location = await axios.get(`${process.env.USER_SERVICE_URL}/location/${appointment.location}`);
-        destinations = `${destinations}|${location.data.address.lat},${location.data.address.lng}`
-        locations.push(location.data )
+        if(location.data){
+            destinations = `${destinations}|${location.data.address.lat},${location.data.address.lng}`
+            locations.push(location.data )
+        }
+
     }
 
     //send data to matrix API
@@ -111,7 +114,7 @@ router.route("/").get(async(req, res) => {
     let result = [];
     for (let appointment of appointments) {
         let location = await axios.get(`${process.env.USER_SERVICE_URL}/location/${appointment.location}`);
-        if(location)
+        if(location.data)
         result.push({...appointment._doc, location: location.data })
     }
     res.json(result);
@@ -130,7 +133,9 @@ router.route("/:userID").get(async(req, res) => {
         let appointments = await Appointment.find({ createdBy: req.params.userID });
         for (let appointment of appointments) {
             let location = await axios.get(`${process.env.USER_SERVICE_URL}/location/${appointment.location}`);
-            result.push({...appointment._doc, location: location.data })
+            if(location.data){
+                result.push({...appointment._doc, location: location.data })
+            }
         }
         res.json(result);
     }
