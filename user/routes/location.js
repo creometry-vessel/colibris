@@ -76,4 +76,15 @@ router.route('/:id').delete(async (req, res)=>{
       })
     }})
 
+    router.route('/:id').put(async (req, res)=>{
+      try{
+        let location = await Location.findByIdAndUpdate(req.params.id, req.body);
+        res.json(location);
+      }
+      catch(e){
+        res.status(500).json({
+          status: "error",
+          message: e.message
+        })
+      }})
 module.exports = router;

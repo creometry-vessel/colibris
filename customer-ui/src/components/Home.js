@@ -61,8 +61,8 @@ class Home extends React.Component {
                               autoLoad={true}
                               fields="name,email,picture"
                               callback={this.Login}
-                              cssClass="facebook-button"
-                              textButton={<span><i class="fa-brands fa-facebook mr-3"></i> Sing up with Facebook</span>}
+                              cssclassName="facebook-button"
+                              textButton={<span><i className="fa-brands fa-facebook mr-3"></i> Sing up with Facebook</span>}
                             
                             />
                             </div>  

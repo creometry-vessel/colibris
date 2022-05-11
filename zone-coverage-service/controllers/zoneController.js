@@ -17,6 +17,23 @@ exports.getAllZones = async (req, res, next ) => {
         });
     }
 };
+exports.getZone = async (req, res, next ) => {
+    try{
+        const zones = await Zone.findOne({weekday: req.params.weekday})
+        res.status(200).json({
+            status: 'succes',
+            results: zones.length,
+            data: {
+                zones
+            }
+        })
+    }
+    catch(e){
+        res.status(400).json({
+            status: "fail",
+        });
+    }
+};
 /*exports.createZone = async (req, res, next ) => {
     try{
         const zones = await Zone.create(req.body)
@@ -49,7 +66,7 @@ exports.findByCity = async (req, res, next ) => {
          }
         res.status(200).send({
             results: "City existe",
-            data: citySearch })
+            data: result })
      }
     } 
     catch(e){

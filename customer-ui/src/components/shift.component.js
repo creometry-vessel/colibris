@@ -1,7 +1,7 @@
 
 
 export default function List(props){
-    let {shift, setShift} = props
+    let {setShift} = props
 
 
     return(

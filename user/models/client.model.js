@@ -19,7 +19,6 @@ const clientSchema = new Schema({
     username: {
         type: String,
         trim: true,
-        unique: true
     },
     phone1: {
         type: String,

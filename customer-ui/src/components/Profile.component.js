@@ -57,13 +57,13 @@ export default function Profile() {
                       <h6>{username} </h6>
                       <div className="mt-5">
                         <span className={classes("profile")} onClick={()=>setPage("profile")}>
-                          <i class="fa-solid fa-circle-user mr-3"></i> My Profile
+                          <i className="fa-solid fa-circle-user mr-3"></i> My Profile
                         </span>
                         <span className={classes("location")} onClick={()=>setPage("location")}>
-                        <i class="fa-solid fa-location-dot mr-3"></i> My locations
+                        <i className="fa-solid fa-location-dot mr-3"></i> My locations
                         </span>
                         <span className={classes("history")} onClick={()=>setPage("history")}>
-                        <i class="fa-solid fa-clock-rotate-left mr-2"></i> History
+                        <i className="fa-solid fa-clock-rotate-left mr-2"></i> History
                         </span>
                         
                       </div>

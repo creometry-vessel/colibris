@@ -57,12 +57,7 @@ export default function Profile() {
                       />
                     </div>
                     <div className="col-lg-10">
-                      {<input
-                        placeholder="lien image"
-                        className="form-control mt-2"
-                        value={avatar}
-                        onChange={(e) => setAvatar(e.target.value)}
-                      />}
+                      
                     </div>
                   </div>
                   <div className="col-lg-12 mb-3">

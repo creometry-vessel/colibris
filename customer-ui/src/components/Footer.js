@@ -20,21 +20,15 @@ class Footer extends React.Component {
                     selim@colibristunisie.com
                   </p>
                   <div className="footer-social">
-                    <a href="">
-                      <i className="fab fa-twitter"></i>
-                    </a>
+                    
                     <a href="https://www.facebook.com/colibristunisie">
                       <i className="fab fa-facebook-f"></i>
                     </a>
-                    <a href="">
-                      <i className="fab fa-youtube"></i>
-                    </a>
+                    
                     <a href="https://www.instagram.com/colibristunisie/">
                       <i className="fab fa-instagram"></i>
                     </a>
-                    <a href="">
-                      <i className="fab fa-linkedin-in"></i>
-                    </a>
+                   
                   </div>
                 </div>
               </div>
