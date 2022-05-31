@@ -1,18 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user
+  name: colibris-user-deploy
   namespace: colibris
+  labels:
+    projectName: colibris
 spec:
   selector:
     matchLabels:
-      run: user
+      run: colibris-user
   replicas: 1
+  strategy: 
+    type: RollingUpdate
+  revisionHistoryLimit: 3
   template:
     metadata:
       labels:
-        run: user
+        run: colibris-user
     spec:
+      # nodeSelector:
+      #   community: colibris
       containers:
       - name: user
         image: colibristn/user:v0.2.2
@@ -29,17 +36,24 @@ spec:
               configMapKeyRef:
                 name:  colibris-configmap
                 key: GOOGLE_API_KEY
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "5m"
+            memory: "10Mi"         
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: user
+  name: colibris-user-svc
   labels:
-    run: user
+    projectName: colibris
 spec:
   ports:
   - port: 5001
     protocol: TCP
   selector:
-    run: user
+    run: colibris-user
   

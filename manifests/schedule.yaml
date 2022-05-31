@@ -1,25 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: schedule
+  name: colibris-schedule-deploy
   namespace: colibris
+  labels:
+    projectName: colibris
 spec:
+  strategy: 
+    type: RollingUpdate
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: colibris
-      service: schedule
+      run: colibris-schedule
   replicas: 1
   template:
     metadata:
       labels:
-        app: colibris
-        service: schedule
+        run: colibris-schedule
     spec:
-      containers:
+    # nodeSelector:
+      #   community: colibris
+      containers:       
       - name: schedule
         image: colibristn/schedule:v0.2.2
         ports:
-        - containerPort: 5000
+          - containerPort: 5000
         env:
           - name: ATLAS_URI
             valueFrom:
@@ -41,18 +46,24 @@ spec:
               configMapKeyRef:
                 name:  colibris-configmap
                 key: GOOGLE_API_KEY
-          
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "5m"
+            memory: "10Mi"    
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: schedule
+  name: colibris-schedule-svc
   labels:
-    app: colibris
+    projectName: colibris
   namespace: colibris
 spec:
   ports:
   - port: 5000
     protocol: TCP
   selector:
-    app: colibris
+    run: colibris-schedule

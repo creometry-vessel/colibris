@@ -1,20 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zone
+  name: colibris-zone-deploy
   namespace: colibris
+  labels:
+    projectName: colibris
 spec:
   selector:
     matchLabels:
-      app: colibris
-      service: zone
+      run: colibris-zone
   replicas: 1
+  strategy: 
+    type: RollingUpdate
+  revisionHistoryLimit: 3
   template:
     metadata:
       labels:
-        app: colibris
-        service: zone
+        run: colibris-zone
     spec:
+     # nodeSelector:
+      #   community: colibris
       containers:
       - name: zone
         image: colibristn/zone:v0.2.2
@@ -26,18 +31,25 @@ spec:
               configMapKeyRef:
                 name: colibris-configmap
                 key: ATLAS_URI 
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "256Mi"
+          requests:
+            cpu: "5m"
+            memory: "10Mi"
           
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: zone
+  name: colibris-zone-svc
   labels:
-    app: colibris
+    projectName: colibris
   namespace: colibris
 spec:
   ports:
   - port: 5002
     protocol: TCP
   selector:
-    app: colibris
+    run: colibris-zone
