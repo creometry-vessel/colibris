@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: colibris-configmap
+data:
+  ATLAS_URI: mongodb://colibris-mongodb-svc:27017/Colibris?retryWrites=true&w=majority
+  USER_SERVICE: http://colibris-user-svc:5001
+  MAX_APPS: "25"
+  config.js: "window.ENV = {\r \"USER_SERVICE_URI\": \"https://colibristunisie.com/users\",\r \"APPOINT_SERVICE_URI\": \"https://colibristunisie.com/appointments\"\r, \"ZONE_SERVICE_URI\": \"https://colibristunisie.com/zone\", \"GOOGLE_API_KEY\": \"PASTE_API_KEY\" , \"FACEBOOK_APP_ID\": \"201651958770779\" }"
+  MONGO_PORT: "27017"
+  MONGO_IP: mongodb
+  GOOGLE_API_KEY: "PASTE_API_KEY"
