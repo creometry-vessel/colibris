@@ -1,18 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-service
+  name: colibris-backend-ingress
   namespace: colibris
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/server-alias: "colibristunisie.com"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
   tls:
     - hosts:
         - colibristunisie.com
         - colibris.creometry.dev
-      secretName: test
+      secretName: colibris-ingress-secret
   rules:
     - host: colibris.creometry.dev
       http:
@@ -21,14 +23,14 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: user
+                name: colibris-user-svc
                 port:
                   number: 5001
           - path: /appointments(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: appointment
+                name: colibris-appointment-svc
                 port:
                   number: 5000
           - path: /ratings(/|$)(.*)
@@ -42,6 +44,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: zone
+                name: colibris-zone-svc
                 port:
                   number: 5002
