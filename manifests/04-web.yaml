@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: colibris
+  name: colibris-web-deploy
+  labels:
+    projectName: colibris
+spec:
+  selector:
+    matchLabels:
+      run: colibris-web
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        run: colibris-web
+    spec:
+      # nodeSelector:
+      #   host: colibris
+        
+      containers:
+      - name: customerui
+        image: colibristn/customerui:v0.2.4
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "5m"
+            memory: "10Mi"  
+        volumeMounts:
+          - name: colibris-config-volume
+            mountPath: /usr/share/nginx/html/config.js
+            readOnly: true
+            subPath: config.js
+      volumes:
+      - name: colibris-config-volume
+        configMap:
+          name: colibris-configmap
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: colibris
+  name: colibris-web-svc
+  labels:
+    projectName: colibris
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: colibris-web
+
+
+  

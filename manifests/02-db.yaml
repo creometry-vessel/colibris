@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: colibris-mongodb-svc
+  namespace: colibris
+  labels:
+    projectName: colibris
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  selector:
+    run: colibris-mongo
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: colibris
+  name: colibris-mongo-sts
+  labels:
+    projectName: colibris
+spec:
+  serviceName: colibris-mongodb-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      run: colibris-mongo
+  template:
+    metadata:
+      labels:
+        run: colibris-mongo
+        replicaset: MainRepSet
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mongod-container
+          image: mongo
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: colibris-mongodb-volume
+              mountPath: /data/db
+      volumes:
+        - name: colibris-mongodb-volume
+          persistentVolumeClaim:
+            claimName: colibris-mongodb-pvc
+            
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: colibris-mongodb-pvc
+  labels:
+    projectName: colibris
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

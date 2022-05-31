@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: colibris-ratings-pvc
+  namespace: colibris
+  labels:
+    projectName: colibris
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    projectName: colibris
+  name: colibris-ratings-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: colibris-ratings
+  strategy: 
+    type: RollingUpdate
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        run: colibris-ratings
+    spec:
+     # nodeSelector:
+      #   community: colibris
+      volumes:
+        - name:  colibris-ratings-db-pv
+          persistentVolumeClaim:
+            claimName: colibris-ratings-pvc
+      containers:
+        - image: colibristn/ratingservice
+          name: ratings
+          volumeMounts:
+            - mountPath: /data
+              name: colibris-ratings-db-pv
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "256Mi"
+            requests:
+              cpu: "5m"
+              memory: "10Mi" 
+      
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: colibris
+  labels:
+    projectName: colibris
+  name: colibris-ratings-svc
+spec:
+  ports:
+    - name: "3000"
+      port: 3000
+      targetPort: 3000
+  selector:
+    run: colibris-ratings
+

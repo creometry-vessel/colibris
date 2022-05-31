@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: colibris-user-deploy
+  namespace: colibris
+  labels:
+    projectName: colibris
+spec:
+  selector:
+    matchLabels:
+      run: colibris-user
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        run: colibris-user
+    spec:
+      # nodeSelector:
+      #   community: colibris
+      containers:
+      - name: user
+        image: colibristn/user:v0.2.2
+        ports:
+        - containerPort: 5001
+        env:
+          - name: ATLAS_URI
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: ATLAS_URI 
+          - name: GOOGLE_API_KEY
+            valueFrom:
+              configMapKeyRef:
+                name:  colibris-configmap
+                key: GOOGLE_API_KEY
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "5m"
+            memory: "10Mi"         
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: colibris-user-svc
+  labels:
+    projectName: colibris
+spec:
+  ports:
+  - port: 5001
+    protocol: TCP
+  selector:
+    run: colibris-user
+  
