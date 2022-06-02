@@ -103,4 +103,4 @@ dist
 # TernJS port file
 .tern-port
 */.env
-customer-ui/public/config
+customer-ui/public/config/**
