@@ -35,9 +35,7 @@ spec:
             memory: "10Mi"  
         volumeMounts:
           - name: colibris-config-volume
-            mountPath: /usr/share/nginx/html/config.js
-            readOnly: true
-            subPath: config.js
+            mountPath: /usr/share/nginx/html/config
       volumes:
       - name: colibris-config-volume
         configMap:

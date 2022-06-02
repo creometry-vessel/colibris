@@ -12,8 +12,11 @@ export default function Profile() {
     const [cookies] = useCookies(["colibrisID"]);
     const [avatar, setAvatar] = useState("");
     useEffect(() => {
+      fetch('config/USER_SERVICE_URI')
+      .then((r) => r.text())
+      .then(USER_SERVICE_URI  => {
         axios
-          .get(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`)
+          .get(`${USER_SERVICE_URI}/${cookies.colibrisID}`)
           .then((res) => {
             setName(res.data.name);
             setEmail(res.data.email);
@@ -23,11 +26,16 @@ export default function Profile() {
             setPhone2(res.data.phone2);
             
           }).catch(err=>{console.log(err)});
+      })
+        
       }, [cookies.colibrisID]);
     
       const Submit = () => {
-        axios
-          .put(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`, {
+        fetch('config/USER_SERVICE_URI')
+        .then((r) => r.text())
+        .then(USER_SERVICE_URI  => {
+          axios
+          .put(`${USER_SERVICE_URI}/${cookies.colibrisID}`, {
             name: name,
             email: email,
             phone1: phone1,
@@ -42,6 +50,8 @@ export default function Profile() {
             }
           })
           .catch((err) => window.alert(err));
+        })
+        
       };
     return(
         <div className="container-fluid mt-3 contact">

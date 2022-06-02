@@ -9,6 +9,14 @@ function ConfirmationDialogRaw(props) {
   const _marker = useRef(null);
   const _geocode = useRef(null);
   const _infowindow = useRef(null);
+  const [GOOGLE_API_KEY, setKey] = useState();
+  useEffect(()=>{
+    fetch('config/GOOGLE_API_KEY')
+    .then((r) => r.text())
+    .then(GOOGLE_API_KEY  => {
+      setKey(GOOGLE_API_KEY)
+    })
+  }, [])
   const accept = ()=>{
     setOpen(false);
     setLatLng(location);
@@ -23,7 +31,7 @@ function ConfirmationDialogRaw(props) {
         window.initMap = ()=> console.log("initilizing map")
         script.src =
           "https://maps.googleapis.com/maps/api/js?key=" +
-          window.ENV.GOOGLE_API_KEY +
+          GOOGLE_API_KEY +
           "&callback=initMap&v=weekly";
         script.async = true;
         document.body.appendChild(script);
@@ -92,7 +100,7 @@ function ConfirmationDialogRaw(props) {
         ):(
           <div>
              <h5>Confirmez votre localisation: </h5>
-            <iframe src={`https://www.google.com/maps/embed/v1/view?key=${window.ENV.GOOGLE_API_KEY}&center=${location.lat},${location.lng}&zoom=18`} width="500" height="400"></iframe>
+            <iframe src={`https://www.google.com/maps/embed/v1/view?key=${GOOGLE_API_KEY}&center=${location.lat},${location.lng}&zoom=18`} width="500" height="400"></iframe>
             <button onClick={accept} className="btn custom-btn" >confirmer addresse</button>
             <button onClick={refuse} className="btn custom-btn-red ml-3" >ce n'est pas ma localisation</button>
           </div>
@@ -109,17 +117,22 @@ export default function ConfirmationDialog(props) {
   const [refused, setRefused] = useState(false);
 
   const handleOpen = () => {
-    axios.get(`${window.ENV.USER_SERVICE_URI}/map?address=${props.address}`).then(res=>{
-      if(res.data.location){
-        setOpen(true);
-        setLocation(res.data.location)
-        
-      }else{
-        window.alert("une erreur s'est produite, svp reesayer plus tard")
-      }
-    }).catch(err=>{
-      console.log(err)
+    fetch('config/test')
+    .then((r) => r.text())
+    .then(USER_SERVICE_URI  => {
+      axios.get(`${USER_SERVICE_URI}/map?address=${props.address}`).then(res=>{
+        if(res.data.location){
+          setOpen(true);
+          setLocation(res.data.location)
+          
+        }else{
+          window.alert("une erreur s'est produite, svp reesayer plus tard")
+        }
+      }).catch(err=>{
+        console.log(err)
+      })
     })
+    
   };
 
   const handleClose = () => {

@@ -13,14 +13,19 @@ class Header extends React.Component {
     this.removeCookies = this.removeCookies.bind(this);
   }
   componentDidMount(){
-    axios
-      .get(`${window.ENV.USER_SERVICE_URI}/${this.props.cookies.cookies.colibrisID}`)
+    fetch('config/USER_SERVICE_URI')
+    .then((r) => r.text())
+    .then(USER_SERVICE_URI  => {
+      axios
+      .get(`${USER_SERVICE_URI}/${this.props.cookies.cookies.colibrisID}`)
       .then((res) => {
        
         this.setState({Avatar: res.data.avatar})
       }).catch(err=>{
         console.log(err)
       });
+    })
+    
   }
   removeCookies() {
     const { cookies } = this.props;

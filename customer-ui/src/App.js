@@ -6,18 +6,9 @@ import { Route, HashRouter as Router, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { useCookies } from 'react-cookie';
-import { useEffect } from 'react';
 
 function App() {
   const [cookies] = useCookies(['colibrisID']);
-  useEffect(()=>{
-    
-    fetch('config/test')
-    .then((r) => r.text())
-    .then(text  => {
-      console.log(text);
-    })  
-  }, [])
   return (
     <div className="wrapper">
       <Header />

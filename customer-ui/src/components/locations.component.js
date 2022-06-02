@@ -7,19 +7,27 @@ export default function Locations(props) {
     const [cookies] = useCookies(["colibrisID"]);
 
     useEffect(() => {
+      fetch('config/test')
+      .then((r) => r.text())
+      .then(USER_SERVICE_URI  => {
         axios
-          .get(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`)
+          .get(`${USER_SERVICE_URI}/${cookies.colibrisID}`)
           .then((res) => {
             setLocations(res.data.locations);
           }).catch(err=>{
             console.log(err)
           });
+      })
+        
       }, [cookies.colibrisID]);
 
       const Submit = () => {
         //verif
-        axios
-          .put(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`, {
+        fetch('config/test')
+        .then((r) => r.text())
+        .then(USER_SERVICE_URI  => {
+          axios
+          .put(`${USER_SERVICE_URI}/${cookies.colibrisID}`, {
             locations: locations,
           })
           .then((res) => {
@@ -28,6 +36,8 @@ export default function Locations(props) {
             }
           })
           .catch((err) => window.alert(err));
+        })
+        
       };
     return(
         <div className="contact">

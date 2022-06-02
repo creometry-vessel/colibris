@@ -33,10 +33,14 @@ export default function Address(props) {
     locs[index] = loc
     setLocations(locs)  
   }
-  const deleteLoc = async ()=>{
+  const deleteLoc = ()=>{
     if(locations[index]._id){
       try{
-        await axios.delete(`${window.ENV.USER_SERVICE_URI}/location/${locations[index]._id}`)
+        fetch('config/USER_SERVICE_URI')
+        .then((r) => r.text())
+        .then(async USER_SERVICE_URI  => {
+          await axios.delete(`${USER_SERVICE_URI}/location/${locations[index]._id}`)
+        })
       }
       catch(e){
         alert("server erreur!!!")

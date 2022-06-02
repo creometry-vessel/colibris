@@ -12,13 +12,17 @@ export default function History(props) {
   }, [cookies.colibrisID]);
 
   const getApp = ()=>{
-    axios
-    .get(`${window.ENV.APPOINT_SERVICE_URI}/` + cookies.colibrisID)
+    fetch('config/APPOINT_SERVICE_URI')
+    .then((r) => r.text())
+    .then(APPOINT_SERVICE_URI  => {
+      axios
+    .get(`${APPOINT_SERVICE_URI}/` + cookies.colibrisID)
     .then((res) => {
       setAppointments(res.data);
     }).catch(err=>{
       console.log(err)
     });
+    })
   }
 
   const deleteApp = (id, index) => {
@@ -27,9 +31,13 @@ export default function History(props) {
     array.splice(index, 1);
     setAppointments(array)
     //delete from database
-    axios.delete(`${window.ENV.APPOINT_SERVICE_URI}`, {
-      data: { id: id },
-    }).catch(err=>{console.log(err)});
+    fetch('config/test')
+    .then((r) => r.text())
+    .then(APPOINT_SERVICE_URI  => {
+      axios.delete(`${APPOINT_SERVICE_URI}`, {
+        data: { id: id },
+      }).catch(err=>{console.log(err)});    })
+    
   };
 
   

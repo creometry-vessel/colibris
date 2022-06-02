@@ -7,8 +7,11 @@ export default function List(props){
     const [cookies] = useCookies(["colibrisID"]);
     let {handleNext ,setChosenAddr, ...others } = props
     useEffect(() => {
-        axios
-          .get(`${window.ENV.USER_SERVICE_URI}/location?userID=` + cookies.colibrisID)
+        fetch('config/USER_SERVICE_URI')
+        .then((r) => r.text())
+        .then(USER_SERVICE_URI  => {
+            axios
+          .get(`${USER_SERVICE_URI}/location?userID=` + cookies.colibrisID)
           .then((res) => {
             let final = []
             for(let addr of res.data){
@@ -18,6 +21,8 @@ export default function List(props){
           }).catch(err=>{
               console.log(err)
           });
+        })
+        
       }, [cookies.colibrisID]);
 
       const chooseAddr = (address)=>{
