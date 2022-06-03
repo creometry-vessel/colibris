@@ -16,6 +16,7 @@ spec:
     - hosts:
         - colibristunisie.com
         - colibris.creometry.dev
+        - www.colibristunisie.com
       secretName: colibris-ingress-secret
   rules:
     - host: colibristunisie.com
@@ -68,6 +69,7 @@ spec:
   - hosts:
     - colibris.creometry.dev
     - colibristunisie.com
+    - www.colibristunisie.com
     secretName: colibris-ingress-secret
   rules:
     - host: colibristunisie.com
