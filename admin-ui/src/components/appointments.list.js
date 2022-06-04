@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import Search from './searchAppointments.component'
-
+import Dialog from './dialogAppoint.component'
 export default function ListAppointments(props){
     const [appointments, setAppointments] = useState([])
     
@@ -15,6 +15,17 @@ export default function ListAppointments(props){
        axios.get(`${window.ENV.APPOINT_SERVICE_URI}${filters}`).then(res=>{
         setAppointments(res.data)
     })
+    }
+
+    const Edit = (id)=>{
+      window.alert(id)
+    }
+
+    const Delete = (id)=>{
+      axios.delete(`${window.ENV.APPOINT_SERVICE_URI}`, {        data: { id: id }    }).then(res=>{
+        console.log(res)
+        window.alert(res.data)
+      })
     }
     return(
         <div>
@@ -30,6 +41,8 @@ export default function ListAppointments(props){
                 <th scope="col">Status</th>
                 <th scope="col">Attempts</th>
                 <th scope="col">Description</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -43,6 +56,8 @@ export default function ListAppointments(props){
               <td>{element.status}</td>
               <td>{element.attempts}</td>
               <td>{element.reason}</td>
+              <td><Dialog /></td>
+              <td><button className="btn btn-danger" onClick={()=>Delete(element._id)}><i class="fa fa-trash"></i></button></td>
             </tr>
             ))}
               
