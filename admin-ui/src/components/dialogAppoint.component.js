@@ -2,10 +2,53 @@ import * as React from "react";
 import DialogContent from "@mui/material/DialogContent";
 import Dialog from "@mui/material/Dialog";
 import axios from 'axios'
-import Tags from './Tags.component'
-function ConfirmationDialogRaw(props) {
-  const { onClose, open, cities, setCities, ...other } = props;
+import {useState} from "react"
+function Content(props){
+  const { appointment,refresh, onClose, ...other } = props;
 
+  const [shift, setShift] = useState(appointment?.shift);
+  const [status, setStatus] = useState(appointment?.status);
+  const [date, setDate] = useState(appointment?.dueDate);
+  
+  const Submit = ()=>{
+    axios.put(`${window.ENV.APPOINT_SERVICE_URI}/${appointment._id}`, {
+      dueDate: date, 
+      shift: shift,
+      status: status
+    }).then(res=>{
+      console.log(res.data)
+      refresh()
+      onClose()
+    }).catch(err=>console.log(err))
+  }
+  return(
+    <div>
+      <h5>Date:</h5>
+      <input type="date" value={date} onChange={(e)=>{setDate(e.target.value)}}/>
+
+      <h5>Shift:</h5>
+      <select value={shift} placeholder="shift" onChange={(e)=>{setShift(e.target.value)}}>
+        <option>morning</option>
+        <option>afternoon</option>
+      </select>     
+
+      <h5>Status:</h5>
+      <select value={status}  placeholder="status" onChange={(e)=>{setStatus(e.target.value)}}>
+        <option>pending</option>
+        <option>attempted</option>
+        <option>completed</option>
+        <option>canceled</option>
+      </select>    
+      <br />
+      <br />
+      <br />
+      <button onClick={Submit}>Submit</button> 
+    </div>
+  )
+}
+function ConfirmationDialogRaw(props) {
+  const { onClose, open, appointment, refresh, ...other } = props;
+  
   return (
     <Dialog
       onClose={onClose}
@@ -15,35 +58,23 @@ function ConfirmationDialogRaw(props) {
       {...other}
     >
       <DialogContent dividers>
-          <input type="date" />
-
-          <select placeholder="shift">
-            <option>morning</option>
-            <option>afternoon</option>
-          </select>     
-
-          <select placeholder="status" >
-            <option>pending</option>
-            <option>attempted</option>
-            <option>completed</option>
-            <option>canceled</option>
-          </select>    
-
-          <button>Submit</button> 
+        {appointment != null? <Content appointment={appointment} refresh={refresh} onClose={onClose}/>: <div></div>}
       </DialogContent>
     </Dialog>
   );
 }
 
 export default function ConfirmationDialog(props) {
-  const [open, setOpen] = React.useState(false);
-  const [cities, setCities] = React.useState([]);
-  
+  const [open, setOpen] = useState(false);
+  const [appointment, setAppointment] = useState(null);
   const handleOpen = () => {
-    setOpen(true)
+    axios.get(`${window.ENV.APPOINT_SERVICE_URI}/${props.id}`).then(res=>{
+      setOpen(true)
+      setAppointment(res.data)
+    })   
   };
 
-  const handleClose = (newValue) => {
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -55,7 +86,8 @@ export default function ConfirmationDialog(props) {
         keepMounted
         open={open}
         onClose={handleClose}
-        weekday={props.weekday}
+        appointment = {appointment}
+        refresh={props.refresh}
       />
     </div>
   );

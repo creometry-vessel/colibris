@@ -2,29 +2,27 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import Search from './searchAppointments.component'
 import Dialog from './dialogAppoint.component'
+let myFilters = "" 
 export default function ListAppointments(props){
     const [appointments, setAppointments] = useState([])
     
     useEffect(()=>{
         axios.get(`${window.ENV.APPOINT_SERVICE_URI}`).then(res=>{
-          console.log(res.data)
             setAppointments(res.data)
         }).catch(err=>console.log(err))
     }, [])
+
     const Submit =  (filters) => {
+      myFilters=filters
        axios.get(`${window.ENV.APPOINT_SERVICE_URI}${filters}`).then(res=>{
         setAppointments(res.data)
-    })
+      })
     }
 
-    const Edit = (id)=>{
-      window.alert(id)
-    }
-
-    const Delete = (id)=>{
-      axios.delete(`${window.ENV.APPOINT_SERVICE_URI}`, {        data: { id: id }    }).then(res=>{
-        console.log(res)
+    const Delete = (id, index)=>{
+      axios.delete(`${window.ENV.APPOINT_SERVICE_URI}`, { data: { id: id } }).then(res=>{
         window.alert(res.data)
+        setAppointments(appointments.filter(((appoint, i)=> {return i == index} )))
       })
     }
     return(
@@ -56,7 +54,7 @@ export default function ListAppointments(props){
               <td>{element.status}</td>
               <td>{element.attempts}</td>
               <td>{element.reason}</td>
-              <td><Dialog /></td>
+              <td><Dialog id={element._id} refresh={()=>{Submit(myFilters)}} /></td>
               <td><button className="btn btn-danger" onClick={()=>Delete(element._id)}><i class="fa fa-trash"></i></button></td>
             </tr>
             ))}
