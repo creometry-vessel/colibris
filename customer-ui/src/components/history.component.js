@@ -31,7 +31,7 @@ export default function History(props) {
     array.splice(index, 1);
     setAppointments(array)
     //delete from database
-    fetch('config/test')
+    fetch('config/APPOINT_SERVICE_URI')
     .then((r) => r.text())
     .then(APPOINT_SERVICE_URI  => {
       axios.delete(`${APPOINT_SERVICE_URI}`, {

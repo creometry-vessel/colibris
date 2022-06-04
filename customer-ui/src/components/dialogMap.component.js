@@ -117,7 +117,7 @@ export default function ConfirmationDialog(props) {
   const [refused, setRefused] = useState(false);
 
   const handleOpen = () => {
-    fetch('config/test')
+    fetch('config/USER_SERVICE_URI')
     .then((r) => r.text())
     .then(USER_SERVICE_URI  => {
       axios.get(`${USER_SERVICE_URI}/map?address=${props.address}`).then(res=>{

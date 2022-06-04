@@ -62,7 +62,7 @@ export default function Form(props) {
     const [shift, setShift] = useState("morning");
     useEffect(() => {
       getAllWeek();
-      fetch('config/test')
+      fetch('config/USER_SERVICE_URI')
     .then((r) => r.text())
     .then(async USER_SERVICE_URI  => {
       axios

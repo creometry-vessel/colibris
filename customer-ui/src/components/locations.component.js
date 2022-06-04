@@ -7,7 +7,7 @@ export default function Locations(props) {
     const [cookies] = useCookies(["colibrisID"]);
 
     useEffect(() => {
-      fetch('config/test')
+      fetch('config/USER_SERVICE_URI')
       .then((r) => r.text())
       .then(USER_SERVICE_URI  => {
         axios
@@ -23,7 +23,7 @@ export default function Locations(props) {
 
       const Submit = () => {
         //verif
-        fetch('config/test')
+        fetch('config/USER_SERVICE_URI')
         .then((r) => r.text())
         .then(USER_SERVICE_URI  => {
           axios

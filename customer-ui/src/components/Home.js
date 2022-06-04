@@ -2,29 +2,22 @@ import React from "react";
 import FacebookLogin from 'react-facebook-login';
 import axios from "axios"
 import { withCookies } from 'react-cookie';
-let FACEBOOK_APP_ID ;
 class Home extends React.Component {
   constructor(props){
     super(props);
     const { cookies } = this.props;
-    fetch('config/FACEBOOK_APP_ID')
-    .then((r) => r.text())
-    .then(FACEBOOK_APP_ID  => {
-        FACEBOOK_APP_ID= FACEBOOK_APP_ID
-    })
     this.state = {
       loggedIn: cookies.cookies.colibrisID? true: false,
     }
     this.Login = this.Login.bind(this);
     this.removeCookies = this.removeCookies.bind(this);
-
   }
-
+  
    async Login(userInfo){
     const { cookies } = this.props;
         try{
             if(userInfo.userID){
-                fetch('config/test')
+                fetch('config/USER_SERVICE_URI')
                 .then((r) => r.text())
                 .then(async USER_SERVICE_URI  => {
                     let response = await axios.post(`${USER_SERVICE_URI}/auth/facebook`, userInfo)
@@ -46,7 +39,7 @@ class Home extends React.Component {
     const { cookies } = this.props;
     cookies.remove("colibrisID")
   }
-  render() {
+    render() {
     return (
       <div>
         
@@ -66,8 +59,8 @@ class Home extends React.Component {
                             {this.state.loggedIn? 
                           <div /> : 
                           <div className="row">
-                            <FacebookLogin
-                              appId={FACEBOOK_APP_ID}
+                              <FacebookLogin
+                              appId={window.ENV.FACEBOOK_APP_ID}
                               autoLoad={true}
                               fields="name,email,picture"
                               callback={this.Login}
@@ -75,6 +68,7 @@ class Home extends React.Component {
                               textButton={<span><i className="fa-brands fa-facebook mr-3"></i> Sing up with Facebook</span>}
                             
                             />
+                            
                             </div>  
                               }
 

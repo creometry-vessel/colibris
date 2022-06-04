@@ -8,7 +8,7 @@ export default function StaticDatePickerLandscape(props) {
     let {myDate, setMyDate} = props;
     const [days, setDays] = useState([]);
     useEffect(()=>{
-      fetch('config/test')
+      fetch('config/ZONE_SERVICE_URI')
     .then((r) => r.text())
     .then(ZONE_SERVICE_URI  => {
       axios.get(`${ZONE_SERVICE_URI}/findbycity?city=${props.chosenAddr.address.city}`).then(res=>{
