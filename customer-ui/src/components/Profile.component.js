@@ -14,13 +14,18 @@ export default function Profile() {
   const [cookies] = useCookies(["colibrisID"]);
 
   useEffect(() => {
-    axios
-      .get(`${window.ENV.USER_SERVICE_URI}/${cookies.colibrisID}`)
+    fetch('config/USER_SERVICE_URI')
+    .then((r) => r.text())
+    .then(USER_SERVICE_URI  => {
+      axios
+      .get(`${USER_SERVICE_URI}/${cookies.colibrisID}`)
       .then((res) => {
         setName(res.data.name);
         setUsername(res.data.username);
         setAvatar(res.data.avatar)
       }).catch(err=>{console.log(err)});
+    })  
+    
   }, [cookies.colibrisID]);
   const render = ()=>{
     if(page == "profile") return (<MyProfile />)

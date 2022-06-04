@@ -2,30 +2,33 @@ import React from "react";
 import FacebookLogin from 'react-facebook-login';
 import axios from "axios"
 import { withCookies } from 'react-cookie';
-
 class Home extends React.Component {
   constructor(props){
     super(props);
     const { cookies } = this.props;
     this.state = {
-      loggedIn: cookies.cookies.colibrisID? true: false
+      loggedIn: cookies.cookies.colibrisID? true: false,
     }
     this.Login = this.Login.bind(this);
     this.removeCookies = this.removeCookies.bind(this);
   }
-
+  
    async Login(userInfo){
     const { cookies } = this.props;
         try{
             if(userInfo.userID){
-                let response = await axios.post(`${window.ENV.USER_SERVICE_URI}/auth/facebook`, userInfo)
-                if(response.data.providerID){
-                cookies.set('colibrisID', response.data._id, { path: '/' });
-                window.location.reload()
-                }
-                else{
-                window.alert("couldn't connect to facebook")
-                }      
+                fetch('config/USER_SERVICE_URI')
+                .then((r) => r.text())
+                .then(async USER_SERVICE_URI  => {
+                    let response = await axios.post(`${USER_SERVICE_URI}/auth/facebook`, userInfo)
+                    if(response.data.providerID){
+                    cookies.set('colibrisID', response.data._id, { path: '/' });
+                    window.location.reload()
+                    }
+                    else{
+                    window.alert("couldn't connect to facebook")
+                    }                
+                })            
             }
         }
         catch(err){
@@ -36,7 +39,7 @@ class Home extends React.Component {
     const { cookies } = this.props;
     cookies.remove("colibrisID")
   }
-  render() {
+    render() {
     return (
       <div>
         
@@ -56,7 +59,7 @@ class Home extends React.Component {
                             {this.state.loggedIn? 
                           <div /> : 
                           <div className="row">
-                            <FacebookLogin
+                              <FacebookLogin
                               appId={window.ENV.FACEBOOK_APP_ID}
                               autoLoad={true}
                               fields="name,email,picture"
@@ -65,6 +68,7 @@ class Home extends React.Component {
                               textButton={<span><i className="fa-brands fa-facebook mr-3"></i> Sing up with Facebook</span>}
                             
                             />
+                            
                             </div>  
                               }
 

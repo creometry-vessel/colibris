@@ -62,8 +62,11 @@ export default function Form(props) {
     const [shift, setShift] = useState("morning");
     useEffect(() => {
       getAllWeek();
+      fetch('config/USER_SERVICE_URI')
+    .then((r) => r.text())
+    .then(async USER_SERVICE_URI  => {
       axios
-        .get(`${window.ENV.USER_SERVICE_URI}/location?userID=` + cookies.colibrisID)
+        .get(`${USER_SERVICE_URI}/location?userID=` + cookies.colibrisID)
         .then((res) => {
           let final = []
           for(let addr of res.data){
@@ -74,6 +77,8 @@ export default function Form(props) {
           }
           setAddre(final);
         });
+    })  
+      
     }, [cookies.colibrisID]);
   
     const getAllWeek = (address) => {
@@ -104,15 +109,20 @@ export default function Form(props) {
       if (!chosen || !currentAddr) return;
       let response ;
       try{
-      if(props.id){
-        response = await axios.put(`${window.ENV.APPOINT_SERVICE_URI}`, {
-          dueDate: chosen, location: currentAddr._id, shift: shift, createdBy: cookies.colibrisID, id: props.id
-        })
-      }
-      else  response = await axios.post(
-        `${window.ENV.APPOINT_SERVICE_URI}`,
-        { createdBy: cookies.colibrisID, dueDate: chosen, location: currentAddr._id, shift: shift}
-      );
+        fetch('config/APPOINT_SERVICE_URI')
+        .then((r) => r.text())
+        .then(async APPOINT_SERVICE_URI  => {
+          if(props.id){
+            response = await axios.put(`${APPOINT_SERVICE_URI}`, {
+              dueDate: chosen, location: currentAddr._id, shift: shift, createdBy: cookies.colibrisID, id: props.id
+            })
+          }
+          else  response = await axios.post(
+            `${APPOINT_SERVICE_URI}`,
+            { createdBy: cookies.colibrisID, dueDate: chosen, location: currentAddr._id, shift: shift}
+          );
+        })  
+      
       }
       catch(e){
         alert("server erreur!!!")

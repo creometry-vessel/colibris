@@ -23,22 +23,27 @@ export default function HorizontalLinearStepper(props) {
     const [cookies] = useCookies(["colibrisID"]);
     let {id, close} = props
 
-  const handleNext = async () => {
+  const handleNext =  () => {
     if(activeStep === steps.length -1){
         let response = null
-       if(id){
-        response = await axios.put(`${window.ENV.APPOINT_SERVICE_URI}/${id}`, {
-            dueDate: myDate, location: chosenAddr._id, shift: shift, createdBy: cookies.colibrisID
-          })
-        close(response.data);
-        setActiveStep(0)
-        return;
-       }else{
-         response = await axios.post(
-            `${window.ENV.APPOINT_SERVICE_URI}`,
-            { createdBy: cookies.colibrisID, dueDate: myDate, location: chosenAddr._id, shift: shift }
-          );
-       }
+        fetch('config/APPOINT_SERVICE_URI')
+        .then((r) => r.text())
+        .then(async APPOINT_SERVICE_URI  => {
+          if(id){
+            response = await axios.put(`${APPOINT_SERVICE_URI}/${id}`, {
+                dueDate: myDate, location: chosenAddr._id, shift: shift, createdBy: cookies.colibrisID
+              })
+            close(response.data);
+            setActiveStep(0)
+            return;
+           }else{
+             response = await axios.post(
+                `${APPOINT_SERVICE_URI}`,
+                { createdBy: cookies.colibrisID, dueDate: myDate, location: chosenAddr._id, shift: shift }
+              );
+           }
+        })  
+       
         
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
