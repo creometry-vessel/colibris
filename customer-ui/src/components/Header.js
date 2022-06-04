@@ -51,7 +51,7 @@ class Header extends React.Component {
             {this.state.loggedIn ? (
               
               <div
-                className="collapse navbar-collapse justify-content-between"
+                className="collapse navbar-collapse justify-content-between "
                 id="navbarCollapse"
               >
                 <div className="navbar-nav ml-auto">

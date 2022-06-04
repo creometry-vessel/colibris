@@ -39,16 +39,8 @@ export default function Profile() {
   }
   return (
     <div>
-      <div>
-        <div className="page-header mb-0">
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <h2>Profile</h2>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="no-header">
+        
       </div>
     
       <div className="row">

@@ -121,6 +121,7 @@ a:focus {
   font-weight: 700;
   font-family: "Nunito", sans-serif;
   transition: 0.5s;
+  
 }
 
 .navbar .navbar-brand span {
@@ -151,8 +152,8 @@ a:focus {
   .navbar {
     position: absolute;
     width: 100%;
-    padding: 30px 60px;
-    background: transparent !important;
+    padding: 17px 60px;
+    background: #ffffff !important;
     z-index: 9;
   }
 
@@ -173,9 +174,10 @@ a:focus {
   .navbar-light .navbar-nav .nav-link:focus {
     padding: 10px 10px 8px 10px;
     font-family: "Nunito", sans-serif;
-    color: #ffffff;
+    color: #666666;
     font-size: 18px;
     font-weight: 600;
+    margin-right: 40px;
   }
 
   .navbar-light.nav-sticky .navbar-nav .nav-link,
@@ -368,6 +370,12 @@ a:focus {
 /*******************************/
 /******* Page Header CSS *******/
 /*******************************/
+.no-header{
+  position: relative;
+  margin-bottom: 0px;
+  padding: 10px 0 90px 0;
+  background-color: white;
+}
 .page-header {
   position: relative;
   margin-bottom: 45px;
