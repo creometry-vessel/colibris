@@ -59,7 +59,11 @@ a:focus {
 .container-fluid {
   max-width: 1366px;
 }
-
+.center{
+  margin: auto;
+  text-align: center;
+  
+}
 .back-to-top {
   position: fixed;
   display: none;
