@@ -33,7 +33,7 @@ a:focus {
 }
 
 .btn.custom-btn {
-  padding: 5px 20px;
+  padding: 6px 20px;
   font-family: "Nunito", sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -153,6 +153,7 @@ a:focus {
     position: absolute;
     width: 100%;
     padding: 17px 60px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     background: #ffffff !important;
     z-index: 9;
   }
