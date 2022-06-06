@@ -7,6 +7,7 @@ import Users from "./components/Users";
 import Zone from "./components/zone.component";
 import { useCookies } from "react-cookie";
 import Sign from "./components/signin.component";
+import Config from "./components/config.component";
 
 function App() {
   const [cookies] = useCookies(['AdminCol']);
@@ -43,6 +44,11 @@ function App() {
                   exact
                   path="/zone"
                   component={Zone}
+                />
+                <Route
+                  exact
+                  path="/configuration"
+                  component={Config}
                 />
               </Switch>
             </Router>

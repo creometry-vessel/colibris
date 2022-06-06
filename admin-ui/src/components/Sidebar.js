@@ -27,6 +27,11 @@ class Sidebar extends Component {
               <i className="fas fa-users"></i><span>zone</span>
               </a>
             </li>
+            <li>
+              <a href="/#configuration" className="">
+              <i className="fas fa-users"></i><span>config</span>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
