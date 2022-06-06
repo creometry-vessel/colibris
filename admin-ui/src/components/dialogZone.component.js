@@ -27,10 +27,16 @@ export default function ConfirmationDialog(props) {
   const [cities, setCities] = React.useState([]);
   
   const handleOpen = () => {
-    axios.get(`${window.ENV.ZONE_SERVICE_URI}/${props.weekday}`).then(res=>{
-      setCities(res.data.data.zone.cities)
-      setOpen(true);
-    })
+    fetch('config/ZONE_SERVICE_URI')
+      .then((r) => r.text())
+      .then( ZONE_SERVICE_URI  => {
+        axios.get(`${ZONE_SERVICE_URI}/${props.weekday}`).then(res=>{
+          console.log(res.data.data.zones)
+          setCities(res.data.data.zones.cities)
+          setOpen(true);
+        })
+      })
+    
   };
 
   const handleClose = (newValue) => {

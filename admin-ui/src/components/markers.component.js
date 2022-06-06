@@ -45,8 +45,11 @@ export default function Markers() {
     if (marker) {
       marker.setMap(null);
     }
-    axios
-      .put(`${window.ENV.APPOINT_SERVICE_URI}/markers`, {
+    fetch('config/APPOINT_SERVICE_URI')
+      .then((r) => r.text())
+      .then( APPOINT_SERVICE_URI  => {
+        axios
+      .put(`${APPOINT_SERVICE_URI}/markers`, {
         userID: Gdata.userID,
         status: status,
         reason: args[0] ? args[0] : "",
@@ -57,7 +60,9 @@ export default function Markers() {
         else window.alert("you have no more markers");
       }).catch(err=>{
         console.log(err)
-      });
+      });       
+      })
+    
   };
 
   useEffect(() => {

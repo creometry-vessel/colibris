@@ -18,11 +18,15 @@ export default function Search(props){
     };
     const Sort = ()=>{
       if(!date || !shift) return;
-      axios.put(`${window.ENV.APPOINT_SERVICE_URI}/sort`, {
-        shift: shift,
-        dueDate: date
-      }).then(res=>{
-        window.alert(res.data.data)
+      fetch('config/APPOINT_SERVICE_URI')
+      .then((r) => r.text())
+      .then( APPOINT_SERVICE_URI  => {
+        axios.put(`${APPOINT_SERVICE_URI}/sort`, {
+          shift: shift,
+          dueDate: date
+        }).then(res=>{
+          window.alert(res.data.data)
+        })         
       })
     }
     return(

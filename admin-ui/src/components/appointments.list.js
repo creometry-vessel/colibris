@@ -7,23 +7,38 @@ export default function ListAppointments(props){
     const [appointments, setAppointments] = useState([])
     
     useEffect(()=>{
-        axios.get(`${window.ENV.APPOINT_SERVICE_URI}`).then(res=>{
-            setAppointments(res.data)
-        }).catch(err=>console.log(err))
+      fetch('config/APPOINT_SERVICE_URI')
+      .then((r) => r.text())
+      .then( APPOINT_SERVICE_URI  => {
+        axios.get(`${APPOINT_SERVICE_URI}`).then(res=>{
+          setAppointments(res.data)
+        }).catch(err=>console.log(err))  
+      })
+        
     }, [])
 
     const Submit =  (filters) => {
       myFilters=filters
-       axios.get(`${window.ENV.APPOINT_SERVICE_URI}${filters}`).then(res=>{
-        setAppointments(res.data)
+      fetch('config/APPOINT_SERVICE_URI')
+      .then((r) => r.text())
+      .then( APPOINT_SERVICE_URI  => {
+        axios.get(`${APPOINT_SERVICE_URI}${filters}`).then(res=>{
+          setAppointments(res.data)
+        })       
       })
+      
     }
 
     const Delete = (id, index)=>{
-      axios.delete(`${window.ENV.APPOINT_SERVICE_URI}`, { data: { id: id } }).then(res=>{
-        window.alert(res.data)
-        setAppointments(appointments.filter(((appoint, i)=> {return i == index} )))
+      fetch('config/APPOINT_SERVICE_URI')
+      .then((r) => r.text())
+      .then( APPOINT_SERVICE_URI  => {
+        axios.delete(`${APPOINT_SERVICE_URI}`, { data: { id: id } }).then(res=>{
+          window.alert(res.data)
+          setAppointments(appointments.filter(((appoint, i)=> {return i == index} )))
+        })             
       })
+      
     }
     return(
         <div>

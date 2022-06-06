@@ -11,15 +11,20 @@ function Content(props){
   const [date, setDate] = useState(appointment?.dueDate);
   
   const Submit = ()=>{
-    axios.put(`${window.ENV.APPOINT_SERVICE_URI}/${appointment._id}`, {
-      dueDate: date, 
-      shift: shift,
-      status: status
-    }).then(res=>{
-      console.log(res.data)
-      refresh()
-      onClose()
-    }).catch(err=>console.log(err))
+    fetch('config/APPOINT_SERVICE_URI')
+      .then((r) => r.text())
+      .then( APPOINT_SERVICE_URI  => {
+        axios.put(`${APPOINT_SERVICE_URI}/${appointment._id}`, {
+          dueDate: date, 
+          shift: shift,
+          status: status
+        }).then(res=>{
+          console.log(res.data)
+          refresh()
+          onClose()
+        }).catch(err=>console.log(err))
+      })
+    
   }
   return(
     <div>
@@ -68,10 +73,15 @@ export default function ConfirmationDialog(props) {
   const [open, setOpen] = useState(false);
   const [appointment, setAppointment] = useState(null);
   const handleOpen = () => {
-    axios.get(`${window.ENV.APPOINT_SERVICE_URI}/${props.id}`).then(res=>{
-      setOpen(true)
-      setAppointment(res.data)
-    })   
+    fetch('config/APPOINT_SERVICE_URI')
+      .then((r) => r.text())
+      .then( APPOINT_SERVICE_URI  => {
+        axios.get(`${APPOINT_SERVICE_URI}/${props.id}`).then(res=>{
+          setOpen(true)
+          setAppointment(res.data)
+        })   
+      })
+    
   };
 
   const handleClose = () => {

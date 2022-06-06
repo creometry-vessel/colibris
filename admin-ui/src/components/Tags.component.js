@@ -39,8 +39,12 @@ export default function App(props) {
     setCities([...cities, tag.id])
   };
   const Submit = ()=>{
-    axios.patch(`${window.ENV.ZONE_SERVICE_URI}/${weekday}`, {cities: cities}).then(res=>{
-        console.log(res.data)
+    fetch('config/ZONE_SERVICE_URI')
+      .then((r) => r.text())
+      .then( ZONE_SERVICE_URI  => {
+        axios.patch(`${ZONE_SERVICE_URI}/${weekday}`, {cities: cities}).then(res=>{
+          console.log(res.data)
+        })         
       })
   }
   return (

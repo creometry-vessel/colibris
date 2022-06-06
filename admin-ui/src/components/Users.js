@@ -21,18 +21,28 @@ class Users extends Component {
 
   }
   getUsers(){
-    axios.get(window.ENV.USER_SERVICE_URI).then(res=>{
-      this.setState({
-        users: res.data,
+    fetch('config/USER_SERVICE_URI')
+      .then((r) => r.text())
+      .then( USER_SERVICE_URI  => {
+        axios.get(USER_SERVICE_URI).then(res=>{
+          this.setState({
+            users: res.data,
+          })
+        })       
       })
-    })
+    
   }
   Submit(filter , search){
-    axios.get(`${window.ENV.USER_SERVICE_URI}?${filter}=${search}`).then(res=>{
-      this.setState({
-        users: res.data,
+    fetch('config/USER_SERVICE_URI')
+      .then((r) => r.text())
+      .then( USER_SERVICE_URI  => {
+        axios.get(`${USER_SERVICE_URI}?${filter}=${search}`).then(res=>{
+          this.setState({
+            users: res.data,
+          })
+        })         
       })
-    })
+    
   }
   render() {
     return (

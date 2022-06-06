@@ -1,16 +1,20 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Dialog from './dialogZone.component'
-let weekdays = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
+let weekdays = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
 export default function Zone(){
     const [zones, setZones] = useState([]);
     useEffect(()=>{
         getZones()
     }, [])
     const getZones = ()=>{
-        axios.get(`${window.ENV.ZONE_SERVICE_URI}`).then(res=>{
+        fetch('config/ZONE_SERVICE_URI')
+      .then((r) => r.text())
+      .then( ZONE_SERVICE_URI  => {
+        axios.get(`${ZONE_SERVICE_URI}`).then(res=>{
             setZones(res.data.data.zones)
-        })
+        })    
+      })
     }
     const getZoneData = (weekday)=>{
         for(let zone of zones){
