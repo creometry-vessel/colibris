@@ -5,10 +5,17 @@ import TopBar from "./components/TopBar";
 import Sidebar from "./components/Sidebar"
 import Users from "./components/Users";
 import Zone from "./components/zone.component";
+import { useCookies } from "react-cookie";
+import Sign from "./components/signin.component";
+
 function App() {
+  const [cookies] = useCookies(['AdminCol']);
+
   return (
     <div id="wrapper">
       <TopBar />
+      {cookies.AdminCol?
+      <div>
       <Sidebar />
       
       <div className="main">
@@ -42,6 +49,14 @@ function App() {
           </div>
         </div>
       </div>
+      </div>:
+      <div className="main">
+      <div className="main-content">
+        <div className="container-fluid">
+      <Sign />
+      </div>
+      </div>
+      </div>}
     </div>
   );
 }
