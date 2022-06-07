@@ -161,7 +161,7 @@ export default function Address(props) {
     <div className="box-shadowly ml-4">
       <div className="ml-much col-lg-4">
         <button className="btn-circle-red" onClick={deleteLoc}>
-          <i className="fa-solid fa-trash-can mr-3"></i> delete Address
+          <i className="fa-solid fa-trash-can"></i> 
         </button>
       </div>
 
