@@ -142,7 +142,7 @@ export default function ConfirmationDialog(props) {
 
   return (
     <div>
-      <div className="center">
+      <div className="">
         <button onClick={handleOpen} className="btn custom-btn" >Vérifier addresse</button>
       </div>
       <ConfirmationDialogRaw

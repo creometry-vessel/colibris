@@ -124,11 +124,7 @@ export default function Address(props) {
 
   return (
     <div className="box-shadowly ml-4">
-      <div className="ml-much col-lg-4">
-        <button className="btn-circle-red" onClick={deleteLoc}>
-          <i className="fa-solid fa-trash-can"></i> 
-        </button>
-      </div>
+      
 
       <h6>Type :</h6>
       <div className="row">
@@ -236,11 +232,19 @@ export default function Address(props) {
           hidden
         />
       </div>
-      <div >
-        <Dialog
+      <div className="row center">
+        <div className="mr-2">
+          <Dialog
           address={`${locations[index].address.streetName},${locations[index].address.city},${locations[index].address.state}`}
           setLatLng={updateLatLng}
         />
+        </div>
+        
+        <div className="">
+        <button className="red-custom-btn" onClick={deleteLoc}>
+          Annuler
+        </button>
+        </div>
       </div>
     </div>
   );
