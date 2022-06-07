@@ -111,7 +111,7 @@ export default function Search(props){
       </div>
     </div>
     <button className="btn btn-primary" type="button" onClick={Sort}>
-      <i class="far fa-sort-amount-down"></i>          
+        Sort       
     </button>
   </div>
   )
