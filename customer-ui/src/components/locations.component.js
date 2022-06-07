@@ -84,10 +84,7 @@ export default function Locations(props) {
                   </button>
                 </div>
 
-                <div className="col-lg-3 mt-2" />
-
-                <div className="col-lg-3"></div>
-                <div className="col-lg-2">
+                <div className="col-lg-2 center">
                   <button onClick={Submit} className="btn custom-btn">
                     Submit
                   </button>
