@@ -49,7 +49,14 @@ spec:
               service:
                 name: colibris-zone-svc
                 port:
-                  number: 5002                
+                  number: 5002        
+          - path: /admin(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: colibris-admin-svc
+                port:
+                  number: 5000            
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
