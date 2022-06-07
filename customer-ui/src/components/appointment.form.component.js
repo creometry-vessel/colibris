@@ -145,7 +145,9 @@ export default function Form(props) {
                       >
                         <option>--choose an address--</option>
                         {addresses.map((add, index) => (
+                          
                           <option value={index} key={index} >
+                            <input type="radio" id="test1" name="radio-group" checked></input>
                             {add.address.streetNumber} {add.address.streetName}, {add.address.city}, {add.address.state}
                           </option>
                         ))}
@@ -180,8 +182,8 @@ export default function Form(props) {
                         }}
                       >
                         <option>--choose a shift--</option>
-                          <option>morning</option>
-                          <option>afternoon</option>
+                          <option><span><i class="fa-solid fa-square-check"></i>Morning</span></option>
+                          <option>Afternoon</option>
                       </select>
                     </div>
                   </div>
