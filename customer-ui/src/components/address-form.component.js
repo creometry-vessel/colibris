@@ -83,11 +83,11 @@ export default function Address(props) {
     setLocations(locations.filter((tag, ind) => index !== ind));
   };
   const renderType = () => {
-    if (locations[index].address.locationType === "professional")
+    if (locations[index].address.locationType === "Professional")
       return (
         <select
           className="col-lg-12"
-          onChange={(e) => updateLoc("locationType", e.target.value)}
+          onChange={(e) => updateLoc("addressType", e.target.value)}
           value={locations[index].address.addressType}
         >
           <option index={index} key={index}>
@@ -100,26 +100,8 @@ export default function Address(props) {
             Building
           </option>
         </select>
-
-        /*<div className="col-lg-12 mb-3">
-                  <input type="radio" id="Store" checked={locations[index].address.addressType === "Store"}
-                  name="addressType" value="Store" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label className="mr-3 ml-1">Store</label>
-                  
-                  <input type="radio" id="Office" checked={locations[index].address.addressType === "Office"}
-                  name="addressType" value="Office" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label className="mr-3 ml-1">Office</label>
-                  
-                  <input type="radio" id="Floor" checked={locations[index].address.addressType === "Floor"}
-                  name="addressType" value="Floor" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label className="mr-3 ml-1">Floor</label>
-
-                  <input type="radio" id="Building" checked={locations[index].address.addressType === "Building"}
-                  name="addressType" value="Building" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label className="mr-3 ml-1">Building</label>
-        </div>*/
       );
-    else if (locations[index].address.locationType === "residental")
+    else if (locations[index].address.locationType === "Residential")
       return (
         <select
           className="col-lg-12"
@@ -136,23 +118,6 @@ export default function Address(props) {
             Building/Residential compound
           </option>
         </select>
-        /* <div className="col-lg-12 mb-3">
-                  <input type="radio" id="Appartment" checked={locations[index].address.addressType === "Appartment"}
-                  name="addressType" value="Appartment" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label className="mr-3 ml-1">Appartment</label>
-                  
-                  <input type="radio" id="Building" checked={locations[index].address.addressType === "Building"}
-                  name="addressType" value="Building" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label className="mr-3 ml-1">Building</label>
-                  
-                  <input type="radio" id="House" checked={locations[index].address.addressType === "House"}
-                  name="addressType" value="House" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label className="mr-3 ml-1">House</label>
-
-                  <input type="radio" id="Residential compound" checked={locations[index].address.addressType === "Residential compound"}
-                  name="addressType" value="Residential compound" onChange={(e)=>updateLoc("addressType", e.target.value)}/>
-                  <label className="mr-3 ml-1">Residential compound</label>
-      </div>*/
       );
     else return <div></div>;
   };
@@ -168,14 +133,6 @@ export default function Address(props) {
       <h6>Type :</h6>
       <div className="row">
         <div className="col-lg-6 mb-3">
-          {/* <input type="radio" id="professional" checked={locations[index].address.locationType === "professional"}
-                  name="locationType" value="professional" onChange={(e)=>updateLoc("locationType", e.target.value)}/>
-                  <label className="mr-3 ml-1">Professional</label>
-                  
-                  <input type="radio" id="residental" checked={locations[index].address.locationType === "residental"}
-                  name="locationType" value="residental" onChange={(e)=>{updateLoc("locationType", e.target.value)}}/>
-                  <label className="mr-3 ml-1">Residental</label>
-                   */}
           <select
             className="col-lg-12"
             onChange={(e) => updateLoc("locationType", e.target.value)}
