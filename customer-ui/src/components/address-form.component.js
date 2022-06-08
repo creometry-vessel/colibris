@@ -104,8 +104,6 @@ export default function Address(props) {
               `${USER_SERVICE_URI}/location`, {userID: cookies.colibrisID, address: locations[index].address}
               );
             }
-            
-            console.log(locations[index]);
           });
       } catch (e) {
         alert("server erreur!!!");
