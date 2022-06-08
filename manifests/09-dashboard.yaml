@@ -40,7 +40,19 @@ spec:
       - name: colibris-config-volume
         configMap:
           name: colibris-configmap
-
+          items:
+            - key: CUSTOMER_config.js
+              path: config.js
+            - key: USER_SERVICE_URI
+              path: USER_SERVICE_URI
+            - key: APPOINT_SERVICE_URI
+              path: APPOINT_SERVICE_URI
+            - key: ZONE_SERVICE_URI
+              path: ZONE_SERVICE_URI
+            - key: GOOGLE_API_KEY
+              path: GOOGLE_API_KEY
+            - key: ADMIN_SERVICE_URI
+              path: ADMIN_SERVICE_URI
 ---
 apiVersion: v1
 kind: Service
