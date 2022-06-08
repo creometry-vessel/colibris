@@ -30,9 +30,6 @@ const addressSchema = new Schema({
     city:{
         type: String,
         trim: true
-    },
-    zipCode:{
-        type: Number,
     }
 })
 const locationSchema = new Schema({

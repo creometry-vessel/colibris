@@ -76,13 +76,12 @@ export default function Locations(props) {
                           address: {
                             lng: 0,
                             lat: 0,
-                            addressType: "appartment",
-                            locationType: "professional",
+                            addressType: "",
+                            locationType: "Professional",
                             streetNumber: 0,
                             streetName: "",
                             state: "",
                             city: "",
-                            zipCode: 0,
                           },
                         },
                       ]);
@@ -93,12 +92,7 @@ export default function Locations(props) {
                   </button>
                 </div>
                   
-               {locations.length==0 ? 
-               <div> 
-                </div> : <div className="col-lg-2 center">
-                <button onClick={Submit} className="btn custom-btn">
-                  Submit
-                </button></div>}
+               
               </div>
         </div>
     )

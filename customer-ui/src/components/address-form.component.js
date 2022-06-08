@@ -1,5 +1,7 @@
 import axios from "axios";
 import Dialog from "./dialogMap.component";
+import { useCookies } from "react-cookie";
+
 let coord = [
   {
     gov: "Ariana",
@@ -44,6 +46,7 @@ let coord = [
 ];
 export default function Address(props) {
   const { locations, index, setLocations } = props;
+  const [cookies] = useCookies(["colibrisID"]);
   const updateLoc = (champ, value) => {
     let locs = [...locations];
     let loc = {
@@ -82,6 +85,32 @@ export default function Address(props) {
     }
     setLocations(locations.filter((tag, ind) => index !== ind));
   };
+  const confirmerLoc = () => {
+      let {lat, lng, city, state, streetName} = locations[index].address
+      if(lat==0 || lng == 0 || city=="" || state=="" || streetName=="") {
+        alert("need to complete the form");
+        return
+      }
+      try {
+        fetch("config/USER_SERVICE_URI")
+          .then((r) => r.text())
+          .then(async (USER_SERVICE_URI) => {
+            if (locations[index]._id) {
+            await axios.put(
+              `${USER_SERVICE_URI}/location/${locations[index]._id}`, {userID: cookies.colibrisID, address: locations[index].address}
+            );
+            }else{
+              await axios.post(
+              `${USER_SERVICE_URI}/location`, {userID: cookies.colibrisID, address: locations[index].address}
+              );
+            }
+            
+            console.log(locations[index]);
+          });
+      } catch (e) {
+        alert("server erreur!!!");
+      }
+    }
   const renderType = () => {
     if (locations[index].address.locationType === "Professional")
       return (
@@ -90,6 +119,9 @@ export default function Address(props) {
           onChange={(e) => updateLoc("addressType", e.target.value)}
           value={locations[index].address.addressType}
         >
+          <option index={index} key={index} value="">
+            ---Type Adresse---
+          </option>
           <option index={index} key={index}>
             Store
           </option>
@@ -108,6 +140,9 @@ export default function Address(props) {
           onChange={(e) => updateLoc("addressType", e.target.value)}
           value={locations[index].address.addressType}
         >
+          <option index={index} key={index} value="">
+            ---Type Adresse---
+          </option>
           <option index={index} key={index}>
             Appartment
           </option>
@@ -232,19 +267,25 @@ export default function Address(props) {
           hidden
         />
       </div>
-      <div className="row center">
-        <div className="mr-2">
+        <div className="mr-2 mb-2">
           <Dialog
           address={`${locations[index].address.streetName},${locations[index].address.city},${locations[index].address.state}`}
           setLatLng={updateLatLng}
         />
         </div>
-        
+        <div className="row center">
+
+        <div className="mr-2">
+        <button className="btn custom-btn" onClick={confirmerLoc}>
+          Confirmer
+        </button>
+        </div>
         <div className="">
         <button className="red-custom-btn" onClick={deleteLoc}>
           Annuler
         </button>
         </div>
+        
       </div>
     </div>
   );
