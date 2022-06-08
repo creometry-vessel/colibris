@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: colibris-schedule-deploy
+  name: colibris-admin-deploy
   namespace: colibris
   labels:
     projectName: colibris
@@ -11,18 +11,18 @@ spec:
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      run: colibris-schedule
+      run: colibris-admin
   replicas: 1
   template:
     metadata:
       labels:
-        run: colibris-schedule
+        run: colibris-admin
     spec:
     # nodeSelector:
       #   community: colibris
       containers:       
-      - name: schedule
-        image: colibristn/schedule:v0.2.2
+      - name: admin
+        image: colibristn/admin:v0.1.0
         ports:
           - containerPort: 5000
         env:
@@ -31,21 +31,6 @@ spec:
               configMapKeyRef:
                 name: colibris-configmap
                 key: ATLAS_URI 
-          - name: USER_SERVICE_URL
-            valueFrom:
-              configMapKeyRef:
-                name: colibris-configmap
-                key: USER_SERVICE 
-          - name: MAX_APPS
-            valueFrom:
-              configMapKeyRef:
-                name: colibris-configmap
-                key: MAX_APPS
-          - name: GOOGLE_API_KEY
-            valueFrom:
-              configMapKeyRef:
-                name:  colibris-configmap
-                key: GOOGLE_API_KEY
         resources:
           limits:
             cpu: "200m"
@@ -57,7 +42,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: colibris-schedule-svc
+  name: colibris-admin-svc
   labels:
     projectName: colibris
   namespace: colibris
@@ -66,4 +51,4 @@ spec:
   - port: 5000
     protocol: TCP
   selector:
-    run: colibris-schedule
+    run: colibris-admin
