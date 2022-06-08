@@ -1,0 +1,37 @@
+name: admin Service CI
+
+on:
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm install --production
+      working-directory: admin
+    - run: npm test
+      working-directory: admin
+    - uses: mr-smithers-excellent/docker-build-push@v5
+      name: Build & push Docker image
+      with:
+        image: colibristn/admin
+        tags: v0.1.0
+        dockerfile: admin/Dockerfile
+        registry: docker.io
+        directory: admin
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.COLIBRIS_TOKEN }}

@@ -127,7 +127,7 @@ router.route("/").get(async(req, res) => {
     }
 })
 
-router.route("/:userID").get(async(req, res) => {
+router.route("/user/:userID").get(async(req, res) => {
     try {
         let result = []
         let appointments = await Appointment.find({ createdBy: req.params.userID });
@@ -204,6 +204,7 @@ router.route('/markers').put(async(req, res) => {
 
 router.route('/:id').put(async(req, res) => {
     try{
+        if(req.body.dueDate.indexOf("Z") == -1)
         req.body.dueDate = new Date(req.body.dueDate+"Z");
         let appointments = await Appointment.find({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift });
         if (appointments.length >= parseInt(process.env.MAX_APPS)) {
@@ -224,5 +225,15 @@ router.route('/:id').put(async(req, res) => {
     }
 })
 
+router.route('/:id').get(async(req, res) => {
+    try{
+        res.json(await Appointment.findById(req.params.id))
+    }catch(e){
+        res.status(500).json({
+            status: "error",
+            message: e.message
+          })
+    }
+})
 
 module.exports = router;

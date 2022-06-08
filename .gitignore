@@ -104,3 +104,4 @@ dist
 .tern-port
 */.env
 customer-ui/public/config/**
+admin-ui/public/config/**

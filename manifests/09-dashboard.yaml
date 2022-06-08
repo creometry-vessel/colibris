@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: colibris
+  name: colibris-dashboard-deploy
+  labels:
+    projectName: colibris
+spec:
+  selector:
+    matchLabels:
+      run: colibris-dashboard
+  replicas: 1
+  strategy: 
+    type: RollingUpdate
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        run: colibris-dashboard
+    spec:
+      # nodeSelector:
+      #   host: colibris
+        
+      containers:
+      - name: adminui
+        image: colibristn/adminui:v0.1.0
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "5m"
+            memory: "10Mi"  
+        volumeMounts:
+          - name: colibris-config-volume
+            mountPath: /usr/share/nginx/html/config
+      volumes:
+      - name: colibris-config-volume
+        configMap:
+          name: colibris-configmap
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: colibris
+  name: colibris-dashboard-svc
+  labels:
+    projectName: colibris
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: colibris-dashboard
+
+
+  
