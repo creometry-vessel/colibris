@@ -77,6 +77,7 @@ spec:
     - colibris.creometry.dev
     - colibristunisie.com
     - www.colibristunisie.com
+    - admincolibris.com
     secretName: colibris-ingress-secret
   rules:
     - host: colibristunisie.com
@@ -87,5 +88,15 @@ spec:
           backend:
             service:
               name: colibris-web-svc
+              port:
+                number: 80
+    - host: admincolibris.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: colibris-dashboard-svc
               port:
                 number: 80
