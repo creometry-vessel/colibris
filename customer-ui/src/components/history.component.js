@@ -16,7 +16,7 @@ export default function History(props) {
     .then((r) => r.text())
     .then(APPOINT_SERVICE_URI  => {
       axios
-    .get(`${APPOINT_SERVICE_URI}/` + cookies.colibrisID)
+    .get(`${APPOINT_SERVICE_URI}/userID/` + cookies.colibrisID)
     .then((res) => {
       setAppointments(res.data);
     }).catch(err=>{
@@ -65,7 +65,7 @@ export default function History(props) {
               <tr key={index}>
               <th scope="row">{index + 1}</th>
               <td>{element.dueDate.substring(0,10)}</td>
-              <td>{element.location.address.streetNumber} {element.location.address.streetName},{element.location.address.city},{element.location.address.state} {element.location.address.zipCode}</td>
+              <td>{element.location.address.streetNumber} {element.location.address.streetName},{element.location.address.city},{element.location.address.state}</td>
               <td>{element.shift}</td>
               <td>{element.status}</td>
               <td>{element.reason}</td>
