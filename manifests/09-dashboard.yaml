@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: colibris
-  name: colibris-web-deploy
+  name: colibris-dashboard-deploy
   labels:
     projectName: colibris
 spec:
   selector:
     matchLabels:
-      run: colibris-web
+      run: colibris-dashboard
   replicas: 1
   strategy: 
     type: RollingUpdate
@@ -16,14 +16,14 @@ spec:
   template:
     metadata:
       labels:
-        run: colibris-web
+        run: colibris-dashboard
     spec:
       # nodeSelector:
       #   host: colibris
         
       containers:
-      - name: customerui
-        image: colibristn/customerui:v0.2.4
+      - name: adminui
+        image: colibristn/adminui:v0.1.0
         ports:
         - containerPort: 80
         resources:
@@ -51,13 +51,14 @@ spec:
               path: ZONE_SERVICE_URI
             - key: GOOGLE_API_KEY
               path: GOOGLE_API_KEY
-
+            - key: ADMIN_SERVICE_URI
+              path: ADMIN_SERVICE_URI
 ---
 apiVersion: v1
 kind: Service
 metadata:
   namespace: colibris
-  name: colibris-web-svc
+  name: colibris-dashboard-svc
   labels:
     projectName: colibris
 spec:
@@ -65,7 +66,7 @@ spec:
   - port: 80
     protocol: TCP
   selector:
-    run: colibris-web
+    run: colibris-dashboard
 
 
   

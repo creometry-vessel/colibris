@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: colibris-admin-deploy
+  namespace: colibris
+  labels:
+    projectName: colibris
+spec:
+  strategy: 
+    type: RollingUpdate
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      run: colibris-admin
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: colibris-admin
+    spec:
+    # nodeSelector:
+      #   community: colibris
+      containers:       
+      - name: admin
+        image: colibristn/admin:v0.1.0
+        ports:
+          - containerPort: 5000
+        env:
+          - name: ATLAS_URI
+            valueFrom:
+              configMapKeyRef:
+                name: colibris-configmap
+                key: ATLAS_URI 
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "5m"
+            memory: "10Mi"    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: colibris-admin-svc
+  labels:
+    projectName: colibris
+  namespace: colibris
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+  selector:
+    run: colibris-admin

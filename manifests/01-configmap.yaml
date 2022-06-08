@@ -13,6 +13,8 @@ data:
   APPOINT_SERVICE_URI: https://colibristunisie.com/appointments
   ZONE_SERVICE_URI: https://colibristunisie.com/zone
   GOOGLE_API_KEY: PASTE_API_KEY
-  config.js: "window.ENV = {\r \"FACEBOOK_APP_ID\": \"201651958770779\" }"
+  CUSTOMER_config.js: "window.ENV = {\r \"FACEBOOK_APP_ID\": \"201651958770779\" }"
+  ADMIN_config.js: "window.ENV = {\r \"FACEBOOK_APP_ID\": \"333863838907704\" }"
   MONGO_PORT: "27017"
   MONGO_IP: mongodb
+  ADMIN_SERVICE_URI: https://colibristunisie.com/admin
