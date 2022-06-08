@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-
 import Avatar from "@mui/material/Avatar";
+import './css/avatar.css'
 import MyProfile from './myProfile.component'
 import History from "./history.component";
 import Locations from './locations.component'
@@ -39,25 +39,23 @@ export default function Profile() {
   }
   return (
     <div>
-      <div>
-        <div className="page-header mb-0">
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <h2>Profile</h2>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="no-header">
+        
       </div>
     
       <div className="row">
         <div className="col-lg-3 side-bar-grey align-center">
+        <div class="avatar-upload">
+        <div class="avatar-edit">
+            <input type='file' id="avatarUpload" class="imageUpload" data-preview="avatarPreview" name="avatar" accept=".png, .jpg, .jpeg" />
+            <label for="avatarUpload"></label>
+        </div>
                     <Avatar
                         src={avatar}
                         sx={{ width: 65, height: 65 }}
                         className="mt-4 ml-50 mb-4"
                       />
+        </div>
                       <h5>{name} </h5>
                       <h6>{username} </h6>
                       <div className="mt-5">

@@ -7,15 +7,11 @@ export default function Form() {
   return (
     <div>
       <div>
-        <div className="page-header mb-3">
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <h2>Appointements</h2>
-              </div>
-            </div>
-          </div>
+        <div className="no-header mb-3">
+         
         </div>
+  
+
         <div className="booking">
           <div className="container">
             <div className="align-items-center">

@@ -142,7 +142,9 @@ export default function ConfirmationDialog(props) {
 
   return (
     <div>
-      <button onClick={handleOpen} className="btn custom-btn" >Vérifier addresse</button>
+      <div className="">
+        <button onClick={handleOpen} className="btn custom-btn" >Vérifier addresse</button>
+      </div>
       <ConfirmationDialogRaw
         id="ringtone-menu"
         keepMounted

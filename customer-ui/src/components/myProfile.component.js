@@ -55,22 +55,11 @@ export default function Profile() {
       };
     return(
         <div className="container-fluid mt-3 contact">
-          <div className="row ">
-            <div className="col-lg-12 mb-3 padding  contact-form">
+          <div className="row">
+            <div className="col-lg-12 mb-3 padding  contact-form center">
               <div className="row container-fluid ">
                 <div className="col-lg-12 mb-3">
-                  <div className="row">
-                    <div className="col-lg-1 mb-2 ml-5">
-                      <Avatar
-                        src={avatar}
-                        sx={{ width: 56, height: 56 }}
-                      />
-                    </div>
-                    <div className="col-lg-10">
-                      
-                    </div>
-                  </div>
-                  <div className="col-lg-12 mb-3">
+                  <div className="col-lg-9 center mb-3">
                     <input
                       placeholder="nom et prénom"
                       className="form-control"
@@ -78,7 +67,7 @@ export default function Profile() {
                       onChange={(e) => setName(e.target.value)}
                     />
                   </div>
-                  <div className="col-lg-12 mb-3">
+                  <div className="col-lg-9 center mb-3">
                     <input
                       placeholder="pseudo nom"
                       className="form-control"
@@ -86,7 +75,7 @@ export default function Profile() {
                       onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
-                  <div className="col-lg-12 mb-3">
+                  <div className="col-lg-9 center mb-3">
                     <input
                       placeholder="addresse email"
                       className="form-control"
@@ -95,16 +84,16 @@ export default function Profile() {
                     />
                   </div>
 
-                  <div className="col-lg-12 mb-3">
+                  <div className="col-lg-9 center mb-3">
                     <input
                       placeholder="numero de téléphone"
                       className="form-control"
-                      type="number"
+                      type="text"
                       value={phone1}
                       onChange={(e) => setPhone1(e.target.value)}
                     />
                   </div>
-                    <div className="col-lg-12 mb-3">
+                    <div className="col-lg-9 center mb-3">
                       <input
                         placeholder="deuxiéme numero de téléphone"
                         className="form-control mb-2"
@@ -116,7 +105,7 @@ export default function Profile() {
                 </div>
               </div>
               
-                <div className="col-lg-2">
+                <div className="col-lg-2 center">
                   <button onClick={Submit} className="btn custom-btn ml-4">
                     Submit
                   </button>

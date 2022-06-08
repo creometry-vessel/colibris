@@ -14,7 +14,6 @@ export default function StaticDatePickerLandscape(props) {
       axios.get(`${ZONE_SERVICE_URI}/findbycity?city=${props.chosenAddr.address.city}`).then(res=>{
         if(res.status != 200) {alert("server error!!!"); return;}
         let result = [];
-        console.log(res.data)
           for(let day of res.data.data){
             switch(day){
               case "Dimanche": result = [...result, 0]; break;
@@ -41,6 +40,9 @@ export default function StaticDatePickerLandscape(props) {
           value={myDate}
           shouldDisableDate={fn}
           onChange={(newValue) => {
+            if(newValue > new Date()){
+              props.handleNext()
+            }
             setMyDate(newValue.toDateString());
           }}
           renderInput={(params) => <TextField {...params} />}

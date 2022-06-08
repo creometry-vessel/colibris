@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
 		primary: {
-			main: 'rgb(7, 110, 0)',
+			main: 'rgb(57, 181, 74)',
 		},
 }});
 ReactDOM.render(

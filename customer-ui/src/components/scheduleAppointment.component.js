@@ -66,7 +66,7 @@ export default function HorizontalLinearStepper(props) {
   const generate = (step)=>{
     switch(step){
         case 0:   return(<Adresses handleNext={handleNext} setChosenAddr={setChosenAddr}   />)
-        case 1:   return(<DatePicker myDate={myDate} setMyDate={setMyDate} chosenAddr={chosenAddr} />)
+        case 1:   return(<DatePicker myDate={myDate} setMyDate={setMyDate} chosenAddr={chosenAddr} handleNext={handleNext}/>)
         case 2:   return(<Shift shift={shift} setShift={setShift} handleNext={handleNext}  />)
         case 3:   return(<Confirm myDate={myDate} shift={shift} chosenAddr={chosenAddr} />)
         default:  return(<div></div>)
@@ -101,14 +101,19 @@ export default function HorizontalLinearStepper(props) {
           <Typography sx={{ mt: 2, mb: 1 }}></Typography>
           {generate(activeStep)}
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+            {activeStep != 0?
             <button
-              className='btn-circle'
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              <i className="fa-solid fa-angle-left"></i>
-            </button>
+            className='btn-circle'
+            disabled={activeStep === 0}
+            onClick={handleBack}
+            sx={{ mr: 1 }}
+          >
+            <i className="fa-solid fa-angle-left"></i>
+          </button>: 
+          <div>
+          </div>
+            }
+            
             {activeStep === steps.length - 1 ? 
                 <span onClick={handleReset} className="outlined-btn ml-much">Reset</span>
               :
@@ -123,10 +128,8 @@ export default function HorizontalLinearStepper(props) {
 
             {activeStep === steps.length - 1 ? 
             <span className="simple-btn mt-2">Finish</span> : 
-
-              <a className="btn-circle">
-            <i className="fa-solid fa-angle-right"></i>
-            </a>}
+              <div></div>}
+                          
             </div>
 
             }

@@ -41,7 +41,16 @@ export default function Locations(props) {
       };
     return(
         <div className="contact">
+          {locations.length==0 ? 
+              <div className="center">
+                <h6>
+                  Cliquez ci-dessous pour ajouter une nouvelle adresse
+                </h6>
+              </div>
+                : <div></div>
+        }
         <div className="row container-fluid contact-form">
+        
                 <div className="col-lg-12 mb-3">
                   {locations.map((location, index) => (
                     <Address
@@ -55,7 +64,7 @@ export default function Locations(props) {
                   ))}
                 </div>
 
-                <div className="col-lg-12 mb-4">
+                <div className="col-lg-12 mb-4 center">
                   <button
                     className="btn-circle"
                     onClick={() => {
@@ -67,13 +76,12 @@ export default function Locations(props) {
                           address: {
                             lng: 0,
                             lat: 0,
-                            addressType: "appartment",
-                            locationType: "professional",
+                            addressType: "",
+                            locationType: "Professional",
                             streetNumber: 0,
                             streetName: "",
                             state: "",
                             city: "",
-                            zipCode: 0,
                           },
                         },
                       ]);
@@ -83,15 +91,8 @@ export default function Locations(props) {
                     Add an address
                   </button>
                 </div>
-
-                <div className="col-lg-3 mt-2" />
-
-                <div className="col-lg-3"></div>
-                <div className="col-lg-2">
-                  <button onClick={Submit} className="btn custom-btn">
-                    Submit
-                  </button>
-                </div>
+                  
+               
               </div>
         </div>
     )
