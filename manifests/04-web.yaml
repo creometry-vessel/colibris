@@ -19,7 +19,7 @@ spec:
         run: colibris-web
     spec:
       # nodeSelector:
-      #   host: colibris
+      #   community: colibris
         
       containers:
       - name: customerui

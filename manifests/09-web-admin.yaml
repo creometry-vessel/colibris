@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: colibris
-  name: colibris-dashboard-deploy
+  name: colibris-webadmin-deploy
   labels:
     projectName: colibris
 spec:
   selector:
     matchLabels:
-      run: colibris-dashboard
+      run: colibris-webadmin
   replicas: 1
   strategy: 
     type: RollingUpdate
@@ -16,10 +16,10 @@ spec:
   template:
     metadata:
       labels:
-        run: colibris-dashboard
+        run: colibris-webadmin
     spec:
       # nodeSelector:
-      #   host: colibris
+      #   community: colibris
         
       containers:
       - name: adminui
@@ -58,7 +58,7 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: colibris
-  name: colibris-dashboard-svc
+  name: colibris-webadmin-svc
   labels:
     projectName: colibris
 spec:
@@ -66,7 +66,7 @@ spec:
   - port: 80
     protocol: TCP
   selector:
-    run: colibris-dashboard
+    run: colibris-webadmin
 
 
   
