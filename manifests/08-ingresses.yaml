@@ -77,7 +77,6 @@ spec:
     - colibris.creometry.dev
     - colibristunisie.com
     - www.colibristunisie.com
-    - admincolibris.com
     secretName: colibris-ingress-secret
   rules:
     - host: colibristunisie.com
@@ -90,13 +89,35 @@ spec:
               name: colibris-web-svc
               port:
                 number: 80
-    - host: admincolibris.com
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: colibris-web-ingress
+  namespace: colibris
+  labels:
+    projectName: colibris
+  annotations:
+    #nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/server-alias: "colibris.creometry.dev"
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - colibris.creometry.dev
+    - colibristunisie.com
+    - www.colibristunisie.com
+    secretName: colibris-ingress-secret
+  rules:
+    - host: colibristunisie.com
       http:
         paths:
-        - path: /
+        - path: /web-admin
           pathType: Prefix
           backend:
             service:
-              name: colibris-dashboard-svc
+              name: colibris-webadmin-svc
               port:
                 number: 80
