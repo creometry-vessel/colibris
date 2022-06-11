@@ -11,10 +11,19 @@ function ConfirmationDialogRaw(props) {
   const _infowindow = useRef(null);
   const [GOOGLE_API_KEY, setKey] = useState();
   useEffect(()=>{
-    fetch('config/GOOGLE_API_KEY')
+    fetch('secret/GOOGLE_API_KEY')
     .then((r) => r.text())
     .then(GOOGLE_API_KEY  => {
       setKey(GOOGLE_API_KEY)
+    })
+    fetch('config/ADMIN_SERVICE_URI')
+    .then((r) => r.text())
+    .then(ADMIN_SERVICE_URI  => {
+      axios.get(`${ADMIN_SERVICE_URI}/config/key`).then(res=>{
+        if(res.data.length == 39 && res.data.includes("AIzaSy")){
+          setKey(res.data)
+        }
+      })
     })
   }, [])
   const accept = ()=>{
