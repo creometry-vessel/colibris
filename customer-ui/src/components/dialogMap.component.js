@@ -4,28 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 function ConfirmationDialogRaw(props) {
-  const { onClose, open, location, setLocation,setOpen, refused, setRefused, setLatLng,  ...other } = props;
+  const { onClose, open, location, setLocation,setOpen, refused, setRefused, setLatLng, GOOGLE_API_KEY,  ...other } = props;
   const _map = useRef(null);
   const _marker = useRef(null);
   const _geocode = useRef(null);
   const _infowindow = useRef(null);
-  const [GOOGLE_API_KEY, setKey] = useState();
-  useEffect(()=>{
-    fetch('secret/GOOGLE_API_KEY')
-    .then((r) => r.text())
-    .then(GOOGLE_API_KEY  => {
-      setKey(GOOGLE_API_KEY)
-    })
-    fetch('config/ADMIN_SERVICE_URI')
-    .then((r) => r.text())
-    .then(ADMIN_SERVICE_URI  => {
-      axios.get(`${ADMIN_SERVICE_URI}/config/key`).then(res=>{
-        if(res.data.length == 39 && res.data.includes("AIzaSy")){
-          setKey(res.data)
-        }
-      })
-    })
-  }, [])
+  
   const accept = ()=>{
     setOpen(false);
     setLatLng(location);
@@ -124,24 +108,29 @@ export default function ConfirmationDialog(props) {
   const [open, setOpen] = useState(false);
   const [location, setLocation] = useState({});
   const [refused, setRefused] = useState(false);
+  const [GOOGLE_API_KEY, setKey] = useState();
 
-  const handleOpen = () => {
-    fetch('config/USER_SERVICE_URI')
+  useEffect(()=>{
+    fetch('secret/GOOGLE_API_KEY')
     .then((r) => r.text())
-    .then(USER_SERVICE_URI  => {
-      axios.get(`${USER_SERVICE_URI}/map?address=${props.address}`).then(res=>{
-        if(res.data.location){
-          setOpen(true);
-          setLocation(res.data.location)
-          
-        }else{
-          window.alert("une erreur s'est produite, svp reesayer plus tard")
+    .then(GOOGLE_API_KEY  => {
+      setKey(GOOGLE_API_KEY)
+    })
+    fetch('config/ADMIN_SERVICE_URI')
+    .then((r) => r.text())
+    .then(ADMIN_SERVICE_URI  => {
+      axios.get(`${ADMIN_SERVICE_URI}/config/key`).then(res=>{
+        if(res.data.length == 39 && res.data.includes("AIzaSy")){
+          setKey(res.data)
         }
-      }).catch(err=>{
-        console.log(err)
       })
     })
-    
+  }, [])
+  const handleOpen = () => {
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${props.address}&key=${GOOGLE_API_KEY}`).then(res=>{
+      setOpen(true);
+      setLocation(res.data.results[0].geometry.location)
+    }).catch(err=>{alert("an error occured")})
   };
 
   const handleClose = () => {
@@ -165,6 +154,7 @@ export default function ConfirmationDialog(props) {
         refused={refused}
         setRefused={setRefused}
         setLatLng={props.setLatLng}
+        GOOGLE_API_KEY={GOOGLE_API_KEY}
       />
     </div>
   );
