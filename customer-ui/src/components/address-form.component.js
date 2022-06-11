@@ -99,11 +99,14 @@ export default function Address(props) {
             await axios.put(
               `${USER_SERVICE_URI}/location/${locations[index]._id}`, {userID: cookies.colibrisID, address: locations[index].address}
             );
+            alert("adresse mise à jour")
             }else{
               await axios.post(
               `${USER_SERVICE_URI}/location`, {userID: cookies.colibrisID, address: locations[index].address}
               );
+              alert("adresse créée")
             }
+          
           });
       } catch (e) {
         alert("server erreur!!!");
@@ -274,7 +277,7 @@ export default function Address(props) {
         <div className="row center">
 
         <div className="mr-2">
-        <button className="btn custom-btn" onClick={confirmerLoc}>
+        <button className="btn custom-btn" onClick={confirmerLoc} disabled={locations[index].address.lng == 0 || locations[index].address.lat == 0}>
           Confirmer
         </button>
         </div>
