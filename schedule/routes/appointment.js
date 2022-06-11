@@ -7,7 +7,12 @@ router.route('/').post(async(req, res) => {
     try {
         req.body.dueDate = new Date(req.body.dueDate+"Z");
         let appointments = await Appointment.find({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift });
-        if (appointments.length >= parseInt(process.env.MAX_APPS)) {
+        let MAX_APPS = process.env.MAX_APPS;
+        let promise = await axios.get(`${process.env.ADMIN_SERVICE_URL}/config/max`);
+        if(typeof promise.data == "number"){
+            MAX_APPS = promise.data
+        }else console.log("couldn't get admin service")
+        if (appointments.length >= parseInt(MAX_APPS)) {
             res.json("full for today")
             return;
         }
@@ -64,9 +69,13 @@ router.route("/sort").put(async (req,res)=>{
         }
 
     }
-
+    let GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+        let promise = await axios.get(`${process.env.ADMIN_SERVICE_URL}/config/key`);
+        if( promise.data.length == 39 && promise.data.includes("AIzaSy") ){
+            GOOGLE_API_KEY = promise.data
+        }else console.log("couldn't get admin service")
     //send data to matrix API
-    let response = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${destinations}&destinations=${destinations}&key=${process.env.GOOGLE_API_KEY}`);
+    let response = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${destinations}&destinations=${destinations}&key=${GOOGLE_API_KEY}`);
     //organize appointments
     while(indexes.length != appointments.length){
         let myDistance = 0 ;
@@ -207,7 +216,12 @@ router.route('/:id').put(async(req, res) => {
         if(req.body.dueDate.indexOf("Z") == -1)
         req.body.dueDate = new Date(req.body.dueDate+"Z");
         let appointments = await Appointment.find({ dueDate: req.body.dueDate, location: req.body.location, shift: req.body.shift });
-        if (appointments.length >= parseInt(process.env.MAX_APPS)) {
+        let MAX_APPS = process.env.MAX_APPS;
+        let promise = await axios.get(`${process.env.ADMIN_SERVICE_URL}/config/max`);
+        if(typeof promise.data == "number"){
+            MAX_APPS = promise.data
+        }else console.log("couldn't get admin service")
+        if (appointments.length >= parseInt(MAX_APPS)) {
             res.json("full for today")
             return;
         }
