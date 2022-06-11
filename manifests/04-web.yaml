@@ -36,7 +36,16 @@ spec:
         volumeMounts:
           - name: colibris-config-volume
             mountPath: /usr/share/nginx/html/config
+          - name: colibris-secret-volume
+            mountPath: /usr/share/nginx/html/secret
+      
       volumes:
+      - name: colibris-secret-volume
+        configMap:
+          name: colibris-configmap
+          items:
+            - key: GOOGLE_API_KEY
+              path: GOOGLE_API_KEY
       - name: colibris-config-volume
         configMap:
           name: colibris-configmap
@@ -49,8 +58,6 @@ spec:
               path: APPOINT_SERVICE_URI
             - key: ZONE_SERVICE_URI
               path: ZONE_SERVICE_URI
-            - key: GOOGLE_API_KEY
-              path: GOOGLE_API_KEY
 
 ---
 apiVersion: v1
