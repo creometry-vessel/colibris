@@ -15,8 +15,9 @@ export default function ListAppointments(props){
         }).catch(err=>console.log(err))  
       })
         
-    }, [])
+    }, []) 
 
+    
     const Submit =  (filters) => {
       myFilters=filters
       fetch('config/APPOINT_SERVICE_URI')

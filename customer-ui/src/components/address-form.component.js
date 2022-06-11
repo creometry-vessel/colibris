@@ -99,14 +99,11 @@ export default function Address(props) {
             await axios.put(
               `${USER_SERVICE_URI}/location/${locations[index]._id}`, {userID: cookies.colibrisID, address: locations[index].address}
             );
-            alert("adresse mise à jour")
             }else{
               await axios.post(
               `${USER_SERVICE_URI}/location`, {userID: cookies.colibrisID, address: locations[index].address}
               );
-              alert("adresse créée")
             }
-          
           });
       } catch (e) {
         alert("server erreur!!!");
@@ -183,7 +180,7 @@ export default function Address(props) {
 
       <div className="row">
         <div className="col-lg-6 mb-3">
-          <h6>Numéro :</h6>
+          <h6>Numéro de la rue:</h6>
           <input
             placeholder="street number"
             className="form-control"
@@ -197,9 +194,9 @@ export default function Address(props) {
         </div>
 
         <div className="col-lg-6 mb-3">
-          <h6>Rue :</h6>
+          <h6>Nom de la rue :</h6>
           <input
-            placeholder="rue"
+            placeholder="Avenue Habib Bourguiba"
             className="form-control"
             value={locations[index].address.streetName}
             onChange={(e) => {
@@ -277,7 +274,7 @@ export default function Address(props) {
         <div className="row center">
 
         <div className="mr-2">
-        <button className="btn custom-btn" onClick={confirmerLoc} disabled={locations[index].address.lng == 0 || locations[index].address.lat == 0}>
+        <button className="btn custom-btn" onClick={confirmerLoc}>
           Confirmer
         </button>
         </div>
