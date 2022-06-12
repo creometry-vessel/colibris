@@ -4,13 +4,14 @@ class Footer extends React.Component {
     return (
       <div>
         <div className="footer">
-          <div className="container">
+          <div className="container-fluid">
             <div className="row">
               <div className="col-lg-6">
                 <div className="footer-contact">
                   <h2>Infos</h2>
                   <p>
-                    <i className="fa fa-map-marker"></i>123 Street, New York, USA
+                    <i className="fa fa-map-marker"></i>123 Street, New York,
+                    USA
                   </p>
                   <p>
                     <i className="fa fa-phone"></i>58 330 734
@@ -20,15 +21,13 @@ class Footer extends React.Component {
                     selim@colibristunisie.com
                   </p>
                   <div className="footer-social">
-                    
                     <a href="https://www.facebook.com/colibristunisie">
                       <i className="fab fa-facebook-f"></i>
                     </a>
-                    
+
                     <a href="https://www.instagram.com/colibristunisie/">
                       <i className="fab fa-instagram"></i>
                     </a>
-                   
                   </div>
                 </div>
               </div>
@@ -41,7 +40,10 @@ class Footer extends React.Component {
                     iaculis felis, sed lacus neque id eros.
                   </p>
                   <div className="form">
-                    <input className="form-control" placeholder="Email goes here" />
+                    <input
+                      className="form-control"
+                      placeholder="Email goes here"
+                    />
                     <button className="btn custom-btn">Submit</button>
                   </div>
                 </div>
