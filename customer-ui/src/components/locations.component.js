@@ -67,12 +67,12 @@ export default function Locations(props) {
               <tbody className="tbody">
                 {locations.map((element, index) => (
                   <tr key={index}>
-                    <td onClick={() => setOpen(true)}></td>
-                    
+                    <td>
+                      {element.address.streetNumber} {element.address.streetName},{element.address.city},{element.address.state}</td>
                     <td>
                       <i className="fa-solid fa-trash red-icon"></i>
                     </td>
-                    <td>
+                    <td onClick={() => setOpen(true)}>
                       <i class="fa-solid fa-pen-to-square green"></i>
                     </td>
                     <Dialog
