@@ -2356,4 +2356,7 @@
     width: 30px;
   }
   /*# sourceMappingURL=main.css.map */
-  
+ .center{
+    margin: auto;
+    text-align: center; 
+  }

@@ -1,0 +1,16 @@
+.box-shadowly{
+    position: relative;
+    padding: 15px 10px 30px;
+    width: 270px;
+    height: 200px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0 30px hsla(0, 3%, 7%, 0.08);
+    transition: 0.3s;
+    text-align: left;
+}
+.zone-title{
+    text-align: center;
+    font-weight: 600;
+    color:#39b54a;
+}

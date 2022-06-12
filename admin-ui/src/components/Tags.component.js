@@ -48,11 +48,12 @@ export default function App(props) {
       })
   }
   return (
-    <div className="app">
-      <h1> {weekday} </h1>
+    <div className="app center">
+      <h3> {weekday} </h3>
       <div>
         <ReactTags
           tags={tags}
+          className="form-control"
           suggestions={suggestions}
           delimiters={delimiters}
           handleDelete={handleDelete}
@@ -60,7 +61,7 @@ export default function App(props) {
           inputFieldPosition="bottom"
           autocomplete
         />
-        <button onClick={Submit}>update</button>
+        <button className='btn btn-primary mt-3' onClick={Submit}>Update</button>
       </div>
     </div>
   );
