@@ -47,7 +47,7 @@ function Content(props){
       <br />
       <br />
       <br />
-      <button onClick={Submit}>Submit</button> 
+      <button className="btn btn-primary" onClick={Submit}>Submit</button> 
     </div>
   )
 }

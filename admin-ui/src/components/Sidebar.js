@@ -20,12 +20,12 @@ class Sidebar extends Component {
             
             <li>
               <a href="/#zone" className="">
-              <i className="fas fa-users"></i><span>zone</span>
+              <i className="fa-solid fa-map-location-dot"></i><span>Zone</span>
               </a>
             </li>
             <li>
               <a href="/#configuration" className="">
-              <i className="fas fa-users"></i><span>config</span>
+              <i className="fa-solid fa-gears"></i><span>Config</span>
               </a>
             </li>
           </ul>
