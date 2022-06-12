@@ -55,7 +55,7 @@ export default function ConfirmationDialog(props) {
 
   return (
     <div>
-      <button className="red-custom-btn" onClick={handleClickListItem}>
+      <button className="btn btn-danger" onClick={handleClickListItem}>
         Problème
       </button>
       <ConfirmationDialogRaw
