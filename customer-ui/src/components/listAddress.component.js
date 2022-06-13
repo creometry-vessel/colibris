@@ -29,7 +29,6 @@ export default function List(props){
         try{
           index = parseInt(index)
         }catch(e){}
-        console.log(index)
         if(typeof index != "number") return;
         setChosenAddr(address[index])
         handleNext()

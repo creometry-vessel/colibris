@@ -14,11 +14,9 @@ export default function Locations(props) {
     fetch("config/USER_SERVICE_URI")
       .then((r) => r.text())
       .then((USER_SERVICE_URI) => {
-        console.log(`${USER_SERVICE_URI}/${cookies.colibrisID}`)
         axios
           .get(`${USER_SERVICE_URI}/${cookies.colibrisID}`)
           .then((res) => {
-            console.log(res.data)
             setLocations(res.data.locations);
           })
           .catch((err) => {
@@ -40,7 +38,6 @@ export default function Locations(props) {
       fetch("config/USER_SERVICE_URI")
         .then((r) => r.text())
         .then(async (USER_SERVICE_URI) => {
-          console.log("houni")
           await axios.delete(
             `${USER_SERVICE_URI}/location/${id}`
           );

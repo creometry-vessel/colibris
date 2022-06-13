@@ -43,7 +43,7 @@ export default function App(props) {
       .then((r) => r.text())
       .then( ZONE_SERVICE_URI  => {
         axios.patch(`${ZONE_SERVICE_URI}/${weekday}`, {cities: cities}).then(res=>{
-          console.log(res.data)
+          props.handleClose();
         })         
       })
   }
