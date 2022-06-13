@@ -19,7 +19,7 @@ function ConfirmationDialogRaw(props) {
       <DialogContent dividers>
         {open? 
         <div>
-          <Tags  cities={cities} setCities={setCities} weekday={props.weekday}/>
+          <Tags  cities={cities} setCities={setCities} weekday={props.weekday} handleClose={onClose} />
         </div> : <div></div>}
         
       </DialogContent>

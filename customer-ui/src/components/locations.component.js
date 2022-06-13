@@ -8,11 +8,9 @@ export default function Locations(props) {
   const [locations, setLocations] = useState([]);
   const [cookies] = useCookies(["colibrisID"]);
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  
-  useEffect(() => {
+  const [openNew, setOpenNew] = useState(false);
+
+  const init = ()=>{
     fetch("config/USER_SERVICE_URI")
       .then((r) => r.text())
       .then((USER_SERVICE_URI) => {
@@ -25,25 +23,35 @@ export default function Locations(props) {
             console.log(err);
           });
       });
-  }, [cookies.colibrisID]);
-
-  const Submit = () => {
-    //verif
-    fetch("config/USER_SERVICE_URI")
-      .then((r) => r.text())
-      .then((USER_SERVICE_URI) => {
-        axios
-          .put(`${USER_SERVICE_URI}/${cookies.colibrisID}`, {
-            locations: locations,
-          })
-          .then((res) => {
-            if (res.data === "client updated successfully!!") {
-              window.location.href = "/";
-            }
-          })
-          .catch((err) => window.alert(err));
-      });
+  }
+  const handleClose = () => {
+    setOpen(false);
+    init()
   };
+  const handleCloseNew = () => {
+    setOpenNew(false);
+    init()
+  };
+
+  const deleteLoc = (id, index)=>{
+    try {
+      fetch("config/USER_SERVICE_URI")
+        .then((r) => r.text())
+        .then(async (USER_SERVICE_URI) => {
+          await axios.delete(
+            `${USER_SERVICE_URI}/location/${id}`
+          );
+        });
+        setLocations(locations.filter((tag, ind) => index !== ind));
+    } catch (e) {
+      alert("server erreur!!!");
+    }
+  }
+
+  useEffect(init , [cookies.colibrisID]);
+  
+
+  
   return (
     <div className="contact">
       {locations.length == 0 ? (
@@ -70,10 +78,10 @@ export default function Locations(props) {
                     <td>
                       {element.address.streetNumber} {element.address.streetName},{element.address.city},{element.address.state}</td>
                     <td>
-                      <i className="fa-solid fa-trash red-icon"></i>
+                      <i className="fa-solid fa-trash red-icon" onClick={()=>deleteLoc(element._id, index)}></i>
                     </td>
                     <td onClick={() => setOpen(true)}>
-                      <i class="fa-solid fa-pen-to-square green"></i>
+                      <i className="fa-solid fa-pen-to-square green"></i>
                     </td>
                     <Dialog
                       onClose={handleClose}
@@ -86,10 +94,9 @@ export default function Locations(props) {
                           <Address
                             key={index}
                             id="ad1"
-                            locations={locations}
-                            index={index}
-                            setLocations={setLocations}
-                            colibrisID={cookies.colibrisID}
+                            handleClose={handleClose}
+                            adress={element.address}
+                            adress_id={element._id}
                           />
                         </div>
                       </div>
@@ -106,29 +113,36 @@ export default function Locations(props) {
         <div className="col-lg-12 mb-4 center">
           <button
             className="btn-circle"
-            onClick={() => {
-              //setEnableAddr(true);
-
-              setLocations([
-                ...locations,
-                {
-                  address: {
-                    lng: 0,
-                    lat: 0,
-                    addressType: "",
-                    locationType: "Professional",
-                    streetNumber: 0,
-                    streetName: "",
-                    state: "",
-                    city: "",
-                  },
-                },
-              ]);
-            }}
+            onClick={() => setOpenNew(true)}
           >
             <i className="fas fa-plus green mr-3"></i>
             Add an address
           </button>
+          <Dialog
+            onClose={handleCloseNew}
+            fullWidth={true}
+            maxWidth={"md"}
+            open={openNew}
+          >
+                      <div className="contact">
+                        <div className="container-fluid mt-4 mb-5 contact-form">
+                          <Address
+                            id="ad1"
+                            handleClose={handleCloseNew}
+                            adress={{
+                              lng: 0,
+                              lat: 0,
+                              addressType: "",
+                              locationType: "Professional",
+                              streetNumber: 0,
+                              streetName: "",
+                              state: "",
+                              city: "",
+                            }}
+                          />
+                        </div>
+                      </div>
+         </Dialog>
         </div>
       </div>
     </div>

@@ -20,6 +20,9 @@ export default function StaticDatePickerLandscape(props) {
               alert("server error!!!");
               return;
             }
+            if(!res.data.data){
+              return;
+            }
             let result = [];
             for (let day of res.data.data) {
               switch (day) {

@@ -128,8 +128,12 @@ export default function ConfirmationDialog(props) {
   }, [])
   const handleOpen = () => {
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${props.address}&key=${GOOGLE_API_KEY}`).then(res=>{
-      setOpen(true);
-      setLocation(res.data.results[0].geometry.location)
+      if(res.data.results.length > 0){
+        setOpen(true);
+        setLocation(res.data.results[0].geometry.location)
+      }else{
+        alert("no place found")
+      }
     }).catch(err=>{alert("an error occured")})
   };
 

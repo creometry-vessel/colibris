@@ -16,8 +16,9 @@ export default function History(props) {
     .then((r) => r.text())
     .then(APPOINT_SERVICE_URI  => {
       axios
-    .get(`${APPOINT_SERVICE_URI}/userID/` + cookies.colibrisID)
+    .get(`${APPOINT_SERVICE_URI}/user/` + cookies.colibrisID)
     .then((res) => {
+      console.log(res.data)
       setAppointments(res.data);
     }).catch(err=>{
       console.log(err)

@@ -51,7 +51,7 @@ export default function Profile() {
               <input
                 className="imageUpload"
               />
-              <label onClick={()=>{setOpen(true)}} for="avatarUpload"></label>
+              <label onClick={()=>{setOpen(true)}} htmlFor="avatarUpload"></label>
             </div>
             <EditDialog openDialog={open} setOpen={setOpen} />
             <Avatar

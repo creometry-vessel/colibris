@@ -25,15 +25,20 @@ export default function List(props){
         
       }, [cookies.colibrisID]);
 
-      const chooseAddr = (address)=>{
-        setChosenAddr(address)
+      const chooseAddr = (index)=>{
+        try{
+          index = parseInt(index)
+        }catch(e){}
+        if(typeof index != "number") return;
+        setChosenAddr(address[index])
         handleNext()
       }
     return(
         <div className="col-l">
-          <select className="green-box">
+          <select className="green-box" onChange={(e)=>chooseAddr(e.target.value)}>
+          <option >--choose adress--</option>
           {address.map((element, index)=>(
-              <option key={index} onClick={()=>chooseAddr(element)}>
+              <option key={index} value={index}>
                 {element.address.streetNumber} {element.address.streetName}, {element.address.city}, {element.address.state}
 
               </option>

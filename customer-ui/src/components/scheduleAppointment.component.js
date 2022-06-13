@@ -88,9 +88,10 @@ export default function HorizontalLinearStepper(props) {
       
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-           <h2 className='text-center mt-3'> All steps completed - you&apos;re finished</h2>
-          </Typography>
+          <div className="mt-2 mb-1">
+            <h2 className='text-center mt-3'> All steps completed - you&apos;re finished</h2>
+          </div>
+          
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Box sx={{ flex: '1 1 auto' }} />
             <button className="outlined-btn" onClick={handleReset}>Reset</button>
