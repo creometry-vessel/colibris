@@ -31,11 +31,20 @@ export default function List(props){
       }
     return(
         <div className="col-l">
-            {address.map((element, index)=>(
+          <select className="green-box">
+          {address.map((element, index)=>(
+              <option key={index} onClick={()=>chooseAddr(element)}>
+                {element.address.streetNumber} {element.address.streetName}, {element.address.city}, {element.address.state}
+
+              </option>
+            ))}
+          </select>
+
+            {/*address.map((element, index)=>(
                 <div className="green-box mb-3" key={index} onClick={()=>chooseAddr(element)}>
                     {element.address.streetNumber} {element.address.streetName}, {element.address.city}, {element.address.state}
                 </div>
-            ))}
+            ))*/}
         </div>
         
     )

@@ -24,7 +24,7 @@ export default function Zone(){
     }
     return(
     <div>
-        <div className="row ">
+        <div className="row">
         {weekdays.map((weekday, index)=>(
             <Dialog weekday={weekday} key={index} zoneData={getZoneData(weekday)} refresh={getZones} />
         ))}

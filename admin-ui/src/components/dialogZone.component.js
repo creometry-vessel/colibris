@@ -2,20 +2,25 @@ import * as React from "react";
 import DialogContent from "@mui/material/DialogContent";
 import Dialog from "@mui/material/Dialog";
 import axios from 'axios'
-import Tags from './Tags.component'
+import Tags from './Tags.component';
+import './zone.css';
+
 function ConfirmationDialogRaw(props) {
   const { onClose, open, cities, setCities, ...other } = props;
 
   return (
     <Dialog
       onClose={onClose}
-      sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: 435 } }}
+      sx={{ "& .MuiDialog-paper": { width: "70%", maxHeight: 435 } }}
       maxWidth="xs"
       open={open}
       {...other}
     >
       <DialogContent dividers>
-        {open? <Tags cities={cities} setCities={setCities} weekday={props.weekday}/>: <div></div>}
+        {open? 
+        <div>
+          <Tags  cities={cities} setCities={setCities} weekday={props.weekday}/>
+        </div> : <div></div>}
         
       </DialogContent>
     </Dialog>
@@ -47,12 +52,19 @@ export default function ConfirmationDialog(props) {
   return (
     <div>
       <div
+      className="mr-3 mb-3"
       onClick={handleOpen}
-      className="mx-2 my-2" style={{width: "200px", height: "200px", borderColor: "black", borderWidth: "1px", borderStyle: "solid"}}>
-        {props.weekday}
+      >
+        <div className="box-shadowly zone-box">
+        <h4 className="zone-title">{props.weekday}</h4>
+        <ul type="circle">
         {props.zoneData?.cities.map((city, index)=>(
-          <p>{city}</p>
+          
+          <li>{city}</li>
         ))}
+        </ul>
+        </div>
+        
       </div>
       <ConfirmationDialogRaw
         id="ringtone-menu"

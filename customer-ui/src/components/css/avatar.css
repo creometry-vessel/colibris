@@ -11,8 +11,8 @@
   z-index: 1;
 }
 .avatar-upload .avatar-edit {
-  right: 12px;
-  top: 10px;
+  right: 14px;
+  top: 12px;
 }
 .image-upload .image-edit {
   right: -13px;
@@ -25,8 +25,8 @@
 .avatar-upload .avatar-edit input + label,
 .image-upload .image-edit input + label {
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   margin-bottom: 0;
   border-radius: 100%;
   background: #ffffff;
@@ -47,7 +47,7 @@
   font-family: "FontAwesome";
   color: rgba(57, 181, 74, 0.67);
   position: absolute;
-  top: 3px;
+  top: 1.5px;
   left: 0;
   right: 0;
   text-align: center;

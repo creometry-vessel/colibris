@@ -2017,3 +2017,8 @@ a:focus {
 .custom-select:focus {
   box-shadow: none;
 }
+.center{
+  margin: auto;
+  text-align: center;
+  
+}
