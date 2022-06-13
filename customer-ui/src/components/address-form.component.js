@@ -1,6 +1,7 @@
 import axios from "axios";
 import Dialog from "./dialogMap.component";
 import { useCookies } from "react-cookie";
+import { useState } from "react";
 
 let coord = [
   {
@@ -45,48 +46,27 @@ let coord = [
   },
 ];
 export default function Address(props) {
-  const { locations, index, setLocations } = props;
+  const { handleClose, adress_id  } = props;
+  const [adress, setAddress] = useState(props.adress);
   const [cookies] = useCookies(["colibrisID"]);
-  const updateLoc = (champ, value) => {
-    let locs = [...locations];
-    let loc = {
-      ...locations[index],
-      address: { ...locations[index].address, [champ]: value },
-    };
-    locs[index] = loc;
-    setLocations(locs);
+  const updateAdress = (champ, value) => {
+    setAddress({...adress, [champ]: value});
   };
+
+
   const updateLatLng = (location) => {
-    let locs = [...locations];
-    let loc = {
-      ...locations[index],
-      address: {
-        ...locations[index].address,
-        lat: location.lat,
-        lng: location.lng,
-      },
-    };
-    locs[index] = loc;
-    setLocations(locs);
+    setAddress({...adress, lat: location.lat, lng: location.lng})
   };
-  const deleteLoc = () => {
-    if (locations[index]._id) {
-      try {
-        fetch("config/USER_SERVICE_URI")
-          .then((r) => r.text())
-          .then(async (USER_SERVICE_URI) => {
-            await axios.delete(
-              `${USER_SERVICE_URI}/location/${locations[index]._id}`
-            );
-          });
-      } catch (e) {
-        alert("server erreur!!!");
-      }
-    }
-    setLocations(locations.filter((tag, ind) => index !== ind));
+
+
+  const cancel = () => {
+    handleClose();
   };
+
+
+
   const confirmerLoc = () => {
-      let {lat, lng, city, state, streetName} = locations[index].address
+      let {lat, lng, city, state, streetName} = adress
       if(lat==0 || lng == 0 || city=="" || state=="" || streetName=="") {
         alert("need to complete the form");
         return
@@ -95,59 +75,63 @@ export default function Address(props) {
         fetch("config/USER_SERVICE_URI")
           .then((r) => r.text())
           .then(async (USER_SERVICE_URI) => {
-            if (locations[index]._id) {
+            if (adress._id) {
             await axios.put(
-              `${USER_SERVICE_URI}/location/${locations[index]._id}`, {userID: cookies.colibrisID, address: locations[index].address}
+              `${USER_SERVICE_URI}/location/${adress_id}`, {userID: cookies.colibrisID, address: adress}
             );
             }else{
               await axios.post(
-              `${USER_SERVICE_URI}/location`, {userID: cookies.colibrisID, address: locations[index].address}
+              `${USER_SERVICE_URI}/location`, {userID: cookies.colibrisID, address: adress}
               );
             }
+            handleClose()
           });
       } catch (e) {
         alert("server erreur!!!");
       }
     }
+
+
+
   const renderType = () => {
-    if (locations[index].address.locationType === "Professional")
+    if (adress.locationType === "Professional")
       return (
         <select
           className="col-lg-12"
-          onChange={(e) => updateLoc("addressType", e.target.value)}
-          value={locations[index].address.addressType}
+          onChange={(e) => updateAdress("addressType", e.target.value)}
+          value={adress.addressType}
         >
-          <option index={index} key={index} value="">
+          <option value="">
             ---Type Adresse---
           </option>
-          <option index={index} key={index}>
+          <option>
             Store
           </option>
-          <option index={index} key={index}>
+          <option>
             Office/Floor
           </option>
-          <option index={index} key={index}>
+          <option>
             Building
           </option>
         </select>
       );
-    else if (locations[index].address.locationType === "Residential")
+    else if (adress.locationType === "Residential")
       return (
         <select
           className="col-lg-12"
-          onChange={(e) => updateLoc("addressType", e.target.value)}
-          value={locations[index].address.addressType}
+          onChange={(e) => updateAdress("addressType", e.target.value)}
+          value={adress.addressType}
         >
-          <option index={index} key={index} value="">
+          <option value="">
             ---Type Adresse---
           </option>
-          <option index={index} key={index}>
+          <option>
             Appartment
           </option>
-          <option index={index} key={index}>
+          <option>
             House
           </option>
-          <option index={index} key={index}>
+          <option>
             Building/Residential compound
           </option>
         </select>
@@ -164,13 +148,13 @@ export default function Address(props) {
         <div className="col-lg-6 mb-3">
           <select
             className="col-lg-12"
-            onChange={(e) => updateLoc("locationType", e.target.value)}
-            value={locations[index].address.locationType}
+            onChange={(e) => updateAdress("locationType", e.target.value)}
+            value={adress.locationType}
           >
-            <option index={index} key={index}>
+            <option>
               Professional
             </option>
-            <option index={index} key={index}>
+            <option>
               Residential
             </option>
           </select>
@@ -186,9 +170,9 @@ export default function Address(props) {
             className="form-control"
             id="streetnumber"
             type="number"
-            value={locations[index].address.streetNumber}
+            value={adress.streetNumber}
             onChange={(e) =>
-              updateLoc("streetNumber", parseFloat(e.target.value))
+              updateAdress("streetNumber", parseFloat(e.target.value))
             }
           />
         </div>
@@ -198,9 +182,9 @@ export default function Address(props) {
           <input
             placeholder="Avenue Habib Bourguiba"
             className="form-control"
-            value={locations[index].address.streetName}
+            value={adress.streetName}
             onChange={(e) => {
-              updateLoc("streetName", e.target.value);
+              updateAdress("streetName", e.target.value);
             }}
           />
         </div>
@@ -211,8 +195,8 @@ export default function Address(props) {
           <h6>Gouvernorat :</h6>
           <select
             className="col-lg-12"
-            onChange={(e) => updateLoc("state", e.target.value)}
-            value={locations[index].address.state}
+            onChange={(e) => updateAdress("state", e.target.value)}
+            value={adress.state}
           >
             <option>--Gouvernorat--</option>
             {coord.map((element, index) => (
@@ -226,12 +210,12 @@ export default function Address(props) {
           <h6>Ville :</h6>
           <select
             className="col-lg-12"
-            onChange={(e) => updateLoc("city", e.target.value)}
-            value={locations[index].address.city}
+            onChange={(e) => updateAdress("city", e.target.value)}
+            value={adress.city}
           >
             <option>--Ville--</option>
             {coord.map((element, ind) => {
-              if (element.gov === locations[index].address.state) {
+              if (element.gov === adress.state) {
                 element.villes = element.villes.sort();
                 return element.villes.map((ville, index2) => (
                   <option key={ind + "," + index2}>{ville}</option>
@@ -248,8 +232,8 @@ export default function Address(props) {
           className="form-control"
           id="lat"
           type="number"
-          value={locations[index].address.lat}
-          onChange={(e) => updateLoc("lat", parseFloat(e.target.value))}
+          value={adress.lat}
+          onChange={(e) => updateAdress("lat", parseFloat(e.target.value))}
           hidden
         />
       </div>
@@ -260,26 +244,26 @@ export default function Address(props) {
           className="form-control"
           id="lng"
           type="number"
-          value={locations[index].address.lng}
-          onChange={(e) => updateLoc("lng", parseFloat(e.target.value))}
+          value={adress.lng}
+          onChange={(e) => updateAdress("lng", parseFloat(e.target.value))}
           hidden
         />
       </div>
         <div className="mr-2 mb-2">
           <Dialog
-          address={`${locations[index].address.streetName},${locations[index].address.city},${locations[index].address.state}`}
+          address={`${adress.streetName},${adress.city},${adress.state}`}
           setLatLng={updateLatLng}
         />
         </div>
         <div className="row center">
 
         <div className="mr-2">
-        <button className="btn custom-btn" onClick={confirmerLoc}>
+        <button className="btn custom-btn" onClick={confirmerLoc} disabled={adress.lat == 0 || adress.lng == 0}>
           Confirmer
         </button>
         </div>
         <div className="">
-        <button className="red-custom-btn" onClick={deleteLoc}>
+        <button className="red-custom-btn" onClick={cancel}>
           Annuler
         </button>
         </div>
