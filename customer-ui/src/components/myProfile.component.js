@@ -11,6 +11,7 @@ export default function Profile() {
     const [phone2, setPhone2] = useState("");
     const [cookies] = useCookies(["colibrisID"]);
     const [avatar, setAvatar] = useState("");
+    const [errors, setErrors] = useState([false, false, false, false, false])
     useEffect(() => {
       fetch('config/USER_SERVICE_URI')
       .then((r) => r.text())
@@ -31,6 +32,19 @@ export default function Profile() {
       }, [cookies.colibrisID]);
     
       const Submit = () => {
+        let vari = [false, false, false, false, false];
+        const checkIfStringStartsWith = (str, substrs) =>{
+          return substrs.some(substr => str.startsWith(substr.toLowerCase()));
+        }
+        vari[0] = ! /^[a-z A-Z]+$/.test(name)
+        vari[1] = username.length == 0
+        vari[2] = ! /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
+        vari[3] = ! /^[0-9]{8}$/.test(phone1) || ! checkIfStringStartsWith(phone1, ["2", "5", "7", "9"])
+        vari[4] = ! /^[0-9]{8}$/.test(phone2) || ! checkIfStringStartsWith(phone2, ["2", "5", "7", "9"])
+        setErrors(vari)
+        for(let bool of vari) {
+          if(bool) return
+        }
         fetch('config/USER_SERVICE_URI')
         .then((r) => r.text())
         .then(USER_SERVICE_URI  => {
@@ -64,7 +78,9 @@ export default function Profile() {
                       placeholder="nom et prénom"
                       className="form-control"
                       value={name}
+                      pattern=""
                       onChange={(e) => setName(e.target.value)}
+                      style={errors[0]?{borderColor: "red"}: {}}
                     />
                   </div>
                   <div className="col-lg-9 center mb-3">
@@ -73,6 +89,7 @@ export default function Profile() {
                       className="form-control"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
+                      style={errors[1]?{borderColor: "red"}: {}}
                     />
                   </div>
                   <div className="col-lg-9 center mb-3">
@@ -81,6 +98,8 @@ export default function Profile() {
                       className="form-control"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      style={errors[2]?{borderColor: "red"}: {}}
+
                     />
                   </div>
 
@@ -91,6 +110,8 @@ export default function Profile() {
                       type="text"
                       value={phone1}
                       onChange={(e) => setPhone1(e.target.value)}
+                      style={errors[3]?{borderColor: "red"}: {}}
+
                     />
                   </div>
                     <div className="col-lg-9 center mb-3">
@@ -99,6 +120,8 @@ export default function Profile() {
                         className="form-control mb-2"
                         value={phone2}
                         onChange={(e) => setPhone2(e.target.value)}
+                        style={errors[4]?{borderColor: "red"}: {}}
+
                       />
                       
                     </div>
